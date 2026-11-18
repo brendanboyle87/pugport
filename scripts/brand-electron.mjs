@@ -2,7 +2,7 @@
 // Windows takes the taskbar icon, notification shortcut and Start entry from the executable, so without this a
 // development build keeps showing Electron's icon after every restart. Safe to run repeatedly, also while PugPort
 // or a pugport-mcp helper is running from the executable (see below); skipped on other platforms.
-import { copyFileSync, readdirSync, readFileSync, renameSync, rmSync, writeFileSync } from 'node:fs';
+import { copyFileSync, existsSync, readdirSync, readFileSync, renameSync, rmSync, writeFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { basename, dirname, join, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -16,6 +16,11 @@ export async function brandElectron() {
   const exe = join(root, 'node_modules', 'electron', 'dist', 'electron.exe');
   const icon = join(root, 'assets', 'icons', 'pugport.ico');
   const retired = `${basename(exe)}.old-`;
+  // npm ci on CI can finish before Electron's binary is downloaded; branding then has nothing to work on.
+  if (!existsSync(exe)) {
+    console.log('Electron is not installed yet; skipping branding.');
+    return;
+  }
 
   // Copies swapped out earlier stay until nothing runs them any more; clear whichever are free now.
   for (const name of readdirSync(dirname(exe)))
