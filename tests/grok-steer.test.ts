@@ -802,7 +802,8 @@ test('Grok ACP validates nested extension failures and does not claim that unsup
   });
   h.complete();
   assert.equal((await execution).output, 'Still running');
-  assert.ok(!JSON.stringify(h.events).includes('private'));
+  // The diagnostic text itself, not the word: macOS folders such as /private/tmp may appear in events.
+  assert.ok(!JSON.stringify(h.events).includes('private diagnostic'));
 });
 
 test('Grok ACP waits for a native same-session fallback turn after an accepted interjection races completion', async () => {

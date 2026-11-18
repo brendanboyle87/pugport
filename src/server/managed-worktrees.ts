@@ -1309,7 +1309,9 @@ export class ManagedWorktrees {
             timeoutMs: 120000,
           },
         );
-        const nextTree = await gitText(child.directory, ['write-tree'], { index, signal });
+        // Writing an index that `add` just filled re-reads racily clean files, which runs their filters again
+        // (seen with the fine-grained file times on macOS), so the filters stay off here too.
+        const nextTree = await gitText(child.directory, [...filters, 'write-tree'], { index, signal });
         const changedPaths = (
           await git(
             child.directory,

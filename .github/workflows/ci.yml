@@ -34,12 +34,13 @@ jobs:
 
   check:
     if: (github.event.repository.private == false || github.event_name == 'workflow_dispatch' && inputs.full_checks) && !(github.event_name == 'push' && startsWith(github.ref, 'refs/tags/'))
-    # The full suite takes about 30 minutes on hosted Windows and macOS runners; public repositories run them for free.
-    timeout-minutes: 60
+    # The suite is split into three shards per OS; one shard takes about 15 minutes on a hosted runner.
+    timeout-minutes: 45
     strategy:
       fail-fast: false
       matrix:
         os: ${{ fromJSON(github.event_name == 'push' && '["windows-latest"]' || '["windows-latest","macos-latest"]') }}
+        shard: [1, 2, 3]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
@@ -50,18 +51,21 @@ jobs:
       - name: Install Electron runtime before tests
         run: node node_modules/electron/install.js
       - run: npm run format:check
+        if: matrix.shard == 1
       - run: npm run typecheck
+        if: matrix.shard == 1
       - run: npm run i18n:check
+        if: matrix.shard == 1
       - name: Verify distribution licenses
-        if: runner.os == 'Windows'
+        if: runner.os == 'Windows' && matrix.shard == 1
         run: npm run verify:licenses
-      - name: Run tests
-        run: npm run test:ci
+      - name: Run tests (shard ${{ matrix.shard }} of 3)
+        run: node --import tsx --test --test-concurrency=2 --test-shard=${{ matrix.shard }}/3 "tests/*.test.ts"
       - name: Save synthetic UI screenshots for review
         if: always() && github.event_name == 'pull_request'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: ui-checks-${{ runner.os }}
+          name: ui-checks-${{ runner.os }}-${{ matrix.shard }}
           path: |
             reports/bot-addition/*.png
             reports/generic-api/*.png
@@ -69,6 +73,7 @@ jobs:
           if-no-files-found: ignore
           retention-days: 7
       - run: npm run build
+        if: matrix.shard == 1
 
   windows-download:
     name: Build Windows review download

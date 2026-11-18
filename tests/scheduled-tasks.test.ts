@@ -19,6 +19,9 @@ const input: RoutineInput = {
   schedule: { type: 'daily', time: '09:00' },
   permissionMode: 'read-only',
 };
+// Synthetic project folders that are absolute on the machine running the test.
+const source = process.platform === 'win32' ? 'C:/source' : '/source';
+const otherSource = process.platform === 'win32' ? 'C:/other-source' : '/other-source';
 function fixture(t: TestContext) {
   const db = new DatabaseSync(':memory:');
   const store = new WorkspaceStore(db, { recoverInterrupted: false });
@@ -158,7 +161,7 @@ test('new routines are paused, validated, persisted and editable without silentl
 
 test('a previously bound routine never recreates a removed or purged project from its old path', async (t) => {
   const f = fixture(t);
-  const routine = f.tasks.create({ ...input, projectPath: 'C:/source' });
+  const routine = f.tasks.create({ ...input, projectPath: source });
   const first = await f.tasks.runNow(routine.id);
   f.finish(first.history.at(-1)!.workflowId);
   const projectId = f.tasks.get(routine.id).projectId!;
@@ -166,36 +169,36 @@ test('a previously bound routine never recreates a removed or purged project fro
   const afterPurge = await f.tasks.runNow(routine.id);
   assert.equal(afterPurge.history.at(-1)?.status, 'failed');
   assert.match(afterPurge.history.at(-1)?.reason ?? '', /重新选择项目/);
-  assert.deepEqual(f.projects, ['C:/source']);
+  assert.deepEqual(f.projects, [source]);
   assert.equal(f.sent.length, 1);
   f.workspace.store.save('project', projectId, projectId, {
     id: projectId,
-    path: 'C:/source',
+    path: source,
     removedAt: '2026-10-25',
   });
   const removed = await f.tasks.runNow(routine.id);
   assert.equal(removed.history.at(-1)?.status, 'failed');
   assert.equal(f.sent.length, 1);
-  assert.deepEqual(f.projects, ['C:/source']);
+  assert.deepEqual(f.projects, [source]);
 });
 
 test('an explicitly changed routine project path can establish a new binding after the previous project was purged', async (t) => {
   const f = fixture(t);
-  const routine = f.tasks.create({ ...input, projectPath: 'C:/source' });
+  const routine = f.tasks.create({ ...input, projectPath: source });
   const first = await f.tasks.runNow(routine.id);
   f.finish(first.history.at(-1)!.workflowId);
   const old = f.tasks.get(routine.id).projectId!;
   f.workspace.store.db.prepare("DELETE FROM workspace_records WHERE kind='project' AND id=?").run(old);
-  f.tasks.update(routine.id, { ...input, projectPath: 'C:/other-source' });
+  f.tasks.update(routine.id, { ...input, projectPath: otherSource });
   const changed = await f.tasks.runNow(routine.id);
   assert.equal(changed.history.at(-1)?.status, 'queued');
-  assert.deepEqual(f.projects, ['C:/source', 'C:/other-source']);
+  assert.deepEqual(f.projects, [source, otherSource]);
   assert.equal(f.sent.length, 2);
 });
 
 test('a purge pause saved during an outstanding project lookup prevents conversation creation and dispatch', async (t) => {
   const f = fixture(t);
-  const routine = f.tasks.create({ ...input, projectPath: 'C:/source' });
+  const routine = f.tasks.create({ ...input, projectPath: source });
   f.tasks.setEnabled(routine.id, true);
   const create = f.workspace.createProject;
   let release!: () => void;

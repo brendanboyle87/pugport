@@ -73,7 +73,11 @@ export function currentLocale(): Locale {
   } catch {
     /* Storage unavailable: follow the system. */
   }
-  return typeof navigator === 'undefined' ? 'zh-CN' : defaultLocale(navigator.languages ?? [navigator.language]);
+  // Outside a window (rendering in Node, which has its own navigator since Node 21) nothing translates the
+  // components' Simplified Chinese, so dates and numbers must not follow the machine's language either.
+  return typeof window === 'undefined' || typeof navigator === 'undefined'
+    ? 'zh-CN'
+    : defaultLocale(navigator.languages ?? [navigator.language]);
 }
 
 /** Saves the choice and reloads, so every part of the window starts in the new language. */

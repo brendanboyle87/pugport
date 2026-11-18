@@ -576,6 +576,10 @@
   width: 14px;
   height: 14px;
 }
+/* A choice row keeps every option visible: it may take more than half the row, and the title wraps instead. */
+.settings-row-actions:has(> :is(.theme-options, .language-options)) {
+  max-width: none;
+}
 .settings-content .appearance-size {
   flex-wrap: nowrap;
   overflow-x: auto;

@@ -129,16 +129,31 @@ function fixture(t: TestContext, options: { tools?: string[]; env?: Record<strin
     args: [mcpScript],
     env: { ELECTRON_RUN_AS_NODE: '1' },
   };
-  // Only this fake home and these fake tools: nothing on the real PATH, no real configuration.
+  // Only this fake home and these fake tools: nothing on the real PATH, no real configuration. The search also
+  // looks in fixed folders such as /opt/homebrew/bin and asks the login shell for PATH on macOS, so files outside
+  // the fake home are hidden and the login shell does not exist, or a CLI installed on this machine would be found.
+  const real = currentHost();
+  const inside = (path: unknown) => typeof path === 'string' && resolve(path).startsWith(home + sep);
+  const missing = (path: unknown) =>
+    Object.assign(new Error(`ENOENT: outside the fixture home: ${String(path)}`), { code: 'ENOENT' });
   const host: Host = {
-    ...currentHost(),
+    ...real,
     home,
+    fs: {
+      ...real.fs,
+      statSync: ((path: string, ...rest: []) => {
+        if (!inside(path)) throw missing(path);
+        return real.fs.statSync(path, ...rest);
+      }) as typeof real.fs.statSync,
+      existsSync: (path) => inside(path) && real.fs.existsSync(path),
+    },
     env: {
       PATH: bin,
       HOME: home,
       USERPROFILE: home,
       APPDATA: join(home, 'AppData', 'Roaming'),
       LOCALAPPDATA: join(home, 'AppData', 'Local'),
+      SHELL: join(home, 'no-login-shell'),
       ...(windows ? { SystemRoot: process.env.SystemRoot, PATHEXT: process.env.PATHEXT } : {}),
       ...options.env,
     },

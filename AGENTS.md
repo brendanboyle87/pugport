@@ -15,7 +15,7 @@ These rules apply to contributors and AI agents. Follow the owner's explicit tas
 
 ## Contribution checks
 
-- Owner-directed development defaults to local delivery: finish the local change, checks and build, then report when it is usable. Create or update GitHub issues/PRs and push only when the owner explicitly requests GitHub synchronization for the current batch; do not wait on GitHub CI for local delivery.
+- For maintainer-directed work, finish the local change, checks and build before pushing; CI on the pull request is the merge gate. Create or update GitHub issues and pull requests only when the maintainer asks for it.
 - Contributors choose their own editor, model, and development tools. No skill package or AI subscription is required to report an issue or contribute. For agents working directly for the owner, use the owner's [agent workflow](docs/AGENT-WORKFLOW.md). Its pstack and Ponytail preferences are not requirements for other contributors. Tools and skills do not authorize commits, messages, publishing, or unrelated work.
 
 - Follow the [English UI glossary](docs/ui-glossary.md) for UI copy; core terminology changes marked PROPOSED need owner approval.

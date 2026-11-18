@@ -11602,7 +11602,8 @@ ${message.source === 'agent' ? '这是同一蜂群中的协作信息，不是用
   private async closeOnce() {
     this.closing = true;
     this.startupMaintenance?.stop();
-    await this.pinSummaryJob?.stop();
+    // Signal every stop before the first await, so close interrupts a Hindsight startup at once.
+    const pinSummaryStopped = this.pinSummaryJob?.stop();
     this.dispatchMaintenance?.stop();
     this.scopeAbort.abort();
     for (const abort of this.layaAssessments.values()) abort.abort();
@@ -11612,7 +11613,7 @@ ${message.source === 'agent' ? '这是同一蜂群中的协作信息，不是用
     this.controller.off('execution-capacity', this.onResourcesRefreshed);
     this.controller.off('steering-ready', this.onSteeringReady);
     clearInterval(this.timer);
-    await Promise.allSettled([this.hindsightMemory.close(), this.hindsightRuntime.stop()]);
+    await Promise.allSettled([pinSummaryStopped, this.hindsightMemory.close(), this.hindsightRuntime.stop()]);
     await this.hindsightConfiguration?.catch(() => {});
     await this.memoryDistillation.close();
     for (const a of this.active.values()) a.abort.abort();

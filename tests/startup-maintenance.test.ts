@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, mkdirSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, realpathSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { createServer } from 'node:http';
@@ -252,7 +252,8 @@ test('history slices read current runs and do not checkpoint concurrent changes 
 });
 
 function admissionFixture(gateway?: 'api', budget = false) {
-  const directory = mkdtempSync(join(tmpdir(), 'startup-admission-'));
+  // The controller keys project leases by the real path (macOS temp folders live under /private).
+  const directory = realpathSync.native(mkdtempSync(join(tmpdir(), 'startup-admission-')));
   let complete!: () => void;
   let admitted = 0;
   let resets = 0;

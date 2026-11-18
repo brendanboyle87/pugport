@@ -24,7 +24,11 @@ export function processStartTime(pid: number, host: Host = currentHost()): strin
       return /^\d+$/.test(started) && Number.isFinite(Number(started)) ? started : undefined;
     }
     const started = host
-      .runSync('ps', ['-o', 'lstart=', '-p', String(pid)], { timeout: 2000, env: { ...host.env, LC_ALL: 'C' } })
+      // ps needs only PATH, the time zone it formats in and the C locale; the rest of the environment is not copied.
+      .runSync('ps', ['-o', 'lstart=', '-p', String(pid)], {
+        timeout: 2000,
+        env: { PATH: host.env.PATH ?? '/usr/bin:/bin', ...(host.env.TZ ? { TZ: host.env.TZ } : {}), LC_ALL: 'C' },
+      })
       .trim();
     return started || undefined;
   } catch {

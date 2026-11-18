@@ -195,7 +195,8 @@ test('all GitHub workflows pin external actions to full 40-character commit SHAs
   assert.doesNotMatch(`uses: actions/checkout@${'a'.repeat(40)}`, pinnedAction);
   const workflowsDir = resolve(import.meta.dirname, '..', '.github', 'workflows');
   const files = readdirSync(workflowsDir).filter((name) => /\.ya?ml$/i.test(name));
-  assert.ok(files.length >= 4);
+  // The workflows every copy ships (the public repository leaves out the CLA workflow).
+  for (const name of ['ci.yml', 'issue-lifecycle.yml', 'pr-size.yml']) assert.ok(files.includes(name), name);
   for (const name of files) {
     const content = readFileSync(join(workflowsDir, name), 'utf8');
     const usesLines = content

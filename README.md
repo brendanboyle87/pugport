@@ -35,7 +35,7 @@ PugPort starts the official command-line tools you've already installed and sign
 ## Highlights
 
 - **Real usage, never guessed.** Usage limit readings come from each service, with their source and time. Unknown stays unknown.
-- **Smart routing you can override.** Let PugPort choose, switch to “Suggest, then confirm”, or pick the executor and model yourself.
+- **Smart routing you can override.** Let PugPort choose, switch to “Suggest, then confirm”, or pick the executor and model yourself. Routing advice comes from [Task Router](https://github.com/Waytrine/task-router), a 322M classifier fine-tuned for PugPort ([weights on Hugging Face](https://huggingface.co/Waytrine/task-router)).
 - **Steer while it works.** Send a follow-up into a running task when the executor supports it, or edit, reorder and cancel queued messages.
 - **A queue that survives restarts.** Deadlines and priorities persist. Separate chats run side by side; messages in one chat stay in order.
 - **Agents ask each other.** Write “ask Codex to review it” and the running agent hands the subtask to that account, read-only by default, and gets the answer back.
@@ -45,7 +45,7 @@ PugPort starts the official command-line tools you've already installed and sign
 
 Also included: the `pugport` terminal CLI, side chats, incognito chats, skills, MCP tools and local history search. Voice input and image search are optional components you install only if you want them. See the [user guides](docs/guides/README.md) and [all features](docs/FEATURES.md).
 
-**Planned:** signed installers and automatic updates, and Linux.
+**Planned:** code-signed installers and a Linux desktop app.
 
 ## Supported executors
 
@@ -62,6 +62,8 @@ An executor is the CLI or API runtime that does the work.
 API models cover OpenAI, Anthropic, Google Gemini, DeepSeek, xAI, Kimi, GLM, Qwen, MiniMax, Mistral and OpenRouter, local Ollama and LM Studio, free tiers and custom endpoints, including Azure Responses. Add as many accounts of each executor as you have (CLI sign-ins or API keys); PugPort reads each account's usage separately.
 
 ## Quick start
+
+**Download:** the [Windows installer and Mac app](https://pugport.com/#download) (version 0.0.39, with in-app updates), or build from source below.
 
 You need at least one executor: Claude Code, Codex CLI, Grok CLI or Cursor CLI signed in, or an API key. Claude Code on Windows also needs Git for Windows.
 
@@ -89,13 +91,13 @@ Closing the window keeps PugPort in the tray so queued work keeps running; choos
 
 ## Status
 
-Early development; the [dev log](https://pugport.dev) has release notes. Windows x64 is the established desktop target. macOS is the current priority: source runs and local unsigned `.app` builds work, and acceptance is in progress. See [platform support](docs/PLATFORMS.md). PugPort was called ComboRunner until October 2026; existing data, settings and chats carry over.
+Early development. Version 0.0.39 runs on Windows x64 and Apple silicon Macs, with in-app updates; download it from [pugport.com](https://pugport.com/#download). The Windows installer is not code-signed yet and the Mac app is not notarized yet, so each system asks you to confirm the first launch. Release notes are on the [dev log](https://pugport.dev); see also [platform support](docs/PLATFORMS.md). PugPort was called ComboRunner until October 2026; existing data, settings and chats carry over.
 
 ## Websites
 
 | Site | What it's for |
 | --- | --- |
-| [pugport.com](https://pugport.com) | The product site: what PugPort does, the live routing demo, and downloads once they open. |
+| [pugport.com](https://pugport.com) | The product site: what PugPort does, the live routing demo, and downloads for Windows and Mac. |
 | [pugport.dev](https://pugport.dev) | The dev log: build notes, release write-ups and the reasons behind design decisions. |
 | [pugport.org](https://pugport.org) | Community and learning: step-by-step explainers of how agents and PugPort work, how to contribute, and a map of everyone who has helped. |
 
@@ -131,6 +133,8 @@ Ideas and bug reports are welcome in English or Chinese: [open an issue](https:/
 ## Acknowledgements
 
 PugPort builds on [Pi](https://github.com/earendil-works/pi), the agent runtime behind API models, and on [MarkItDown](https://github.com/microsoft/markitdown), [ripgrep](https://github.com/BurntSushi/ripgrep), [sherpa-onnx](https://github.com/k2-fsa/sherpa-onnx), [ONNX Runtime](https://github.com/microsoft/onnxruntime), [sharp](https://github.com/lovell/sharp), [OpenCV](https://opencv.org) and more. Its account-health and routing design took ideas from [Magpie](https://github.com/yetone/magpie). [Acknowledgements](docs/ACKNOWLEDGEMENTS.md) lists the main projects, models and fonts with their licenses; [third-party notices](THIRD_PARTY_NOTICES.md) has the full attribution.
+
+Built by [Yutong Wang](https://yutong.wiki).
 
 ## License
 

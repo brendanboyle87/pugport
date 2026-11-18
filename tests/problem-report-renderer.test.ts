@@ -60,7 +60,8 @@ void startInterfaceLanguage().then(()=>{window.renderFixture();f.ready=true;});
 const {app,BrowserWindow,ipcMain}=require('electron');const assert=require('node:assert/strict'),fs=require('node:fs/promises'),path=require('node:path');
 app.setPath('userData',path.join(__dirname,'profile'));app.disableHardwareAcceleration();let win,captures=0;
 const evaluate=s=>win.webContents.executeJavaScript(s);const frame=()=>evaluate('new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))');
-const wait=async(s)=>{for(let i=0;i<200;i++){if(await evaluate(s))return;await new Promise(r=>setTimeout(r,20));}throw Error('Timeout '+s);};
+// A time limit, not a number of tries: the nudge ends on its own 6-second timer, which a fast machine's 200 tries did not reach.
+const wait=async(s)=>{const end=Date.now()+10000;while(Date.now()<end){if(await evaluate(s))return;await new Promise(r=>setTimeout(r,20));}throw Error('Timeout '+s);};
 const click=async(s)=>{await evaluate('document.querySelector('+JSON.stringify(s)+').click()');await frame();};
 const shot=async(name)=>{await evaluate('document.fonts.ready');await evaluate('Promise.all(document.getAnimations().filter(a=>Number.isFinite(a.effect?.getTiming().iterations)).map(a=>a.finished.catch(()=>{})))');await frame();await new Promise(r=>setTimeout(r,180));await fs.writeFile(path.join(SCREENSHOTS,name+'.png'),(await win.webContents.capturePage()).toPNG());};
 ipcMain.handle('capture',async()=>{assert.equal(await evaluate('!!document.querySelector(".problem-report-panel")'),false,'capture excludes panel');captures++;return (await win.webContents.capturePage()).toDataURL();});
