@@ -20,16 +20,19 @@ app = electron.app;
 // A new window is shrunk to the display's work area. Hosted Windows runners have a 1024x768 screen, so a test that
 // asked for a 1300x760 or 1120x1100 page got a 1024x728 one, and its layout and screenshot checks measured a size
 // nobody asked for. Every window keeps the size its test gave; later setSize calls are not shrunk.
-const ScreenSizedWindow = electron.BrowserWindow;
-class RequestedSizeWindow extends ScreenSizedWindow {
-  constructor(options = {}) {
-    super(options);
+// A construct trap, not a subclass: callers still get a plain BrowserWindow, and static methods such as
+// getAllWindows behave exactly as Electron's own.
+const RequestedSizeWindow = new Proxy(electron.BrowserWindow, {
+  construct(target, args, newTarget) {
+    const window = Reflect.construct(target, args, newTarget === RequestedSizeWindow ? target : newTarget);
+    const options = args[0] ?? {};
     const resize = options.useContentSize ? 'ContentSize' : 'Size';
-    const [width, height] = this[`get${resize}`]();
+    const [width, height] = window[`get${resize}`]();
     const wanted = [options.width ?? width, options.height ?? height];
-    if (wanted[0] !== width || wanted[1] !== height) this[`set${resize}`](...wanted);
-  }
-}
+    if (wanted[0] !== width || wanted[1] !== height) window[`set${resize}`](...wanted);
+    return window;
+  },
+});
 // Electron's exports cannot be redefined, so the app is handed a view of them that serves this BrowserWindow.
 const electronForApp = new Proxy(electron, {
   get: (target, name) => (name === 'BrowserWindow' ? RequestedSizeWindow : Reflect.get(target, name)),
