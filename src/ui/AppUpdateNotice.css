@@ -1,0 +1,53 @@
+.app-update-notice {
+  bottom: 168px;
+  pointer-events: auto;
+  padding-right: 36px;
+}
+.app-update-notice a,
+.app-update-notice .app-update-action {
+  color: var(--accent-text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.app-update-notice .icon-button {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+}
+
+.app-update-notice .app-update-action {
+  border: 0;
+  padding: 0;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+}
+.mac-update-notice {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  min-width: 240px;
+  color: var(--text);
+}
+.mac-update-notice .button.tiny {
+  margin-left: auto;
+}
+.mac-update-percent {
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted, #c1c2ce);
+}
+.mac-update-progress {
+  flex: 1 0 100%;
+  height: 4px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: var(--border);
+}
+.mac-update-progress > span {
+  display: block;
+  height: 100%;
+  background: var(--accent, #6b7cff);
+  transition: width 0.2s ease;
+}

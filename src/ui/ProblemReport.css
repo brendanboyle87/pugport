@@ -1,0 +1,306 @@
+﻿.problem-report-fab {
+  position: fixed;
+  z-index: 45;
+  right: 22px;
+  bottom: 112px;
+  height: 30px;
+  min-width: 30px;
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  background: var(--surface-1);
+  color: var(--muted);
+  box-shadow: var(--shadow-md);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 7px;
+  opacity: 0.6;
+  font: inherit;
+  cursor: pointer;
+}
+.problem-report-fab:hover,
+.problem-report-fab:focus-visible,
+.problem-report-fab.open,
+.problem-report-fab.nudge {
+  opacity: 1;
+}
+.problem-report-fab.open {
+  color: var(--accent-text);
+  border-color: var(--accent);
+}
+.problem-report-fab.nudge {
+  padding: 0 11px 0 9px;
+}
+.problem-report-fab i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--danger);
+}
+.problem-report-panel {
+  position: fixed;
+  z-index: 65;
+  right: 22px;
+  bottom: 150px;
+  width: min(380px, calc(100vw - 24px));
+  max-height: calc(100vh - 170px);
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--surface-1);
+  color: var(--text);
+  border-radius: 12px;
+  box-shadow: var(--shadow-lg);
+  font-size: 13px;
+}
+.problem-report-panel header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.problem-report-panel header strong {
+  font-size: 14px;
+}
+.problem-report-panel footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+.problem-report-panel .mine {
+  margin-right: auto;
+  color: var(--muted);
+}
+.problem-report-link {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  font-size: 12px;
+  color: var(--accent-text);
+  cursor: pointer;
+}
+.problem-report-shots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.problem-report-shot,
+.problem-report-add {
+  position: relative;
+  width: 104px;
+  height: 66px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--bg-app);
+}
+.problem-report-image {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+}
+.problem-report-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.problem-report-remove {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  border: 0;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  background: var(--text);
+  color: var(--bg);
+  cursor: pointer;
+}
+.problem-report-add {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  border: 1px dashed var(--border-strong);
+  background: none;
+  color: var(--muted);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.problem-report-hint {
+  margin: -6px 0 0;
+  color: var(--faint);
+  font-size: 12px;
+}
+.problem-report-description {
+  position: relative;
+}
+.problem-report-description textarea {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  height: 92px;
+  padding: 8px 40px 8px 10px;
+  resize: vertical;
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+}
+.problem-report-description textarea::placeholder {
+  color: var(--faint);
+}
+.problem-report-description > .voice {
+  position: absolute;
+  right: 8px;
+  bottom: 10px;
+}
+.problem-report-attach {
+  display: flex;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: var(--raised);
+  color: var(--muted);
+  font-size: 12px;
+}
+.problem-report-attach svg {
+  flex-shrink: 0;
+}
+.problem-report-attach button {
+  margin-left: auto;
+  align-self: flex-start;
+  white-space: nowrap;
+}
+.problem-report-preview {
+  max-height: 180px;
+  overflow: auto;
+  margin: 0;
+  padding: 8px;
+  font-size: 11px;
+  background: var(--raised);
+  border-radius: 6px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.problem-report-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.problem-report-check input {
+  accent-color: var(--accent);
+}
+.problem-report-panel.sent {
+  align-items: center;
+  text-align: center;
+}
+.problem-report-panel.sent p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+.problem-report-panel.sent footer {
+  justify-content: center;
+}
+.problem-report-success {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  background: var(--success-soft);
+  color: var(--success);
+  border-radius: 50%;
+}
+.problem-report-panel.sent code {
+  font-size: 15px;
+  font-weight: 600;
+}
+.problem-report-error {
+  margin: 0;
+  color: var(--danger);
+  font-size: 12px;
+}
+.problem-report-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.problem-report-list li {
+  padding: 10px 0;
+}
+.problem-report-list li > span {
+  float: right;
+  color: var(--muted);
+}
+.problem-report-list p {
+  margin: 4px 0;
+  overflow-wrap: anywhere;
+}
+.problem-report-github {
+  font-size: 12px;
+  color: var(--muted);
+}
+.problem-report-inbox-image {
+  float: right;
+  margin: 8px 0 8px 10px;
+  padding: 0;
+  width: 104px;
+  height: 66px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--raised);
+  cursor: pointer;
+}
+.problem-report-inbox-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.problem-report-card .external-request-actions {
+  clear: both;
+}
+.problem-report-fixed {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+.problem-report-fixed input {
+  min-width: 0;
+  width: 130px;
+}
+@media (max-width: 559px) {
+  .sidebar-status .problem-report-fab {
+    position: static;
+    flex-shrink: 0;
+  }
+  .problem-report-panel {
+    right: 12px;
+    bottom: 60px;
+    max-height: calc(100vh - 84px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .problem-report-fab {
+    transition: none;
+    animation: none;
+  }
+}

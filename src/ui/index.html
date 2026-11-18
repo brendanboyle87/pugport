@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" type="image/png" href="/brand/favicon.png" />
+    <script>
+      (() => {
+        let preference = 'system';
+        let accent = 'blue';
+        try {
+          preference = localStorage.getItem('agent-studio-theme') || 'system';
+          const saved = localStorage.getItem('pugport-accent');
+          if (['blue', 'violet', 'teal', 'pink'].includes(saved)) accent = saved;
+        } catch {}
+        document.documentElement.dataset.accent = accent;
+        const dark =
+          preference === 'dark' || (preference !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+        document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+        document.documentElement.style.backgroundColor = dark ? '#121316' : '#f3f3f5';
+      })();
+    </script>
+    <title>PugPort · 本地工作台</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/main.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,30 @@
+name: Finding
+description: A problem noticed while working on something else. Unknown details are OK.
+labels: [finding]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Describe the symptom. Evidence and likely scope are helpful if available; maintainers can investigate.
+        Remove keys and private data. For vulnerabilities, use [private security reporting](https://github.com/pugport/pugport/blob/main/.github/SECURITY.md).
+  - type: textarea
+    id: symptom
+    attributes:
+      label: Symptom
+      description: What is wrong? Include OS and app version when relevant.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence, if available
+      description: A command with redacted output, reproduction steps, or a screenshot can help. Never include secrets or personal data.
+    validations:
+      required: false
+  - type: textarea
+    id: scope
+    attributes:
+      label: Likely scope, if known
+      description: Mention related files or modules only if you know them. No change-size estimate is required.
+    validations:
+      required: false

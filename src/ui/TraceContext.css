@@ -1,0 +1,751 @@
+/* Trace › Context. Existing tokens only: kind colours for prompt parts, certainty patterns for what is not itemised. */
+.trace-context-root {
+  --k-request: var(--accent);
+  --k-instructions: color-mix(in srgb, var(--accent) 45%, var(--surface-1));
+  --k-memory: var(--resource-memory);
+  --k-handoff: var(--resource-gpu);
+  --k-attachments: color-mix(in srgb, var(--resource-gpu) 40%, var(--surface-1));
+  --k-tools: color-mix(in srgb, var(--faint) 55%, var(--surface-1));
+  --k-replies: color-mix(in srgb, var(--faint) 32%, var(--surface-1));
+  --k-spark: color-mix(in srgb, var(--accent) 55%, var(--surface-1));
+  --hatch: repeating-linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--faint) 26%, transparent) 0 2px,
+    transparent 2px 6px
+  );
+  min-width: 0;
+  padding-top: 4px;
+  font-size: 12px;
+}
+:root[data-theme='dark'] .trace-context-root {
+  --k-instructions: color-mix(in srgb, var(--accent-text) 55%, var(--surface-1));
+  --k-spark: color-mix(in srgb, var(--accent-text) 60%, var(--surface-1));
+}
+.trace-context-root .group-request {
+  background: var(--k-request);
+}
+.trace-context-root .group-instructions {
+  background: var(--k-instructions);
+}
+.trace-context-root .group-memory {
+  background: var(--k-memory);
+}
+.trace-context-root .group-handoff {
+  background: var(--k-handoff);
+}
+.trace-context-root .group-attachments {
+  background: var(--k-attachments);
+}
+.trace-context-root .transcript-tools {
+  background: var(--k-tools);
+}
+.trace-context-root .transcript-replies {
+  background: var(--k-replies);
+}
+.trace-context-root .reported {
+  background: var(--hatch), var(--surface-2);
+  box-shadow: inset 0 0 0 1px var(--border-strong);
+}
+.trace-context-root .muted {
+  color: var(--faint);
+}
+.trace-context-root .mono {
+  font-family: var(--mono);
+  font-size: 11.5px;
+}
+.trace-context-root .link-button {
+  border: 0;
+  background: none;
+  padding: 0;
+  margin-left: 6px;
+  color: var(--accent-text);
+  font: inherit;
+  font-size: 11.5px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.trace-context-root .link-button:hover {
+  text-decoration: underline;
+}
+
+/* Scope line and certainty legend */
+.trace-context-scope {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  margin-bottom: 14px;
+}
+.trace-context-scope > strong {
+  font-size: 13px;
+  font-weight: 600;
+}
+.trace-context-scope > span {
+  color: var(--muted);
+}
+.trace-context-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 11.5px;
+}
+.trace-context-legend span,
+.trace-context-keys span,
+.trace-context-mlegend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.trace-context-root .swatch {
+  display: inline-block;
+  flex: none;
+  width: 14px;
+  height: 10px;
+  border-radius: 2px;
+}
+.trace-context-root .swatch.exact {
+  background: var(--k-request);
+}
+.trace-context-root .swatch.transcript {
+  background: var(--k-tools);
+}
+.trace-context-root .swatch.none {
+  border: 1px dashed var(--border-strong);
+}
+
+/* Cards */
+.trace-context-card {
+  min-width: 0;
+  padding: 16px 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-1);
+  box-shadow: var(--shadow-sm);
+}
+.trace-context-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+.trace-context-head h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+.trace-context-head .right,
+.trace-context-head .trace-context-toggle {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 11.5px;
+}
+.trace-context-sub {
+  margin: 0 0 14px;
+  color: var(--muted);
+}
+.trace-context-note {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 11.5px;
+  line-height: 1.6;
+}
+.trace-context-note.trace-context-partial {
+  margin: 0 0 12px;
+  padding: 6px 10px;
+  border-radius: var(--radius);
+  background: var(--warning-soft);
+  color: var(--text);
+}
+.trace-context-empty {
+  margin: 24px 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+.trace-context-toggle {
+  display: inline-flex;
+  padding: 2px;
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  box-shadow: inset 0 0 0 1px var(--border);
+}
+.trace-context-toggle button {
+  border: 0;
+  border-radius: calc(var(--radius) - 2px);
+  padding: 4px 10px;
+  background: none;
+  color: var(--muted);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.trace-context-toggle button[aria-pressed='true'] {
+  background: var(--surface-1);
+  color: var(--text);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Block A: assembly ladder */
+.trace-context-ladder {
+  margin-bottom: 16px;
+  padding: 18px 20px 14px;
+}
+.trace-context-axis,
+.trace-context-row {
+  display: grid;
+  grid-template-columns: 210px minmax(0, 1fr) 156px;
+  gap: 14px;
+  align-items: center;
+}
+.trace-context-axis .ticks {
+  position: relative;
+  height: 16px;
+  color: var(--faint);
+  font-size: 10.5px;
+  font-variant-numeric: tabular-nums;
+}
+.trace-context-axis .ticks span {
+  position: absolute;
+  transform: translateX(-50%);
+}
+.trace-context-axis .ticks span:first-child {
+  transform: none;
+}
+.trace-context-axis .ticks span:last-child {
+  transform: translateX(-100%);
+}
+.trace-context-row {
+  position: relative;
+  margin: 0 -10px;
+  padding: 9px 10px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+.trace-context-row:hover {
+  background: var(--hover);
+}
+.trace-context-row[aria-selected='true'] {
+  background: var(--accent-soft);
+}
+.trace-context-row.skeleton {
+  height: 40px;
+  background: var(--surface-2);
+  cursor: default;
+}
+.trace-context-row[data-depth='1'] .who {
+  position: relative;
+  padding-left: 18px;
+}
+.trace-context-row[data-depth='1'] .who::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 4px;
+  width: 8px;
+  height: 12px;
+  border-bottom: 1px solid var(--border-strong);
+  border-left: 1px solid var(--border-strong);
+  border-bottom-left-radius: 4px;
+}
+.trace-context-row .who {
+  min-width: 0;
+}
+.trace-context-row .who b {
+  display: block;
+  overflow: hidden;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.trace-context-row .who small {
+  display: flex;
+  gap: 6px;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 11px;
+  white-space: nowrap;
+}
+.trace-context-root .tag {
+  padding: 0 5px;
+  border-radius: 3px;
+  background: var(--surface-3);
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+.trace-context-root .tag.live {
+  background: var(--success-soft);
+  color: var(--success);
+}
+.trace-context-row .track {
+  position: relative;
+  height: 22px;
+  background-image: linear-gradient(to right, var(--border) 1px, transparent 1px);
+  background-size: 33.333% 100%;
+}
+.trace-context-row .bar {
+  position: absolute;
+  inset: 3px auto 3px 0;
+  display: flex;
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: 4px;
+  transform-origin: left center;
+}
+.trace-context-ladder[data-animate] .bar {
+  animation: trace-context-grow var(--dur-3) var(--ease);
+}
+.trace-context-row .bar[data-loading] {
+  opacity: 0.55;
+}
+@keyframes trace-context-grow {
+  from {
+    transform: scaleX(0);
+  }
+}
+.trace-context-row .bar i {
+  display: block;
+  flex: none;
+  min-width: 2px;
+  height: 100%;
+  border-right: 1px solid var(--surface-1);
+}
+.trace-context-row .bar i:last-child {
+  border-right: 0;
+}
+.trace-context-row .bar i.reported {
+  border-radius: 0 4px 4px 0;
+}
+.trace-context-row .noreport {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  border: 1px dashed var(--border-strong);
+  border-left: 0;
+  border-radius: 0 4px 4px 0;
+  color: var(--faint);
+  font-size: 10.5px;
+  white-space: nowrap;
+}
+.trace-context-row .figs {
+  font-size: 12px;
+  text-align: right;
+  white-space: nowrap;
+}
+.trace-context-row .figs b {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.trace-context-row .figs small {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+}
+.trace-context-handoff {
+  display: grid;
+  grid-template-columns: 210px minmax(0, 1fr);
+  gap: 14px;
+  padding: 4px 0 6px;
+}
+.trace-context-handoff .label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding-left: 4px;
+  color: var(--k-handoff);
+  font-size: 11px;
+  font-weight: 600;
+}
+.trace-context-handoff .label::before {
+  content: '';
+  width: 1px;
+  height: 22px;
+  margin-right: 8px;
+  background: var(--k-handoff);
+}
+.trace-context-handoff .chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 11.5px;
+}
+.trace-context-handoff .line {
+  flex-basis: 100%;
+}
+.trace-context-root .chip {
+  cursor: pointer;
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 1px 7px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface-1);
+  color: var(--text);
+  font-size: 11px;
+  white-space: nowrap;
+}
+.trace-context-root .chip.add b {
+  color: var(--success);
+}
+.trace-context-root .chip.drop {
+  color: var(--muted);
+}
+.trace-context-root .chip.drop b {
+  color: var(--danger);
+}
+.trace-context-root .dot {
+  display: inline-block;
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+}
+.trace-context-keys {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 11.5px;
+}
+.trace-context-more {
+  margin-top: 8px;
+}
+
+/* Detail: B on the left, C and D stacked on the right, E full width */
+.trace-context-detail {
+  animation: trace-context-fade var(--dur-2) var(--ease);
+}
+@keyframes trace-context-fade {
+  from {
+    opacity: 0;
+  }
+}
+.trace-context-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+.trace-context-stack {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+}
+
+/* Block B */
+.trace-context-parts {
+  width: 100%;
+  margin-top: 6px;
+  border-collapse: collapse;
+  font-size: 12.5px;
+}
+.trace-context-parts th {
+  padding: 0 0 6px;
+  color: var(--faint);
+  font-size: 11px;
+  font-weight: 500;
+  text-align: left;
+}
+.trace-context-parts .r {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.trace-context-parts td {
+  padding: 5px 0 5px 8px;
+  border-top: 1px solid var(--border);
+  vertical-align: middle;
+}
+.trace-context-parts td:first-child {
+  padding-left: 0;
+}
+.trace-context-parts tr.group td {
+  padding-top: 12px;
+  border-top: 0;
+  font-size: 12px;
+  font-weight: 600;
+}
+.trace-context-parts tr.group td.r {
+  color: var(--muted);
+  font-weight: 500;
+}
+.trace-context-parts tr.group .dot {
+  width: 9px;
+  height: 9px;
+  margin-right: 7px;
+  vertical-align: -1px;
+}
+.trace-context-parts tr[data-flash] td {
+  background: var(--accent-soft);
+  transition: background var(--dur-3) var(--ease);
+}
+.trace-context-parts td.name {
+  padding-left: 16px;
+  overflow-wrap: anywhere;
+}
+.trace-context-parts .badge-cell {
+  width: 1%;
+  text-align: right;
+  white-space: nowrap;
+}
+.trace-context-root .badge {
+  padding: 0 6px;
+  border-radius: 3px;
+  font-size: 10.5px;
+  white-space: nowrap;
+}
+.trace-context-root .badge.new {
+  background: var(--success-soft);
+  color: var(--success);
+}
+.trace-context-root .badge.changed {
+  background: var(--accent-soft);
+  color: var(--accent-text);
+}
+.trace-context-root .badge.same {
+  color: var(--faint);
+}
+.trace-context-parts tr.dropped td {
+  color: var(--faint);
+}
+.trace-context-parts .struck {
+  text-decoration: line-through;
+}
+
+/* Block C */
+.trace-context-meter {
+  margin: 6px 0 4px;
+}
+.trace-context-meter .big {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+.trace-context-meter .big b {
+  font-size: 24px;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.5px;
+}
+.trace-context-meter .big span,
+.trace-context-meter .big em {
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+}
+.trace-context-meter .big em {
+  margin-left: auto;
+}
+.trace-context-meter .mbar {
+  display: flex;
+  height: 10px;
+  margin-top: 8px;
+  overflow: hidden;
+  border-radius: 5px;
+  background: var(--surface-3);
+}
+.trace-context-meter .mbar i {
+  display: block;
+  height: 100%;
+}
+.trace-context-meter .mlegend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 11px;
+}
+.trace-context-meter .mlegend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.trace-context-kv {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 5px 12px;
+  margin: 14px 0 0;
+}
+.trace-context-kv dt {
+  color: var(--muted);
+}
+.trace-context-kv dd {
+  margin: 0;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.trace-context-subhead {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 11.5px;
+}
+.trace-context-spark {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 54px;
+  margin-top: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.trace-context-spark i {
+  flex: 1;
+  min-width: 2px;
+  border-radius: 2px 2px 0 0;
+  background: var(--k-spark);
+}
+.trace-context-spark i[data-drop] {
+  background: var(--warning);
+}
+
+/* Block D */
+.trace-context-why {
+  display: grid;
+  margin: 6px 0 0;
+}
+.trace-context-why > div {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 10px;
+  padding: 9px 0;
+  border-top: 1px solid var(--border);
+}
+.trace-context-why > div:first-child {
+  padding-top: 4px;
+  border-top: 0;
+}
+.trace-context-why dt {
+  color: var(--muted);
+}
+.trace-context-why dd {
+  margin: 0;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+.trace-context-why small {
+  color: var(--muted);
+  font-size: 11.5px;
+}
+
+/* Block E */
+.trace-context-did {
+  margin-top: 16px;
+}
+.trace-context-did-cols {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+  margin-top: 8px;
+}
+.trace-context-did-cols h4 {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 0 0 8px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.trace-context-did-cols h4 span:last-child {
+  color: var(--muted);
+  font-weight: 400;
+}
+.trace-context-root .tally {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr) 30px;
+  gap: 8px;
+  align-items: center;
+  width: 100%;
+  padding: 3px 0;
+  border: 0;
+  background: none;
+  color: var(--text);
+  font: inherit;
+  font-size: 12px;
+  text-align: left;
+  cursor: pointer;
+}
+.trace-context-root .tally > span:first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.trace-context-root .tally .track2 {
+  height: 6px;
+  overflow: hidden;
+  border-radius: 3px;
+  background: var(--surface-3);
+}
+.trace-context-root .tally .track2 i {
+  display: block;
+  height: 100%;
+  background: color-mix(in srgb, var(--text) 55%, var(--surface-1));
+}
+.trace-context-root .tally > span:last-child {
+  color: var(--muted);
+  text-align: right;
+}
+.trace-context-files {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.trace-context-files li {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 3px 0;
+}
+.trace-context-files li > span:first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.trace-context-files .changed {
+  flex: none;
+  color: var(--success);
+  font-size: 11px;
+}
+.trace-context-files .read {
+  flex: none;
+  color: var(--faint);
+  font-size: 11px;
+}
+
+@media (max-width: 1100px) {
+  .trace-context-grid,
+  .trace-context-did-cols {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .trace-context-axis,
+  .trace-context-row {
+    grid-template-columns: 150px minmax(0, 1fr) 120px;
+  }
+  .trace-context-handoff {
+    grid-template-columns: 150px minmax(0, 1fr);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .trace-context-ladder[data-animate] .bar,
+  .trace-context-detail {
+    animation: none;
+  }
+  .trace-context-parts tr[data-flash] td {
+    transition: none;
+  }
+}

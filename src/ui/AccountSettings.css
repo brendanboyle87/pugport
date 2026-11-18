@@ -1,0 +1,140 @@
+.account-settings {
+  display: grid;
+  gap: 24px;
+}
+.account-settings > .settings-group {
+  margin-bottom: 0;
+}
+.account-settings .button.secondary,
+.account-welcome .button.secondary {
+  background: var(--surface-1);
+  color: var(--text);
+}
+.account-settings .button.secondary:hover:not(:disabled),
+.account-welcome .button.secondary:hover:not(:disabled) {
+  background: var(--surface-2);
+}
+.account-settings .button.secondary.danger {
+  color: var(--danger);
+}
+.account-setup {
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-1);
+}
+.account-setup h3 {
+  margin: 0 0 8px;
+  font-size: 15px;
+}
+.account-setup p,
+.account-welcome p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.account-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.account-setup details {
+  margin-top: 20px;
+  font-size: 13px;
+}
+.account-setup summary {
+  cursor: pointer;
+  color: var(--accent-text);
+}
+.account-merge {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin: 16px 0 20px;
+}
+.account-merge th,
+.account-merge td {
+  text-align: right;
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--border);
+  font-variant-numeric: tabular-nums;
+}
+.account-merge th:first-child {
+  text-align: left;
+  font-weight: 500;
+}
+.account-merge thead {
+  color: var(--muted);
+}
+.account-welcome {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: min(100%, 540px);
+  margin: 18px auto;
+  padding: 16px 18px;
+  text-align: left;
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+.account-welcome > svg {
+  color: var(--accent-text);
+  flex-shrink: 0;
+}
+.account-welcome > div:first-of-type {
+  flex: 1;
+}
+.account-welcome strong {
+  font-size: 13px;
+  font-weight: 600;
+}
+.account-welcome p {
+  margin: 4px 0 0;
+}
+.account-sync-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border: 0;
+  border-radius: 999px;
+  padding: 4px 7px;
+  background: var(--surface-2);
+  color: var(--muted);
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.account-sync-pill.error {
+  color: var(--danger);
+  background: var(--danger-soft);
+}
+.account-sync-pill.syncing,
+.account-sync-pill.wait {
+  color: var(--accent-text);
+  background: var(--accent-soft);
+}
+.account-sync-state {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.account-sync-state.ok {
+  color: var(--success);
+}
+.account-sync-state.busy {
+  color: var(--accent-text);
+}
+.account-sync-state.error {
+  color: var(--danger);
+}
+@media (max-width: 540px) {
+  .account-welcome {
+    flex-wrap: wrap;
+  }
+  .account-setup {
+    padding: 16px;
+  }
+}

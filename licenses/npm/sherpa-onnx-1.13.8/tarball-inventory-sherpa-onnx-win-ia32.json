@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "name": "sherpa-onnx-win-ia32",
+  "version": "1.13.8",
+  "tarballUrl": "https://registry.npmjs.org/sherpa-onnx-win-ia32/-/sherpa-onnx-win-ia32-1.13.8.tgz",
+  "packageIntegrity": "sha512-H0Ojln9hfvM+pxWqW0cnjB/XK8/JPq4/k0IWu2JpY5Z458M3zv+XC3Hu+wmot3AoH/K1Bgt23n/tTKtPV9x8qg==",
+  "tarballSha256": "2e44e7bf0b0935ca8d9ad4967a9d8f6cf70b68b97eec8de1fde19e5cb3859128",
+  "licenseOrNoticeFiles": [],
+  "files": [
+    {
+      "path": "package/onnxruntime_providers_shared.dll",
+      "bytes": 86016
+    },
+    {
+      "path": "package/onnxruntime.dll",
+      "bytes": 15285760
+    },
+    {
+      "path": "package/sherpa-onnx-c-api.dll",
+      "bytes": 3837952
+    },
+    {
+      "path": "package/sherpa-onnx-cxx-api.dll",
+      "bytes": 216064
+    },
+    {
+      "path": "package/index.js",
+      "bytes": 49
+    },
+    {
+      "path": "package/package.json",
+      "bytes": 1454
+    },
+    {
+      "path": "package/README.md",
+      "bytes": 97
+    },
+    {
+      "path": "package/sherpa-onnx.node",
+      "bytes": 501760
+    }
+  ]
+}

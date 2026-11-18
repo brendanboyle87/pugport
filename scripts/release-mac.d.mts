@@ -1,0 +1,54 @@
+import type { KeyObject } from 'node:crypto';
+export const DOWNLOAD_ROOT: string;
+export const BUCKET: string;
+export const WRANGLER: string[];
+export const MAX_UPLOAD_BYTES: number;
+export const RELEASE_PUBLIC_KEY: string;
+export const DEFAULT_KEY_PATH: string;
+export const LICENSE_INVENTORY: string;
+export const VERSION_FILES: string[];
+export function bumpInventoryVersion(text: string, version: string): string;
+export type ReleaseOptions = {
+  version: string;
+  allowBranch: boolean;
+  upload: boolean;
+  tag: boolean;
+  rehearsal: boolean;
+};
+export type ArchiveDigest = { sha256: string; size: number };
+export type UploadEntry = { file: string; path: string; key: string; contentType: string; cacheControl: string };
+export type Manifest = { version: string; url: string; sha256: string; size: number; releasedAt: string };
+export function parseArgs(argv: string[]): ReleaseOptions;
+export function archiveName(version: string, arch: string): string;
+export function objectKey(arch: string, file: string): string;
+export function publicUrl(arch: string, file: string): string;
+export function manifestBytes(input: {
+  version: string;
+  arch: string;
+  sha256: string;
+  size: number;
+  releasedAt: string;
+}): Buffer;
+export function signManifest(bytes: Buffer, privateKey: KeyObject | string): string;
+export function verifyManifestSignature(bytes: Buffer, signature: Buffer | string, publicKey?: string): boolean;
+export function checkRelease(input: {
+  manifest: Buffer;
+  signature: Buffer | string;
+  archive: ArchiveDigest;
+  version: string;
+  arch: string;
+  publicKey?: string;
+}): Manifest;
+export function uploadPlan(input: { arch: string; version: string; directory: string }): UploadEntry[];
+export function wranglerPutArgs(entry: UploadEntry): string[];
+export function uploadRelease(input: {
+  plan: UploadEntry[];
+  version: string;
+  arch: string;
+  run: (command: string, args: string[]) => Promise<void>;
+  download: (url: string, options: { keep: boolean }) => Promise<ArchiveDigest & { bytes?: Buffer }>;
+  log?: (message: string) => void;
+  publicKey?: string;
+}): Promise<Manifest>;
+export function sha256File(path: string): Promise<string>;
+export function loadSigningKey(path: string): KeyObject;

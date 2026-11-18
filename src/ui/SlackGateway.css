@@ -1,0 +1,220 @@
+.slack-people-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.slack-note {
+  color: var(--muted);
+  font-size: 12px;
+  margin: 6px 0 0;
+}
+.slack-guide {
+  margin: 16px 0;
+}
+.slack-host-selector {
+  display: grid;
+  gap: 8px;
+  margin: 16px 0;
+  min-width: 0;
+}
+.slack-host-selector select {
+  width: 100%;
+  min-width: 0;
+}
+.slack-guide-summary,
+.slack-step-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.slack-guide-summary {
+  margin: 0;
+}
+.slack-steps {
+  margin: 12px 0 0;
+  padding-inline-start: 24px;
+  color: var(--text);
+}
+.slack-steps > li {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  overflow-wrap: anywhere;
+}
+.slack-steps > li:last-child {
+  border-bottom: 0;
+}
+.slack-step-heading h4 {
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+  font-size: 13px;
+}
+.slack-steps > li[aria-current='step']::marker {
+  color: var(--accent-text);
+  font-weight: 600;
+}
+.slack-steps > li[aria-current='step'] > .slack-step-heading {
+  border-inline-start: 2px solid var(--accent);
+  padding-inline-start: 8px;
+}
+.slack-steps > li[data-later='true'] h4 {
+  color: var(--muted);
+}
+.slack-check {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 8px 0;
+}
+/* Label and Copy on one row, the manifest full width below. */
+.slack-manifest {
+  display: grid;
+  gap: 6px;
+}
+.slack-manifest-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 12.5px;
+}
+.slack-manifest textarea {
+  width: 100%;
+  padding: 8px 10px;
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 1.5;
+  resize: vertical;
+}
+.slack-tokens {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+}
+.slack-tokens > .button {
+  justify-self: start;
+}
+.slack-people {
+  display: grid;
+  gap: 10px;
+}
+.slack-pairing {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+.slack-pairing strong {
+  font-family: var(--mono);
+  font-size: 18px;
+  letter-spacing: 0.12em;
+  color: var(--text);
+}
+.slack-users {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.slack-users li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+.slack-users small {
+  color: var(--faint);
+  font-size: 12px;
+  margin-right: auto;
+}
+.channel-admission {
+  padding: 12px 16px;
+  border-top: 1px solid var(--border);
+  min-width: 0;
+}
+.channel-admission h4 {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.channel-scope + .channel-scope,
+.channel-overrides {
+  margin-top: 12px;
+}
+.channel-scope-title {
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+.channel-admission-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 36px;
+  font-size: 13px;
+}
+.channel-admission-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.channel-admission select,
+.channel-admission input {
+  min-width: 0;
+  padding: 4px 8px;
+  font-size: 12px;
+}
+.channel-admission-actions select {
+  width: 144px;
+}
+.channel-fixed-level {
+  width: 144px;
+  padding: 4px 8px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 400;
+}
+.channel-sender {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.channel-sender img {
+  border-radius: 50%;
+}
+.channel-admission-note {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.channel-digest {
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  border-top: 1px solid var(--border);
+  padding-top: 8px;
+}
+.channel-digest select {
+  flex: 1;
+}
+.channel-digest input {
+  width: 102px;
+}
+.channel-digest[aria-disabled='true'] {
+  color: var(--muted);
+}
+.slack-owner {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+}

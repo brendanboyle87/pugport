@@ -1,0 +1,50 @@
+name: Bug report
+description: Tell us what went wrong, even if you cannot reproduce it yet.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        English or Chinese is welcome. Describe what happened; fill in other details if you know them.
+        Remove keys and private data. For vulnerabilities, use [private security reporting](https://github.com/pugport/pugport/blob/main/.github/SECURITY.md).
+  - type: input
+    id: os
+    attributes:
+      label: OS, if known
+      description: OS version and architecture (for example, Windows 11 x64).
+    validations:
+      required: false
+  - type: input
+    id: version
+    attributes:
+      label: App version, if known
+      description: PugPort version or commit; source checkout or packaged build; relevant CLI versions.
+    validations:
+      required: false
+  - type: textarea
+    id: steps
+    attributes:
+      label: What you were doing or steps to reproduce
+      placeholder: '1. Start PugPort...'
+    validations:
+      required: false
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+    validations:
+      required: false
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behaviour
+      description: Include whether files were modified or model requests were sent.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Redacted logs or screenshots
+      description: Optional errors or a minimal synthetic example. Never paste tokens, credential files, account identities, or private project content.
+    validations:
+      required: false

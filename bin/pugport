@@ -1,0 +1,15 @@
+#!/bin/sh
+# pugport, the PugPort terminal command. Works from the source checkout (bin/) and inside the app (dist/bin/).
+here=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+if [ -f "$here/../cli/pugport.js" ]; then root="$here/../.."; else root="$here/.."; fi
+script="$root/dist/cli/pugport.js"
+if [ ! -f "$script" ]; then
+  echo "pugport is not built yet: run 'node scripts/build.mjs' in the PugPort folder." >&2
+  exit 1
+fi
+if [ -x "$root/.runtime/node" ]; then exec "$root/.runtime/node" "$script" "$@"; fi
+# The Mac bundle includes its own Node runtime; no separately installed Node is needed.
+if [ -x "$root/../../MacOS/PugPort" ]; then
+  ELECTRON_RUN_AS_NODE=1 exec "$root/../../MacOS/PugPort" "$script" "$@"
+fi
+exec node "$script" "$@"

@@ -1,0 +1,688 @@
+/* The composer: one quiet box. A + menu on the left, the executor and send on the right.
+   Loaded after studio.css so these rules replace the older composer styles. */
+
+:root {
+  /* Chinese text set in Noto Sans SC reads cramped with negative tracking. */
+  letter-spacing: normal;
+}
+
+.composer-anchor {
+  position: relative;
+}
+.conversation-composer {
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--surface-1);
+  box-shadow: var(--shadow-sm);
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+.conversation-composer:focus-within {
+  border-color: var(--accent);
+  box-shadow:
+    0 0 0 3px var(--accent-soft),
+    var(--shadow-sm);
+}
+:root[data-theme='dark'] .conversation-composer {
+  background: var(--surface-2);
+  box-shadow: none;
+}
+:root[data-theme='dark'] .conversation-composer:focus-within {
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+.conversation-composer > textarea:focus {
+  box-shadow: none;
+}
+.conversation-composer > textarea {
+  min-height: 64px;
+  padding: 15px 18px 4px;
+  font-size: 14.5px;
+  line-height: 1.65;
+}
+.conversation-composer > textarea::placeholder {
+  color: var(--faint);
+}
+
+.composer-bottom {
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 6px 10px 10px;
+  border: 0;
+}
+.composer-controls {
+  min-width: 0;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.composer-submit-actions {
+  gap: 4px;
+  align-items: center;
+  align-self: flex-end;
+  margin-inline-start: auto;
+}
+
+.composer-plus {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--muted);
+  transition:
+    background 0.12s,
+    color 0.12s;
+}
+.composer-plus svg {
+  transition: transform 0.15s;
+}
+.composer-plus:hover,
+.composer-plus.open {
+  background: var(--hover);
+  color: var(--text);
+}
+.composer-plus.open svg {
+  transform: rotate(45deg);
+}
+
+/* Mode chip: a quiet icon beside + in Normal; a tag like the role tag in another mode. */
+.composer-mode {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 24px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--faint);
+  transition:
+    background 0.12s,
+    color 0.12s;
+}
+.composer-mode:hover:not(:disabled),
+.composer-mode.open {
+  background: var(--hover);
+  color: var(--text);
+}
+.composer-mode:disabled,
+.composer-mode-tag button:disabled {
+  opacity: 0.5;
+}
+.composer-tag.composer-mode-tag {
+  border-color: transparent;
+  background: var(--accent-soft);
+  color: var(--accent-text);
+}
+.composer-tag.composer-mode-tag.open {
+  border-color: var(--accent);
+}
+.composer-tag > button.composer-mode-open {
+  display: inline-flex;
+  gap: 5px;
+  width: auto;
+  height: auto;
+  color: inherit;
+  font: inherit;
+}
+.composer-tag > button.composer-mode-open:hover {
+  background: transparent;
+}
+.composer-menu.composer-mode-menu {
+  left: 44px;
+  width: 300px;
+}
+.composer-tag.composer-mode-tag {
+  max-width: min(340px, 60vw);
+}
+.composer-tag > button.composer-mode-open {
+  min-width: 0;
+  overflow: hidden;
+}
+.composer-mode-detail {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* Navigator's one setting, under its row: "Runs on: Auto · Choose…". */
+.composer-menu button.composer-mode-setting {
+  grid-template-columns: 20px 1fr;
+  grid-template-areas: '. label';
+  min-height: 26px;
+  margin-top: -2px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.composer-mode-choose {
+  color: var(--accent-text);
+}
+.composer-popover.navigator-route-popover {
+  left: 44px;
+  right: auto;
+}
+
+.composer-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 24px;
+  padding: 0 9px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 12px;
+  white-space: nowrap;
+}
+button.composer-tag {
+  padding: 0 9px;
+}
+button.composer-tag:hover {
+  border-color: var(--border-strong);
+}
+.composer-tag.live {
+  color: var(--live);
+}
+.composer-tag.mention {
+  border-color: transparent;
+  background: var(--accent-soft);
+  color: var(--accent-text);
+}
+.composer-tag.device-folder-tag {
+  height: auto;
+  min-height: 28px;
+  max-width: 100%;
+  flex-wrap: wrap;
+  padding-block: 3px;
+  border-radius: var(--radius);
+}
+.device-folder-input {
+  width: clamp(130px, 20vw, 240px);
+  min-width: 0;
+  max-width: 100%;
+  padding: 3px 6px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface-1);
+  color: var(--text);
+  font: 12px var(--mono);
+}
+.device-folder-input::placeholder {
+  color: var(--muted);
+  font-family: var(--font);
+}
+.composer-tag > button {
+  display: inline-grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--faint);
+}
+.composer-tag > button:hover {
+  background: var(--accent-soft-strong);
+  color: var(--text);
+}
+
+.composer-route {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  max-width: 220px;
+  height: 28px;
+  padding: 0 8px 0 10px;
+  border: 0;
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--muted);
+  font-size: 12.5px;
+}
+.composer-route span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.composer-route:hover,
+.composer-route.active {
+  background: var(--hover);
+  color: var(--text);
+}
+
+.send-button {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  background: var(--accent);
+  color: var(--on-accent);
+  transition:
+    background 0.12s,
+    opacity 0.12s;
+}
+.send-button:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+.send-button:active:not(:disabled) {
+  transform: none;
+}
+.send-button:disabled {
+  opacity: 0.5;
+}
+
+.composer-caption {
+  display: block;
+  padding: 8px 16px 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* The + menu opens upward from the button, over the text box. */
+.composer-menu {
+  position: absolute;
+  left: 8px;
+  bottom: 50px;
+  z-index: 40;
+  display: grid;
+  gap: 0;
+  width: 264px;
+  padding: 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-1);
+  box-shadow: var(--shadow-md);
+  animation: composer-pop var(--dur-3) var(--ease);
+}
+.composer-menu button {
+  display: grid;
+  grid-template-columns: 20px 1fr auto;
+  grid-template-areas:
+    'icon label check'
+    'icon hint check';
+  align-items: center;
+  column-gap: 8px;
+  padding: 4px 8px;
+  border: 0;
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text);
+  font-size: 13px;
+  text-align: left;
+  min-height: 30px;
+}
+.composer-menu button > svg:first-child {
+  grid-area: icon;
+  color: var(--muted);
+}
+.composer-menu button > span {
+  grid-area: label;
+}
+.composer-menu button > small {
+  grid-area: hint;
+  color: var(--faint);
+  font-size: 12px;
+}
+.composer-menu .composer-menu-check {
+  grid-area: check;
+  color: var(--accent-text);
+  width: 14px;
+  height: 14px;
+}
+.composer-menu button:hover,
+.composer-menu button:focus-visible {
+  background: var(--hover);
+  outline-offset: -2px;
+}
+.composer-menu button:disabled {
+  opacity: 0.45;
+}
+
+/* The @ list sits just above the box, like a chat app's mention picker. */
+.mention-menu {
+  position: absolute;
+  left: 12px;
+  bottom: calc(100% + 8px);
+  z-index: 40;
+  width: min(340px, calc(100% - 24px));
+  max-height: min(360px, 60vh);
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-1);
+  box-shadow: var(--shadow-md);
+  animation: composer-pop var(--dur-3) var(--ease);
+}
+.mention-menu button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 4px 8px;
+  border: 0;
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+  min-height: 30px;
+}
+.mention-menu button.active {
+  background: var(--hover);
+}
+/* Group titles (常用, 角色, …) stay in view while their rows scroll under them. */
+.mention-section {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 8px 8px 4px;
+  background: var(--surface-1);
+  color: var(--faint);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: normal;
+}
+.mention-group + .mention-group {
+  margin-top: 4px;
+  border-top: 1px solid var(--border);
+}
+.mention-menu .mention-row.called {
+  cursor: default;
+}
+.mention-row.called .avatar,
+.mention-row.called .mention-text {
+  opacity: 0.5;
+}
+.mention-called {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin-left: auto;
+  color: var(--live);
+  font-size: 11.5px;
+  white-space: nowrap;
+}
+.mention-avatar {
+  display: inline-grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--raised);
+  font-size: 12.5px;
+  font-weight: 600;
+}
+.mention-text {
+  display: grid;
+  min-width: 0;
+}
+.mention-text strong {
+  font-size: 13px;
+  font-weight: 500;
+}
+.mention-text small {
+  overflow: hidden;
+  color: var(--faint);
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mention-empty {
+  margin: 6px 9px;
+  color: var(--faint);
+  font-size: 12.5px;
+}
+.mention-menu .mention-create {
+  margin-top: 4px;
+  border-top: 1px solid var(--border);
+  border-radius: 0 0 9px 9px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.mention-empty:first-child {
+  margin-top: 12px;
+}
+@media (max-width: 560px) {
+  .mention-menu {
+    right: 8px;
+    left: 8px;
+    width: auto;
+  }
+}
+
+@keyframes composer-pop {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .composer-menu,
+  .mention-menu,
+  .composer-plus svg {
+    animation: none;
+    transition: none;
+  }
+}
+.mention-kind {
+  margin-left: auto;
+  padding: 1px 6px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--faint);
+  font-size: 11.5px;
+  white-space: nowrap;
+}
+
+/* Tabs that switch between the pages sharing one sidebar entry. */
+.page-tabs {
+  display: inline-flex;
+  gap: 2px;
+  margin: 0 0 18px;
+  padding: 2px;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: var(--surface-3);
+  max-width: 100%;
+  flex-wrap: wrap;
+}
+.page-tabs button {
+  padding: 4px 12px;
+  border: 0;
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--muted);
+  font-size: 13px;
+  min-height: 28px;
+}
+.page-tabs button:hover {
+  color: var(--text);
+}
+.page-tabs button.active {
+  background: var(--surface-1);
+  color: var(--text);
+  box-shadow: var(--shadow-sm);
+  font-weight: 500;
+}
+:root[data-theme='dark'] .page-tabs button.active {
+  background: var(--surface-3);
+}
+
+/* Executor, task and schedule options float above the box like the + menu, instead of
+   pushing a bar into it. They close on Escape or a click elsewhere. */
+.composer-popover {
+  position: absolute;
+  bottom: 50px;
+  z-index: 40;
+  padding: 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-1);
+  box-shadow: var(--shadow-md);
+  animation: composer-pop var(--dur-3) var(--ease);
+}
+.route-popover {
+  right: 8px;
+  width: min(340px, calc(100% - 16px));
+  max-height: min(420px, 60vh);
+  overflow-y: auto;
+}
+.schedule-popover {
+  left: 8px;
+  width: min(440px, calc(100% - 16px));
+}
+.route-popover .composer-chips {
+  display: grid;
+  gap: 1px;
+  padding: 0;
+  border: 0;
+}
+.route-popover .chip-select,
+.route-popover .chip-check,
+.route-popover .chip-more {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 36px;
+  padding: 0 6px 0 10px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--text);
+  font-size: 13px;
+}
+.route-popover .chip-select:hover,
+.route-popover .chip-check:hover,
+.route-popover .chip-more:hover,
+.route-popover .chip-select.open {
+  background: var(--hover);
+}
+.route-popover .chip-select > span {
+  color: var(--muted);
+}
+.route-popover .chip-value {
+  font-size: 13px;
+}
+.route-popover .chip-check {
+  justify-content: flex-start;
+  gap: 8px;
+  color: var(--muted);
+}
+.route-popover .chip-more {
+  color: var(--muted);
+}
+.route-popover .chip-more.active {
+  background: transparent;
+  color: var(--text);
+}
+.route-popover .composer-advanced {
+  display: grid;
+  gap: 1px;
+  margin-top: 4px;
+  padding-top: 4px;
+  border-top: 1px solid var(--border);
+}
+.route-popover .chip-input > input {
+  width: 100%;
+  max-width: 190px;
+  text-align: right;
+}
+.route-popover .effort-slider {
+  padding: 4px 10px 8px;
+}
+.schedule-popover .composer-schedule {
+  padding: 6px 8px;
+  border: 0;
+}
+.composer-caption {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+}
+.composer-caption .executor-selection-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+}
+
+/* Inline confirmation for clearing an account for good. */
+.purge-confirm {
+  display: grid;
+  gap: 8px;
+  margin: 4px 0 8px;
+  padding: 10px 12px;
+  border: 1px solid color-mix(in srgb, var(--danger) 40%, var(--border));
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--danger) 6%, var(--panel));
+}
+.purge-confirm p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.purge-confirm-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.purge-confirm-row input {
+  flex: 1;
+  min-width: 0;
+  height: 30px;
+}
+
+.composer-command-menu {
+  max-height: min(320px, 45vh);
+  overflow-y: auto;
+}
+.composer-command-menu .mention-row {
+  gap: 12px;
+  padding: 9px 12px;
+}
+.composer-command-menu code {
+  min-width: 76px;
+  color: var(--muted);
+}
+.composer-command-menu .mention-text {
+  overflow-wrap: anywhere;
+}
+
+.composer-option-hint {
+  padding: 0 10px 6px;
+  color: var(--faint);
+  line-height: 1.5;
+}
+.route-popover .composer-recovery-choice {
+  height: auto;
+  padding-block: 6px;
+  white-space: normal;
+}
+.composer-recovery-choice small {
+  display: block;
+  color: var(--faint);
+  line-height: 1.5;
+}
+
+:root[data-theme='dark'] .composer-menu,
+:root[data-theme='dark'] .mention-menu,
+:root[data-theme='dark'] .mention-section,
+:root[data-theme='dark'] .composer-popover {
+  background: var(--surface-2);
+}
+.composer-mode-route {
+  color: var(--text);
+}

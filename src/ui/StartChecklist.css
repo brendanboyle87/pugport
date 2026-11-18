@@ -1,0 +1,46 @@
+.start-checklist {
+  width: min(420px, 100%);
+  margin-top: 16px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface-1);
+  text-align: left;
+}
+
+.start-checklist h2 {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.start-checklist ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.start-checklist-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  min-height: 38px;
+  font-size: 12px;
+}
+
+.start-checklist-name {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.start-checklist-status {
+  color: var(--muted);
+}
+
+.start-checklist-project {
+  margin-top: 10px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}

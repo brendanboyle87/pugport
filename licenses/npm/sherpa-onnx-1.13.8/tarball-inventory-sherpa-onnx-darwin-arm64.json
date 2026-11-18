@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "name": "sherpa-onnx-darwin-arm64",
+  "version": "1.13.8",
+  "tarballUrl": "https://registry.npmjs.org/sherpa-onnx-darwin-arm64/-/sherpa-onnx-darwin-arm64-1.13.8.tgz",
+  "packageIntegrity": "sha512-FPNgJMgnWVl/KhRTIhG3KL3A4Om63Rn4YKXc9/uHY7SzLcvqLJLc/h7UBWJwduXvv7K18t5NpxHR6XgXn4sjWw==",
+  "tarballSha256": "e1abc1d9676478996574de922e55714d80b4500b860bc4e7349aa01cd0ea4929",
+  "licenseOrNoticeFiles": [],
+  "files": [
+    {
+      "path": "package/libonnxruntime.dylib",
+      "bytes": 29006384
+    },
+    {
+      "path": "package/libsherpa-onnx-c-api.dylib",
+      "bytes": 4275368
+    },
+    {
+      "path": "package/libsherpa-onnx-cxx-api.dylib",
+      "bytes": 161936
+    },
+    {
+      "path": "package/index.js",
+      "bytes": 48
+    },
+    {
+      "path": "package/package.json",
+      "bytes": 1460
+    },
+    {
+      "path": "package/README.md",
+      "bytes": 94
+    },
+    {
+      "path": "package/sherpa-onnx.node",
+      "bytes": 644448
+    }
+  ]
+}

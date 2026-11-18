@@ -1,0 +1,128 @@
+.history-search-dialog {
+  padding: 0;
+  width: min(680px, calc(100vw - 32px));
+  max-height: min(720px, 80vh);
+  margin: 12vh auto auto;
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+  background: var(--panel);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+.history-search-dialog::backdrop {
+  background: var(--backdrop);
+}
+.history-search-dialog > div[aria-busy] {
+  overflow: auto;
+  min-height: 0;
+}
+.history-search-dialog .palette-input input {
+  min-width: 0;
+}
+.search-results > button {
+  align-items: flex-start;
+  gap: 18px;
+}
+.search-result-copy {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  gap: 5px;
+  text-align: left;
+}
+.search-result-copy strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 500;
+}
+.search-snippet {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+.search-results time {
+  font-size: 11px;
+  color: var(--faint);
+  white-space: nowrap;
+  padding-top: 2px;
+}
+.search-snippet mark {
+  background: color-mix(in srgb, var(--warning) 23%, transparent);
+  color: var(--text);
+  border-radius: 2px;
+}
+.search-footer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 10px 16px;
+  border-top: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--muted);
+}
+.conversation-find-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-end;
+  width: min(420px, 100%);
+  flex-wrap: wrap;
+  flex-shrink: 0;
+  padding: 6px 10px;
+  background: var(--panel);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+  z-index: 2;
+}
+.conversation-find-bar small {
+  flex-basis: 100%;
+  color: var(--muted);
+  font-size: 11px;
+  order: 1;
+}
+.conversation-find-bar input {
+  flex: 1;
+  width: 0;
+  min-width: 50px;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  padding: 4px;
+  font: inherit;
+  font-size: 12px;
+}
+.conversation-find-bar output {
+  font-size: 11px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+::highlight(conversation-find) {
+  background-color: color-mix(in srgb, var(--warning) 30%, transparent);
+  color: var(--text);
+}
+::highlight(conversation-find-active) {
+  background-color: var(--warning);
+  color: var(--bg);
+}
+@media (max-width: 520px) {
+  .search-results > button {
+    flex-direction: column;
+    gap: 5px;
+  }
+  .search-result-copy {
+    width: 100%;
+  }
+}
+
+.conversation-find-bar:focus-within {
+  border-color: var(--accent);
+}
+.conversation-find-bar input:focus {
+  box-shadow: none;
+}

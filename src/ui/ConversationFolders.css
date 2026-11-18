@@ -1,0 +1,136 @@
+.folder-heading-actions,
+.chat-folder-heading,
+.chat-folder-toggle {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.folder-heading-actions {
+  gap: 2px;
+}
+.chat-folder {
+  border-radius: 8px;
+  margin: 3px 0;
+}
+.chat-folder-heading {
+  gap: 0;
+  padding: 0 4px;
+  min-height: 28px;
+}
+.chat-folder-toggle {
+  flex: 1;
+  min-width: 0;
+  background: none;
+  border: 0;
+  text-align: left;
+  padding: 0;
+  color: var(--muted);
+  font-size: 12px;
+  min-height: 28px;
+  font-weight: 500;
+}
+.chat-folder-toggle .chat-category-icon {
+  color: var(--accent);
+}
+.chat-folder-toggle span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.chat-folder-toggle small {
+  margin-left: auto;
+  color: var(--faint);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+.chat-folder-heading > .icon-button {
+  opacity: 0;
+}
+.chat-folder-heading:hover > .icon-button,
+.chat-folder-heading:focus-within > .icon-button {
+  opacity: 1;
+}
+.chat-folder-rows {
+  padding-left: 17px;
+}
+.folder-empty {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  padding: 7px 12px;
+}
+.unfiled-label {
+  font-size: 11px;
+  color: var(--muted);
+  padding: 10px 12px 5px;
+  display: flex;
+  justify-content: space-between;
+}
+.unfiled-chats {
+  min-height: 32px;
+  border-radius: 8px;
+}
+.chat-folders .drag-over {
+  background: var(--surface-3);
+  outline: 1px solid var(--muted);
+}
+.folder-dialog {
+  width: min(440px, calc(100vw - 32px));
+}
+.folder-dialog label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 13px;
+}
+.folder-dialog p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+.folder-dialog input,
+.folder-dialog select {
+  width: 100%;
+  box-sizing: border-box;
+}
+.folder-move-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.chat-folder-toggle:focus-visible,
+.chat-folder-heading > .icon-button:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 5px;
+}
+@media (hover: none) {
+  .chat-folder-heading > .icon-button {
+    opacity: 1;
+  }
+}
+
+/* One scrolling tree keeps long chat lists from pushing the navigation off screen. */
+.sidebar-conversations {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 12px;
+}
+.sidebar-conversations .general-conversations {
+  max-height: none;
+  overflow: visible;
+}
+.sidebar-conversations .project-list {
+  flex: none;
+  min-height: 0;
+  overflow: visible;
+  padding-bottom: 0;
+}
+.studio-sidebar > .studio-brand,
+.studio-sidebar > .new-conversation-button,
+.studio-sidebar > .sidebar-tools,
+.studio-sidebar > .sidebar-status {
+  flex-shrink: 0;
+}

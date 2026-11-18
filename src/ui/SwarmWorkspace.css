@@ -1,0 +1,515 @@
+/* Avatars: one CJK character or a few letters, tinted by name so a member is recognisable everywhere. */
+.avatar {
+  --avatar-size: 26px;
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: var(--avatar-size);
+  height: var(--avatar-size);
+  border: 0;
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--avatar) var(--tile-mix), var(--surface-2));
+  color: var(--avatar);
+  font-size: calc(var(--avatar-size) * 0.46);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0;
+  user-select: none;
+}
+.avatar.long {
+  font-size: calc(var(--avatar-size) * 0.34);
+  letter-spacing: normal;
+}
+.avatar.neutral {
+  border: 1px solid var(--border-strong);
+  background: var(--raised);
+  color: var(--muted);
+}
+
+/* The member strip under the conversation title. */
+.swarm-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 6px 20px;
+  border-bottom: 1px solid var(--border);
+  font-size: 12.5px;
+}
+.swarm-bar-icon {
+  flex: none;
+  color: var(--faint);
+}
+.swarm-bar-summary {
+  flex: none;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.swarm-avatars {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  overflow-x: auto;
+  padding: 3px 2px;
+  scrollbar-width: none;
+}
+.swarm-avatar {
+  position: relative;
+  display: inline-grid;
+  flex: none;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  transition: transform 0.12s;
+}
+.swarm-avatar:hover {
+  transform: translateY(-1px);
+}
+.swarm-avatar.selected .avatar {
+  outline: 2px solid color-mix(in srgb, var(--avatar) 70%, var(--text));
+  outline-offset: 1px;
+}
+.swarm-avatar.done .avatar,
+.swarm-avatar.stopped .avatar {
+  opacity: 0.55;
+}
+.swarm-avatar-dot {
+  position: absolute;
+  right: -1px;
+  bottom: -1px;
+  width: 9px;
+  height: 9px;
+  border: 2px solid var(--bg);
+  border-radius: 50%;
+  background: var(--faint);
+}
+.swarm-avatar.running .swarm-avatar-dot {
+  background: var(--live);
+  animation: swarm-breathe 1.8s ease-in-out infinite;
+}
+.swarm-avatar.waiting .swarm-avatar-dot {
+  background: var(--warning);
+}
+.swarm-avatar.stopped .swarm-avatar-dot {
+  background: var(--danger);
+}
+.swarm-bar-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--faint);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.swarm-example {
+  flex: none;
+  padding: 2px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 12px;
+}
+.swarm-example:hover {
+  border-color: var(--border-strong);
+  color: var(--text);
+}
+.swarm-error {
+  color: var(--danger);
+}
+@keyframes swarm-breathe {
+  50% {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--live) 25%, transparent);
+  }
+}
+
+/* The coordinator's task list, right under the member strip. */
+.swarm-plan {
+  padding: 6px 20px 8px;
+  border-bottom: 1px solid var(--border);
+  font-size: 12.5px;
+}
+.swarm-plan > header {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 4px;
+  color: var(--muted);
+}
+.swarm-plan > header strong {
+  color: var(--text);
+  font-weight: 600;
+}
+.swarm-saved {
+  margin-left: auto;
+  color: var(--live);
+}
+.swarm-plan ol {
+  display: grid;
+  gap: 2px;
+  max-height: 168px;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  list-style: none;
+}
+.swarm-plan-item {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  min-width: 0;
+  line-height: 1.6;
+}
+.swarm-plan-state {
+  flex: none;
+  min-width: 3.4em;
+  color: var(--faint);
+  font-size: 11.5px;
+}
+.swarm-plan-item.running .swarm-plan-state {
+  color: var(--live);
+}
+.swarm-plan-item.failed .swarm-plan-state {
+  color: var(--danger);
+}
+.swarm-plan-item.done .swarm-plan-title {
+  color: var(--muted);
+}
+.swarm-plan-title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.swarm-plan-meta {
+  flex: none;
+  margin-left: auto;
+  color: var(--faint);
+  font-size: 11.5px;
+  white-space: nowrap;
+}
+
+/* Member messages inside the conversation, one quiet line each. */
+.swarm-chat-line {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 2px 0;
+  padding: 6px 10px;
+  border-radius: 10px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+details.swarm-chat-line {
+  display: block;
+}
+details.swarm-chat-line > summary {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  cursor: pointer;
+  list-style: none;
+}
+details.swarm-chat-line > summary::-webkit-details-marker {
+  display: none;
+}
+.swarm-chat-line:hover {
+  background: var(--hover);
+}
+.swarm-chat-who {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 5px;
+  color: var(--text);
+  font-weight: 500;
+  white-space: nowrap;
+}
+.swarm-chat-who .avatar {
+  align-self: center;
+}
+.swarm-chat-arrow {
+  color: var(--faint);
+  font-weight: 400;
+}
+.swarm-chat-text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.swarm-chat-line time {
+  flex: none;
+  margin-left: auto;
+  color: var(--faint);
+  font-size: 11.5px;
+}
+.swarm-chat-full {
+  padding: 6px 0 2px 28px;
+  color: var(--text);
+}
+
+/* Side sheet: slides over the right of its container and leaves the conversation in place. */
+.conversation-workspace,
+.studio-main {
+  position: relative;
+}
+.side-sheet {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  width: min(440px, 92%);
+  border-left: 1px solid var(--border-strong);
+  background: var(--surface-1);
+  box-shadow: var(--shadow-lg);
+  animation: side-sheet-in 0.18s ease-out;
+}
+.side-sheet-head {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px 12px;
+  border-bottom: 1px solid var(--border);
+}
+.side-sheet-title {
+  display: grid;
+  min-width: 0;
+}
+.side-sheet-title strong {
+  overflow: hidden;
+  font-size: 15px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.side-sheet-title small {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.side-sheet-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+}
+.side-sheet-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+  overflow: auto;
+  padding: 14px 16px 16px;
+}
+@keyframes side-sheet-in {
+  from {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .side-sheet,
+  .swarm-avatar.running .swarm-avatar-dot {
+    animation: none;
+  }
+}
+@media (max-width: 720px) {
+  .side-sheet {
+    width: 100%;
+  }
+}
+
+/* Inside a member's sheet. */
+.swarm-state.running {
+  color: var(--live);
+}
+.swarm-state.waiting {
+  color: var(--warning);
+}
+.swarm-state.stopped {
+  color: var(--danger);
+}
+.swarm-assignment {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--raised);
+  font-size: 13px;
+}
+.swarm-assignment > summary {
+  display: grid;
+  gap: 2px;
+  cursor: pointer;
+  list-style: none;
+}
+.swarm-assignment > summary::-webkit-details-marker {
+  display: none;
+}
+.swarm-assignment > summary > span:first-child {
+  color: var(--faint);
+  font-size: 12px;
+}
+.swarm-assignment .swarm-complete-text {
+  margin: 8px 0;
+}
+.swarm-message-preview {
+  overflow-wrap: anywhere;
+}
+.swarm-recruits {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 12.5px;
+}
+.swarm-recruits button {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 8px 2px 3px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text);
+  font-size: 12.5px;
+}
+.swarm-recruits button:hover {
+  border-color: var(--border-strong);
+}
+.swarm-member-history {
+  display: grid;
+  flex: 1;
+  align-content: start;
+  gap: 10px;
+  min-height: 120px;
+  overflow: auto;
+}
+.swarm-history-message {
+  max-width: 92%;
+  padding: 8px 12px;
+  border-radius: 14px;
+  background: var(--raised);
+  font-size: 13px;
+  line-height: 1.65;
+}
+.swarm-history-message.user {
+  justify-self: end;
+  background: var(--hover);
+}
+.swarm-history-message.peer {
+  border: 1px dashed var(--border-strong);
+  background: transparent;
+}
+.swarm-history-message.peer.outgoing {
+  justify-self: end;
+}
+.swarm-history-message > header {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 2px;
+  font-size: 11.5px;
+}
+.swarm-history-message > header strong {
+  color: var(--muted);
+  font-weight: 500;
+}
+.swarm-history-message > header time {
+  color: var(--faint);
+}
+.swarm-full-text {
+  margin-left: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--faint);
+  font-size: 11.5px;
+}
+.swarm-full-text:hover {
+  color: var(--text);
+}
+.swarm-complete-text {
+  overflow-wrap: anywhere;
+}
+.swarm-complete-text > :first-child {
+  margin-top: 0;
+}
+.swarm-complete-text > :last-child {
+  margin-bottom: 0;
+}
+.swarm-message-content > summary {
+  display: grid;
+  gap: 2px;
+  cursor: pointer;
+  list-style: none;
+}
+.swarm-message-content > summary small {
+  color: var(--faint);
+}
+.swarm-new-content {
+  align-self: center;
+}
+.swarm-member-composer {
+  display: grid;
+  flex: none;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 8px;
+  padding: 8px 8px 8px 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: 16px;
+}
+.swarm-member-composer:focus-within {
+  border-color: var(--faint);
+  box-shadow: 0 0 0 3px var(--hover);
+}
+.swarm-member-composer textarea {
+  min-height: 40px;
+  max-height: 160px;
+  padding: 4px 0;
+  border: 0;
+  background: transparent;
+  outline-offset: -2px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  resize: none;
+}
+.swarm-member-composer textarea:focus {
+  box-shadow: none;
+}
+.swarm-member-composer textarea:focus-visible {
+  outline: none;
+}
+.swarm-member-composer p {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.swarm-full-text {
+  opacity: 0;
+  transition: opacity 0.12s;
+}
+.swarm-history-message:hover .swarm-full-text,
+.swarm-full-text:focus-visible {
+  opacity: 1;
+}
+
+:root[data-theme='dark'] .side-sheet {
+  background: var(--surface-2);
+}

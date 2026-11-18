@@ -1,0 +1,19 @@
+.reply-versions {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  margin: 2px 0 10px;
+  color: var(--muted);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.reply-versions .icon-button {
+  width: 24px;
+  height: 24px;
+  font-size: 17px;
+}
+
+.reply-versions .icon-button:disabled {
+  opacity: 0.3;
+}

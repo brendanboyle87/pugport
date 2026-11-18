@@ -1,0 +1,18 @@
+{
+  "sourceCommit": "a54c5744867e6292c2700aae42a42bcef6d57c89",
+  "source": "Complete src/ tree extracted with git archive; a temporary Node load hook served those original modules at their normal URLs.",
+  "capture": "The synthetic tests/helpers/normal-prompt.ts fixture dispatched both chat and build through the original Workspace and Controller. A loader-only marker asserted that a54c5744 Workspace was executed. Both capture tests passed.",
+  "workspaceSha256": "4360b2d31c83ed8b949104db2339f127a93363d6ccc40e30b30192ae2b2ca5d0",
+  "normalization": [
+    "Synthetic localComputer.summary and idleMachineReading mocks",
+    "Fixture directory, project ID and conversation ID replaced with stable placeholders",
+    "Two generated memory-file paths use forward slashes on all platforms",
+    "Only the current-date line is normalized; the state block and permission text are retained"
+  ],
+  "snapshots": {
+    "work-modes-normal-chat.txt": "6d37240fc1b2f2c3fed9d21b3cbc56d8765cf05d56fb33828b19634e9e3c12ac",
+    "work-modes-normal-build.txt": "4609f52c1bbb7dd91d2afb0baf957e8b6ffc5396081e89b703694cd9402e4116"
+  },
+  "verification": ".runtime/node.exe --import tsx --test tests/work-modes-prompt.test.ts",
+  "note": "Ordinary regression runs read these fixed snapshots and never invoke Git, load old code, or rewrite expectations."
+}

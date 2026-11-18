@@ -1,0 +1,191 @@
+/* A blind taste test above the composer: passages side by side, a pick, then who wrote which. */
+.taste-test {
+  margin: 0 0 10px;
+  padding: 10px 12px 12px;
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border));
+  border-radius: 10px;
+  background: var(--panel);
+  font-size: 13px;
+}
+.taste-test-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.taste-test-heading > svg {
+  flex-shrink: 0;
+  color: var(--accent-text);
+}
+.taste-test-heading > strong {
+  flex-shrink: 0;
+}
+.taste-test-heading > small {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--muted);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.taste-test-heading > .icon-button {
+  flex-shrink: 0;
+  margin-left: auto;
+}
+.taste-test-progress {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+.taste-test-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.taste-test-chip.done {
+  color: var(--live);
+}
+.taste-test-chip.failed {
+  color: var(--faint);
+}
+.taste-test-passages {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+.taste-test-passage {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 8px 10px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--raised);
+}
+.taste-test-passage h4 {
+  margin: 0 0 4px;
+  font-size: 13px;
+}
+.taste-test-text {
+  flex: 1;
+  max-height: 240px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  line-height: 1.85;
+}
+.taste-test-text p {
+  margin: 0 0 6px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.taste-test-passage > .button {
+  align-self: flex-start;
+  margin-top: 8px;
+}
+.taste-test-missing {
+  margin: 0;
+  color: var(--faint);
+}
+.taste-test-reason {
+  width: 100%;
+  margin-top: 8px;
+  box-sizing: border-box;
+  resize: vertical;
+}
+.taste-test-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 8px;
+}
+.taste-test-reveal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--muted);
+}
+.taste-test-reveal li.chosen {
+  color: var(--live);
+}
+
+/* The project's remembered writing preferences in the routing panel. */
+.writing-preferences {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+.writing-preferences h3 {
+  margin: 0 0 6px;
+  font-size: 13px;
+}
+.writing-preference {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+.writing-preference-choice {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  font-size: 12.5px;
+}
+.writing-preference-choice small {
+  color: var(--faint);
+  overflow-wrap: anywhere;
+}
+.writing-preference-choice.muted {
+  color: var(--faint);
+}
+.writing-preference-test {
+  display: grid;
+  gap: 6px;
+  margin-top: 12px;
+}
+.writing-preference-test > .button {
+  justify-self: start;
+}
+.writing-style-check {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+.writing-style-check h3 {
+  margin: 0 0 6px;
+  font-size: 13px;
+}
+.taste-test-verdict {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin: 10px 0 0;
+  padding: 0;
+  border: 0;
+  font-size: 12.5px;
+}
+.taste-test-verdict label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.taste-test-verdict label.disabled {
+  color: var(--faint);
+}
+.writing-manuscript {
+  width: 100%;
+  margin-bottom: 12px;
+}
+.writing-preferences-entry {
+  margin-top: 16px;
+}

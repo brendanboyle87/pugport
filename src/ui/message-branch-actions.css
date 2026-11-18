@@ -1,0 +1,38 @@
+.sent-message-editor {
+  display: grid;
+  gap: 10px;
+  margin: 8px 0;
+  min-width: 0;
+}
+.sent-message-editor textarea {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 100px;
+  resize: vertical;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--panel);
+  color: var(--text);
+  font: inherit;
+  line-height: 1.6;
+}
+.sent-message-editor-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.sent-message-editor-footer small {
+  flex: 1;
+  color: var(--muted);
+}
+.message-actions:focus-within > button,
+.delegated-message:hover .message-actions > button {
+  opacity: 1;
+}
+@media (hover: none), (max-width: 620px) {
+  .message-actions > button {
+    opacity: 1;
+  }
+}

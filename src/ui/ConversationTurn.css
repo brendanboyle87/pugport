@@ -1,0 +1,175 @@
+.conversation-turn {
+  min-width: 0;
+  font-size: 13px;
+}
+.turn-status,
+.turn-group > button,
+.turn-tool > summary,
+.turn-reasoning > summary {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  width: 100%;
+  background: none;
+  border: 0;
+  color: var(--muted);
+  text-align: left;
+  font: inherit;
+  padding: 9px 0;
+  cursor: pointer;
+}
+.turn-status {
+  border-bottom: 0.5px solid var(--border);
+  flex-wrap: wrap;
+}
+.turn-status:disabled {
+  opacity: 1;
+  cursor: default;
+}
+.conversation-turn svg {
+  flex: 0 0 14px;
+}
+.turn-status[aria-expanded='true'] > svg:first-child,
+.turn-group > button[aria-expanded='true'] > svg:first-child,
+.turn-tool[open] > summary > svg:first-child,
+.turn-reasoning[open] > summary > svg:first-child {
+  transform: rotate(90deg);
+}
+.turn-tool > summary,
+.turn-reasoning > summary {
+  list-style: none;
+}
+.turn-tool > summary::-webkit-details-marker,
+.turn-reasoning > summary::-webkit-details-marker {
+  display: none;
+}
+.turn-tool-title,
+.turn-live-detail,
+.turn-reasoning > summary > span:last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+.turn-tool-title {
+  flex: 1;
+}
+.turn-tool small {
+  max-width: 30%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.turn-tool-failed small,
+.turn-failed > .turn-status {
+  color: var(--danger, #c54b45);
+}
+.turn-process {
+  overflow: hidden;
+}
+.turn-detail-notice {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 8px;
+}
+.turn-narration {
+  margin: 12px 0;
+  color: var(--text);
+}
+.turn-tool-body {
+  margin-left: 20px;
+}
+.turn-tool-body pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  max-height: 224px;
+  overflow: auto;
+  font:
+    12px/1.6 'Cascadia Code',
+    Consolas,
+    ui-monospace,
+    monospace;
+  padding: 8px;
+  background: var(--surface-2);
+}
+.turn-inspect {
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+  margin-left: auto;
+  padding: 0;
+}
+.turn-tool-body-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  color: var(--muted);
+}
+.turn-tool-body-head small {
+  max-width: 65%;
+}
+.turn-tail {
+  padding: 12px 0;
+  color: var(--muted);
+}
+.turn-shimmer {
+  animation: turn-shimmer 1.8s ease-in-out infinite;
+}
+@keyframes turn-shimmer {
+  50% {
+    opacity: 0.7;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .turn-shimmer {
+    animation: none;
+  }
+}
+.workflow-trace.has-turn-display {
+  border: 0;
+  background: none;
+  padding: 0;
+}
+.workflow-trace.has-turn-display > details > summary {
+  font-size: 12px;
+  opacity: 0.75;
+}
+
+.turn-tail {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  min-width: 0;
+}
+.turn-tail > span {
+  flex-shrink: 0;
+}
+.turn-tail > .turn-tail-step,
+.turn-tail > .turn-tail-worker:not(:empty) {
+  margin-inline-end: 0.25em;
+}
+/* A long account and model name gives way before the elapsed time does. */
+.turn-tail > .turn-tail-stage {
+  flex-shrink: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.turn-tail > .workflow-elapsed,
+.turn-tail > .turn-tail-preview {
+  margin-inline-start: 0.25em;
+}
+.turn-tail > .turn-tail-preview {
+  flex-shrink: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.turn-reasoning > summary > span:not(:last-child),
+.turn-reasoning > summary > svg {
+  flex-shrink: 0;
+}

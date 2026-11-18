@@ -1,0 +1,32 @@
+/* The 设备 category in Settings; rows reuse the 外部智能体 card's styles. */
+.device-hint {
+  margin: 0;
+  color: var(--faint);
+  font-size: 12px;
+}
+.device-hint code {
+  font: 12px var(--mono);
+}
+.device-executors {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--muted);
+  font-size: 12px;
+}
+.device-slack {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+}
+.device-slack select {
+  min-width: 0;
+}
+.device-saved-file {
+  margin: 4px 0 0;
+  overflow-wrap: anywhere;
+  color: var(--text);
+}

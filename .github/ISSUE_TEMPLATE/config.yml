@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Questions and ideas
+    url: https://github.com/pugport/pugport/discussions
+    about: Ask questions and discuss open-ended ideas in PugPort's GitHub Discussions.
+  - name: Private security report
+    url: https://github.com/pugport/pugport/blob/main/.github/SECURITY.md
+    about: Follow SECURITY.md. Do not disclose vulnerabilities in public issues.

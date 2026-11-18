@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "name": "sherpa-onnx-node",
+  "version": "1.13.8",
+  "tarballUrl": "https://registry.npmjs.org/sherpa-onnx-node/-/sherpa-onnx-node-1.13.8.tgz",
+  "packageIntegrity": "sha512-MsDMBdhLFTZ1GwvcGSSQhnS7g/EA8OMH6IYysCVUOM7j8Icty9KRc0E6YT1A5fWBsZwRfKOeh88QC95aRvS8ag==",
+  "tarballSha256": "db2a7b8b18d950b6e9ca5c1c919afec33fd3dd2bfef1aade0bea5a9fe7a1f0f1",
+  "licenseOrNoticeFiles": [],
+  "files": [
+    {
+      "path": "package/addon-static-import.js",
+      "bytes": 2208
+    },
+    {
+      "path": "package/addon.js",
+      "bytes": 2760
+    },
+    {
+      "path": "package/audio-tagg.js",
+      "bytes": 1285
+    },
+    {
+      "path": "package/keyword-spotter.js",
+      "bytes": 1609
+    },
+    {
+      "path": "package/non-streaming-asr.js",
+      "bytes": 4509
+    },
+    {
+      "path": "package/non-streaming-speaker-diarization.js",
+      "bytes": 1164
+    },
+    {
+      "path": "package/non-streaming-speech-denoiser.js",
+      "bytes": 993
+    },
+    {
+      "path": "package/non-streaming-tts.js",
+      "bytes": 3166
+    },
+    {
+      "path": "package/online-speech-denoiser.js",
+      "bytes": 1286
+    },
+    {
+      "path": "package/punctuation.js",
+      "bytes": 1186
+    },
+    {
+      "path": "package/resampler.js",
+      "bytes": 2216
+    },
+    {
+      "path": "package/sherpa-onnx.js",
+      "bytes": 2080
+    },
+    {
+      "path": "package/speaker-identification.js",
+      "bytes": 3912
+    },
+    {
+      "path": "package/spoken-language-identification.js",
+      "bytes": 1120
+    },
+    {
+      "path": "package/streaming-asr.js",
+      "bytes": 4576
+    },
+    {
+      "path": "package/types.js",
+      "bytes": 22161
+    },
+    {
+      "path": "package/vad.js",
+      "bytes": 2971
+    },
+    {
+      "path": "package/package.json",
+      "bytes": 1676
+    },
+    {
+      "path": "package/README.md",
+      "bytes": 343
+    }
+  ]
+}

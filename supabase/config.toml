@@ -1,0 +1,6 @@
+[functions.report-problem]
+verify_jwt = false
+
+# The handler validates the user's JWT with Auth and checks OWNER_USER_ID.
+[functions.report-problem-admin]
+verify_jwt = false

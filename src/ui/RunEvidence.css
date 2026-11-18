@@ -1,0 +1,23 @@
+.run-evidence {
+  margin: 8px 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+.run-evidence > summary {
+  cursor: pointer;
+  width: fit-content;
+  padding-block: 4px;
+}
+.run-evidence > summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.run-evidence-body {
+  padding: 4px 12px;
+  max-width: 72ch;
+  overflow-wrap: anywhere;
+}
+.run-evidence-body p {
+  margin-block: 6px;
+  line-height: 1.6;
+}

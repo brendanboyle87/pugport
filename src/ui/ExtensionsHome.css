@@ -1,0 +1,72 @@
+.extensions-home {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 20px 8px 48px;
+}
+/* The Settings page title; Add shares its row, so the tabs stay put on every tab. */
+.extensions-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  max-width: 680px;
+  min-height: 32px;
+  margin-bottom: 16px;
+}
+.extensions-heading h1 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+.extensions-home-mods > .extensions-heading {
+  max-width: none;
+  margin-bottom: 20px;
+}
+.extensions-home.extensions-home-mods {
+  padding: 0;
+}
+.management-main:has(.extensions-home-mods) {
+  padding: 32px 40px 64px;
+}
+@media (max-width: 900px) {
+  .management-main:has(.extensions-home-mods) {
+    padding: 24px 24px 48px;
+  }
+}
+.extensions-home .mode-store {
+  padding: 0;
+  margin: 0;
+}
+.extensions-body.settings-content {
+  container: settings / inline-size;
+}
+/* Sheets render outside the tab body (OverlayLayer) and use the Settings narrow layout inside. */
+.extensions-home .side-sheet {
+  container: settings / inline-size;
+}
+.extensions-home .side-sheet :is(input, select, textarea) {
+  max-width: 100%;
+}
+/* Two lines in the row; the full text is in the row's details. */
+.extensions-body :is(.ext-row, .settings-catalog) .settings-row-description {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.ext-more {
+  width: 28px;
+  height: 28px;
+  min-height: 28px;
+}
+@media (max-width: 640px) {
+  .extensions-home > .page-tabs {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+  }
+  .extensions-home > .page-tabs button {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+}

@@ -1,0 +1,243 @@
+.routines-page {
+  min-width: 0;
+}
+.routines-page .muted,
+.routine-dialog .muted {
+  color: var(--muted);
+}
+.routines-note {
+  font-size: 12px;
+}
+.routines-note {
+  margin: 24px 0 12px;
+}
+.routines-list {
+  display: grid;
+  gap: 14px;
+}
+.routine-card {
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--panel);
+  min-width: 0;
+}
+.routine-top {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.routine-title {
+  flex: 1;
+  min-width: 0;
+}
+.routine-title h2 {
+  margin: 0 0 6px;
+  font-size: 15px;
+  overflow-wrap: anywhere;
+}
+.routine-title p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+.routine-next {
+  font-size: 13px;
+  margin: 18px 0 6px;
+}
+.routine-meta {
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+.routine-switch {
+  width: 36px;
+  height: 20px;
+  flex-shrink: 0;
+  padding: 2px;
+  border: 1px solid var(--control-border);
+  border-radius: 999px;
+  background: var(--surface-3);
+  cursor: pointer;
+}
+.routine-switch span {
+  display: block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow:
+    0 0 0 1px rgba(16, 18, 28, 0.12),
+    0 1px 2px rgba(0, 0, 0, 0.25);
+  transition: transform var(--dur-2);
+}
+.routine-switch[aria-checked='true'] {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.routine-switch[aria-checked='true'] span {
+  transform: translateX(16px);
+}
+.routine-menu {
+  position: relative;
+}
+.routine-menu summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  padding: 4px;
+  border-radius: 6px;
+}
+.routine-menu summary:hover {
+  background: var(--hover);
+}
+.routine-menu > div {
+  position: absolute;
+  z-index: 3;
+  right: 0;
+  top: 32px;
+  min-width: 128px;
+  padding: 5px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  border-radius: 10px;
+}
+.routine-menu button {
+  display: block;
+  width: 100%;
+  padding: 9px 12px;
+  text-align: left;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.routine-menu button:hover {
+  background: var(--hover);
+}
+.routine-history {
+  border-top: 1px solid var(--border);
+  margin-top: 16px;
+  padding-top: 12px;
+  font-size: 12px;
+}
+.routine-history summary {
+  cursor: pointer;
+  color: var(--muted);
+}
+.routine-history summary span {
+  margin-left: 6px;
+}
+.routine-history ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.routine-history li {
+  margin-top: 14px;
+}
+.routine-history li > div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.routine-history li p {
+  margin: 6px 0;
+  overflow-wrap: anywhere;
+}
+.routine-history a {
+  margin-left: auto;
+}
+.routine-status {
+  background: var(--raised);
+  border-radius: 6px;
+  padding: 3px 7px;
+}
+.routine-status.completed {
+  color: var(--live);
+}
+.routine-status.failed {
+  color: var(--danger);
+}
+.routines-empty {
+  text-align: center;
+  padding: 48px 16px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.routines-empty h2 {
+  font-size: 14px;
+  color: var(--text);
+  font-weight: 500;
+}
+.routine-dialog {
+  width: min(580px, calc(100vw - 32px));
+  max-height: calc(100vh - 40px);
+  overflow: auto;
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  color: var(--text);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+.routine-dialog::backdrop {
+  background: var(--backdrop);
+}
+.routine-dialog h2 {
+  font-size: 18px;
+  margin: 0;
+}
+.routine-dialog fieldset {
+  border: 0;
+  padding: 0;
+  margin: 22px 0;
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+}
+.routine-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+.routine-dialog input,
+.routine-dialog select,
+.routine-dialog textarea {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+.routine-dialog textarea {
+  resize: vertical;
+}
+.routine-dialog footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 12px;
+}
+@media (max-width: 540px) {
+  .routines-page > .management-heading .button {
+    white-space: nowrap;
+  }
+  .routine-fields {
+    grid-template-columns: 1fr;
+  }
+  .routine-dialog {
+    padding: 18px;
+  }
+}
+
+.routines-empty p {
+  max-width: 320px;
+  margin: 12px auto 0;
+}
+.routines-empty > svg {
+  width: 28px;
+  height: 28px;
+  stroke-width: 1.5;
+  color: var(--faint);
+}

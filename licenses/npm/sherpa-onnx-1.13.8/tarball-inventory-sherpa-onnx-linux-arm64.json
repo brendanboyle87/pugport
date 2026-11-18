@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "name": "sherpa-onnx-linux-arm64",
+  "version": "1.13.8",
+  "tarballUrl": "https://registry.npmjs.org/sherpa-onnx-linux-arm64/-/sherpa-onnx-linux-arm64-1.13.8.tgz",
+  "packageIntegrity": "sha512-Tlg7a70b/Wge3OF8IgTHF9jhSVCsLyKQKhwc4BsJ5A+dL/SrFtGBjzuHp4XeLhiiOT7afCxX5PdSn/D4c8Lnuw==",
+  "tarballSha256": "e1671ad6e94e51947229a5736d06022780f3fba967da8d917173cd9765902ee8",
+  "licenseOrNoticeFiles": [],
+  "files": [
+    {
+      "path": "package/index.js",
+      "bytes": 48
+    },
+    {
+      "path": "package/package.json",
+      "bytes": 1458
+    },
+    {
+      "path": "package/README.md",
+      "bytes": 94
+    },
+    {
+      "path": "package/sherpa-onnx.node",
+      "bytes": 804112
+    },
+    {
+      "path": "package/libonnxruntime.so",
+      "bytes": 34606912
+    },
+    {
+      "path": "package/libsherpa-onnx-c-api.so",
+      "bytes": 4613032
+    },
+    {
+      "path": "package/libsherpa-onnx-cxx-api.so",
+      "bytes": 281200
+    }
+  ]
+}

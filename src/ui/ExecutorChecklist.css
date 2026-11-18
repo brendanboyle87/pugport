@@ -1,0 +1,27 @@
+.executor-checklist {
+  margin: 14px 0;
+}
+.executor-checklist-title,
+.executor-checklist-card {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.executor-checklist-title strong {
+  margin-right: auto;
+}
+.executor-checklist table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.executor-checklist th,
+.executor-checklist td {
+  padding: 6px 8px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+.executor-checklist td:last-child,
+.executor-checklist th:last-child {
+  text-align: center;
+}

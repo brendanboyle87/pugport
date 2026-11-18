@@ -1,0 +1,126 @@
+.conversation-tools-dock {
+  position: absolute;
+  inset: 62px 8px 12px auto;
+  width: min(560px, 92%);
+  z-index: 15;
+  box-shadow: 0 8px 32px #0005;
+}
+.conversation-tools-dock > .project-tools {
+  height: 100%;
+  max-height: none;
+}
+.conversation-tool-surface {
+  height: 100%;
+}
+.conversation-tool-surface > .project-tools {
+  height: 100%;
+  max-height: none;
+}
+.conversation-tool-surface[hidden] {
+  display: none;
+}
+.conversation-work-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-width: 280px;
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.toolbar-button.conversation-tools-button {
+  width: auto;
+  flex: 0 0 auto;
+  padding-inline: 8px;
+  white-space: nowrap;
+}
+.conversation-work-panel > header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+}
+.conversation-work-body {
+  padding: 14px;
+  overflow: auto;
+  display: grid;
+  align-content: start;
+  gap: 14px;
+}
+.conversation-work-body details {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 12px;
+}
+.conversation-work-body summary {
+  cursor: pointer;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.conversation-work-body form {
+  display: grid;
+  gap: 12px;
+  margin: 10px 0;
+}
+.conversation-work-body textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+.conversation-job-list {
+  display: grid;
+  gap: 10px;
+}
+.conversation-job-list article,
+.conversation-mail {
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  display: grid;
+  gap: 8px;
+}
+.conversation-job-list article > span,
+.conversation-mail > small {
+  color: var(--muted);
+  font-size: 12px;
+}
+.conversation-mail p {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  margin: 0;
+}
+.conversation-peer-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.conversation-lane-child {
+  margin-left: 14px;
+  padding-left: 8px;
+  border-left: 1px solid var(--border);
+}
+.conversation-work-panel > header > div {
+  min-width: 0;
+}
+.conversation-work-panel > header .quiet-text {
+  margin: 6px 0 0;
+}
+.conversation-work-panel > header > button {
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+.conversation-work-body summary > .quiet-text {
+  display: block;
+  margin-top: 4px;
+  font-weight: 400;
+}
+.conversation-work-body .conversation-collaboration-opt-in {
+  display: flex;
+  width: fit-content;
+  max-width: 100%;
+  height: auto;
+  min-height: 30px;
+  padding-block: 6px;
+  margin: 0 0 12px;
+  white-space: normal;
+}

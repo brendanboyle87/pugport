@@ -1,0 +1,110 @@
+.conversation-background {
+  position: relative;
+  align-self: flex-start;
+  margin: 8px 24px;
+  color: var(--muted);
+  font-size: 12px;
+  z-index: 5;
+}
+.background-trigger,
+.background-popover button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+.background-trigger {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 0;
+}
+.background-popover {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: min(620px, calc(100vw - 64px));
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 8px 28px #0002;
+  padding: 12px;
+  max-height: 70vh;
+  overflow: auto;
+}
+.background-popover header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.background-section > summary {
+  cursor: pointer;
+  padding: 8px 0;
+}
+.background-work-summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 0;
+  text-align: left;
+}
+.background-work-title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.background-work-summary small,
+.background-work-summary time {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.background-work-summary[aria-expanded='true'] > svg {
+  transform: rotate(90deg);
+}
+.background-work-summary svg {
+  flex-shrink: 0;
+}
+.background-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: var(--success, #458d66);
+}
+.background-dot.failed {
+  background: var(--danger, #cb5048);
+}
+.background-dot.running {
+  background: var(--accent);
+  animation: background-pulse 1.8s ease-in-out infinite;
+}
+.background-work-body pre {
+  max-height: 240px;
+  overflow: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  padding: 8px;
+  background: var(--surface-2);
+}
+.background-command,
+.background-work-body pre {
+  font-family: 'Cascadia Code', Consolas, ui-monospace, monospace;
+}
+.background-work-body button {
+  font-size: 11px;
+  margin-right: 12px;
+}
+@keyframes background-pulse {
+  50% {
+    opacity: 0.4;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .background-dot.running {
+    animation: none;
+  }
+}

@@ -1,0 +1,132 @@
+.conversation-delegation-tree {
+  position: relative;
+  flex: none;
+}
+.delegation-tree-popover {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 50;
+  width: min(360px, 85vw);
+  max-height: min(60vh, 500px);
+  overflow: auto;
+  padding: 8px;
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px #0003;
+}
+.delegation-tree-toggle,
+.delegation-tree-more,
+.delegation-branch-toggle,
+.delegation-member-more,
+.delegation-member-link {
+  display: flex;
+  align-items: center;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font: inherit;
+  font-size: 11px;
+  min-width: 0;
+}
+.delegation-member-more {
+  flex: 0 0 22px;
+  padding: 4px;
+  justify-content: center;
+}
+.delegation-member-more:focus-visible {
+  outline: 2px solid var(--accent);
+  border-radius: 4px;
+}
+.delegation-tree-toggle {
+  gap: 5px;
+  width: auto;
+  padding: 5px 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+.delegation-tree-toggle:hover,
+.delegation-tree-row:hover,
+.delegation-tree-row.selected {
+  background: var(--surface-2);
+  border-radius: 5px;
+}
+.delegation-tree-count {
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+}
+.delegation-tree-toggle .expanded,
+.delegation-branch-toggle .expanded {
+  transform: rotate(90deg);
+}
+.delegation-tree-row {
+  display: flex;
+  align-items: center;
+  min-height: 28px;
+  min-width: 0;
+}
+.delegation-branch-toggle,
+.delegation-branch-spacer {
+  width: 17px;
+  flex: 0 0 17px;
+  padding: 3px;
+}
+.delegation-member-link {
+  flex: 1;
+  gap: 6px;
+  padding: 5px 4px 5px 0;
+  text-align: start;
+}
+.delegation-member-name {
+  color: var(--text);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.delegation-member-status {
+  margin-left: auto;
+  max-width: 47%;
+  flex-shrink: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 10px;
+}
+.delegation-member-status[data-status='running'],
+.delegation-member-status[data-status='planning'] {
+  color: var(--live);
+}
+.delegation-member-status[data-status='failed'],
+.delegation-member-status[data-status='blocked'] {
+  color: var(--danger);
+}
+.delegation-tree-row:focus-visible,
+.delegation-tree-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  border-radius: 4px;
+}
+.delegation-tree-more {
+  padding: 6px 4px;
+}
+.delegation-tree-popover > p {
+  font-size: 11px;
+  overflow-wrap: anywhere;
+  padding: 4px;
+  margin: 0;
+}
+.delegation-detail .side-sheet {
+  position: fixed;
+  width: min(490px, 100vw);
+  z-index: 90;
+}
+
+.delegation-running-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--live);
+}

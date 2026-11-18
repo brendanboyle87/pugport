@@ -1,0 +1,59 @@
+.steering-stage {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  margin: 18px 0 8px;
+  padding: 8px 0;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 12px;
+}
+.steering-stage strong {
+  color: var(--text);
+  font-weight: 500;
+}
+.steering-stage time {
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+}
+.delegation-task-progress {
+  display: grid;
+  gap: 6px;
+  font-size: 12px;
+}
+.delegation-task-progress p {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.delegation-progress-heading {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+}
+.delegation-progress-heading > span {
+  color: var(--muted);
+}
+.delegation-progress-heading .workflow-elapsed {
+  margin-left: auto;
+}
+.delegation-task-title {
+  color: var(--text);
+  line-height: 1.65;
+}
+.delegation-executor,
+.delegation-tool {
+  color: var(--muted);
+}
+.delegation-blocker {
+  color: var(--warning);
+}
+.delegation-execution-details > summary {
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 12px;
+}
+.delegation-execution-details[open] > summary {
+  margin-bottom: 12px;
+}

@@ -1,0 +1,118 @@
+name: PugPort checks
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      full_checks:
+        # Public repositories always run the matrix; this only matters while private.
+        description: 'Private repository: also run the Windows and macOS checks (a macOS minute costs about 10x Linux)'
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: checks-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  private-check:
+    if: github.event.repository.private && (github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref == 'refs/heads/main'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '24'
+      - run: npm ci
+      - run: npx tsc --noEmit -p .
+      - run: npm run format:check
+      - run: node scripts/i18n-extract.mjs --check
+      - run: node --import tsx --test tests/pr-size.test.ts tests/issue-lifecycle.test.ts tests/workflow-routing.test.ts
+
+  check:
+    if: (github.event.repository.private == false || github.event_name == 'workflow_dispatch' && inputs.full_checks) && !(github.event_name == 'push' && startsWith(github.ref, 'refs/tags/'))
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ${{ fromJSON(github.event_name == 'push' && '["windows-latest"]' || '["windows-latest","macos-latest"]') }}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '24'
+      - run: npm ci
+      - name: Install Electron runtime before tests
+        run: node node_modules/electron/install.js
+      - run: npm run format:check
+      - run: npm run typecheck
+      - run: npm run i18n:check
+      - name: Verify distribution licenses
+        if: runner.os == 'Windows'
+        run: npm run verify:licenses
+      - name: Run tests
+        run: npm run test:ci
+      - name: Save synthetic UI screenshots for review
+        if: always() && github.event_name == 'pull_request'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: ui-checks-${{ runner.os }}
+          path: |
+            reports/bot-addition/*.png
+            reports/generic-api/*.png
+            reports/settings-categories/*-settings-conversation.png
+          if-no-files-found: ignore
+          retention-days: 7
+      - run: npm run build
+
+  windows-download:
+    name: Build Windows review download
+    # This workflow never creates or updates a public Release.
+    if: always() && (github.event.repository.private && (github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v'))) || !github.event.repository.private && github.event_name == 'workflow_dispatch' && needs.check.result == 'success')
+    needs: check
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '24'
+      - run: npm ci
+      - name: Install Electron runtime before packaging
+        run: node node_modules/electron/install.js
+      - run: npm run verify:licenses
+      - run: npm run build
+      - name: Package without optional model downloads
+        run: npm run package:desktop
+      - name: Verify lightweight package contents
+        run: node scripts/verify-lite-package.mjs release/PugPort-win32-x64
+      - name: Create portable ZIP and checksum
+        shell: pwsh
+        run: |
+          $version = (Get-Content package.json -Raw | ConvertFrom-Json).version
+          $shortCommit = $env:GITHUB_SHA.Substring(0, 8)
+          $zipName = "PugPort-$version-windows-x64-$shortCommit.zip"
+          $zipPath = Join-Path 'release' $zipName
+          Compress-Archive -LiteralPath 'release/PugPort-win32-x64' -DestinationPath $zipPath
+          $digest = (Get-FileHash -LiteralPath $zipPath -Algorithm SHA256).Hash.ToLowerInvariant()
+          "$digest  $zipName" | Set-Content -LiteralPath 'release/SHA256SUMS.txt' -Encoding utf8NoBOM
+          @(
+            "## Windows review download",
+            "Version: $version · Commit: $env:GITHUB_SHA",
+            'The artifact contains a portable ZIP, SHA256SUMS.txt and a package inventory.',
+            'Extract the complete folder, then run PugPort.exe. Optional models are installed separately.',
+            'This is an unsigned test build, not a published Release. It expires after 14 days.'
+          ) | Add-Content -LiteralPath $env:GITHUB_STEP_SUMMARY
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: PugPort-windows-x64-${{ github.sha }}
+          path: |
+            release/PugPort-*-windows-x64-*.zip
+            release/SHA256SUMS.txt
+            release/PugPort-win32-x64.inventory.json
+          if-no-files-found: error
+          retention-days: 14

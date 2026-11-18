@@ -1,0 +1,846 @@
+{
+  "schemaVersion": 1,
+  "scope": "Reviewed npm package/version omissions, including sherpa-onnx 1.13.8 and macOS sharp-libvips 1.3.4. Exact package grants plus original or explicitly identified standard license terms; no certification of all bundled native dependencies.",
+  "components": [
+    {
+      "name": "data-uri-to-buffer",
+      "version": "4.0.1",
+      "declaredLicense": "MIT",
+      "developmentOnly": false,
+      "packagePaths": [
+        "node_modules/data-uri-to-buffer"
+      ],
+      "packageIntegrity": "sha512-0R9ikRb668HB7QDxT1vkpuUBtqc53YyAwMwGeUFKRojY/NWKvdZ+9UYtRfGmhqNbRkTSVpMbmyhXipFFv2cb/A==",
+      "tarballUrl": "https://registry.npmjs.org/data-uri-to-buffer/-/data-uri-to-buffer-4.0.1.tgz",
+      "tarballSha256": "a5742b1b775d0b29fb562ff7e12f7ca19874e1c47322087b47a79230791642a1",
+      "upstreamCommit": "85cd8c854aefbf1bb636789d80364cfac8ea1583",
+      "basis": "Exact npm tarball README contains the complete MIT license and Copyright (c) 2014 Nathan Rajlich. License section is extracted byte-for-byte; no replacement author or year is supplied.",
+      "licenseFiles": [
+        {
+          "path": "licenses/npm/data-uri-to-buffer-4.0.1/LICENSE.txt",
+          "sha256": "3072ef4a004c4f92b37eae61cdc3e27225c0a7d2f5e144700e40b9c5a5a7a9b9",
+          "sourceUrl": "https://registry.npmjs.org/data-uri-to-buffer/-/data-uri-to-buffer-4.0.1.tgz",
+          "archiveEntry": "package/README.md",
+          "extraction": "From (The MIT License) through the full disclaimer; byte-for-byte substring."
+        }
+      ],
+      "attributionFile": {
+        "path": "licenses/npm/data-uri-to-buffer-4.0.1/ATTRIBUTION.md",
+        "sha256": "95750becb57a852fc77a6287e16d1829af40b1fc6dd66a4b826c240ac632a8d2",
+        "sourceUrl": "https://registry.npmjs.org/data-uri-to-buffer/-/data-uri-to-buffer-4.0.1.tgz",
+        "origin": "ComboRunner distribution attribution note; source license text is kept in separate files."
+      },
+      "evidence": [
+        {
+          "path": "licenses/npm/data-uri-to-buffer-4.0.1/upstream-package.json",
+          "sha256": "ad4f90a737ab5d8af4dad265e9218456e3779ca5beb70df38dd5feecf80121dd",
+          "sourceUrl": "https://registry.npmjs.org/data-uri-to-buffer/-/data-uri-to-buffer-4.0.1.tgz",
+          "archiveEntry": "package/package.json"
+        },
+        {
+          "path": "licenses/npm/data-uri-to-buffer-4.0.1/upstream-README.md",
+          "sha256": "a7cc4332acfa1f9b6530e01aac77fefe74f2efa32579215fddaa473013f9a25c",
+          "sourceUrl": "https://registry.npmjs.org/data-uri-to-buffer/-/data-uri-to-buffer-4.0.1.tgz",
+          "archiveEntry": "package/README.md"
+        },
+        {
+          "path": "licenses/npm/data-uri-to-buffer-4.0.1/source-1-README.md",
+          "sha256": "a7cc4332acfa1f9b6530e01aac77fefe74f2efa32579215fddaa473013f9a25c",
+          "sourceUrl": "https://raw.githubusercontent.com/TooTallNate/node-data-uri-to-buffer/85cd8c854aefbf1bb636789d80364cfac8ea1583/README.md"
+        }
+      ]
+    },
+    {
+      "name": "proxy-agent-negotiate",
+      "version": "1.1.0",
+      "declaredLicense": "MIT",
+      "developmentOnly": false,
+      "packagePaths": [
+        "node_modules/proxy-agent-negotiate"
+      ],
+      "packageIntegrity": "sha512-N8IBcM3UgCVzz2L2Lqv8DVntDnnC8/hiV4nEDUPkqq72TPUgYWjQc+bdZlBPZK9LzPAvOY//gAt0S0DApoOXWQ==",
+      "tarballUrl": "https://registry.npmjs.org/proxy-agent-negotiate/-/proxy-agent-negotiate-1.1.0.tgz",
+      "tarballSha256": "6eec23d5d381a8b0ffafe91c19876d3a052e463618695981a7529f3a8bca1997",
+      "upstreamCommit": "b7e5f7ccce1a3ac5b339cc4c587974e8989cbc16",
+      "basis": "Exact npm tarball package.json explicitly declares MIT and author Nathan Rajlich. Its release source has no LICENSE or README. The unmodified SPDX MIT text is a distribution supplement to that explicit declaration, not an invented upstream LICENSE. Template placeholders are not assertions of copyright ownership or dates.",
+      "licenseFiles": [
+        {
+          "path": "licenses/npm/proxy-agent-negotiate-1.1.0/MIT-standard.txt",
+          "sha256": "6d7c9e9d7d12c8d3753bdb24417b84819ba4d6c2f025c37948113d86dc81eef9",
+          "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/v3.26.0/text/MIT.txt",
+          "origin": "Unmodified SPDX standard text; see upstream-package.json and ATTRIBUTION.md for the specific package grant."
+        }
+      ],
+      "attributionFile": {
+        "path": "licenses/npm/proxy-agent-negotiate-1.1.0/ATTRIBUTION.md",
+        "sha256": "734feb0e875cd3c59a3527a95ead2de1eeba2099205f16c58fc8165d365f98f0",
+        "sourceUrl": "https://registry.npmjs.org/proxy-agent-negotiate/-/proxy-agent-negotiate-1.1.0.tgz",
+        "origin": "ComboRunner distribution attribution note; source license text is kept in separate files."
+      },
+      "evidence": [
+        {
+          "path": "licenses/npm/proxy-agent-negotiate-1.1.0/upstream-package.json",
+          "sha256": "7b7c2579ea138d20d4f7699ca78ef16c526f35168dbf694f1d47cc861b0954d4",
+          "sourceUrl": "https://registry.npmjs.org/proxy-agent-negotiate/-/proxy-agent-negotiate-1.1.0.tgz",
+          "archiveEntry": "package/package.json"
+        },
+        {
+          "path": "licenses/npm/proxy-agent-negotiate-1.1.0/source-1-package.json",
+          "sha256": "22afa667fffb3ada1f7d56955ed59f396936f80c55ce09a229fe0afb3247c77a",
+          "sourceUrl": "https://raw.githubusercontent.com/TooTallNate/proxy-agents/b7e5f7ccce1a3ac5b339cc4c587974e8989cbc16/packages/negotiate/package.json"
+        },
+        {
+          "path": "licenses/npm/proxy-agent-negotiate-1.1.0/npm-provenance-statement.json",
+          "sha256": "ce0005c5e5713b675a3d9d882b8597bcb8569b090208cc5db48eba33310a17d0",
+          "sourceUrl": "https://registry.npmjs.org/-/npm/v1/attestations/proxy-agent-negotiate@1.1.0",
+          "extraction": "Decoded SLSA dsseEnvelope.payload; provenance source recorded, no claim of independent signature verification."
+        }
+      ]
+    },
+    {
+      "name": "@electron-internal/extract-zip",
+      "version": "1.0.5",
+      "declaredLicense": "BSD-2-Clause",
+      "developmentOnly": true,
+      "packagePaths": [
+        "node_modules/@electron-internal/extract-zip"
+      ],
+      "packageIntegrity": "sha512-+bqFCP98pLI0Tt0XQo1TmlXtwjWchISndDOxCkEcIuUgXWpBnLyRI+2DU+mesvnMMX6L1XDqYNA0lXNDHd/yiA==",
+      "tarballUrl": "https://registry.npmjs.org/@electron-internal/extract-zip/-/extract-zip-1.0.5.tgz",
+      "tarballSha256": "939b4462974f8fa1b339dd4f420c62787ddf06903cc9c61f1f0661f096f5370b",
+      "upstreamCommit": "b83e459fd04c53b0a1c8438a6792df8f64be47fc",
+      "basis": "Exact npm package and release README explicitly declare BSD-2-Clause but omit its full text and copyright notice. The unchanged SPDX BSD-2-Clause text accompanies that declaration. The immediately subsequent upstream commit adds an MIT license and changes license metadata only; that actual upstream text is also retained as evidence, without silently relabeling this locked release as MIT.",
+      "licenseFiles": [
+        {
+          "path": "licenses/npm/electron-extract-zip-1.0.5/BSD-2-Clause-standard.txt",
+          "sha256": "f32fb3b417a194167cfad068223fc975ba96c5960513a10f66a3c28720aec1df",
+          "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/v3.26.0/text/BSD-2-Clause.txt",
+          "origin": "Unmodified SPDX standard text; see upstream-package.json and ATTRIBUTION.md for the specific package grant."
+        }
+      ],
+      "attributionFile": {
+        "path": "licenses/npm/electron-extract-zip-1.0.5/ATTRIBUTION.md",
+        "sha256": "7a0bb344bbd9045b915241cd1030b2cde812a82eb92e546e67584d77d8f34646",
+        "sourceUrl": "https://registry.npmjs.org/@electron-internal/extract-zip/-/extract-zip-1.0.5.tgz",
+        "origin": "ComboRunner distribution attribution note; source license text is kept in separate files."
+      },
+      "evidence": [
+        {
+          "path": "licenses/npm/electron-extract-zip-1.0.5/upstream-package.json",
+          "sha256": "438071218e7acba31a460d5c8ebb9a7dc4a8ce5c0cb05f9c706f5b4e1323884c",
+          "sourceUrl": "https://registry.npmjs.org/@electron-internal/extract-zip/-/extract-zip-1.0.5.tgz",
+          "archiveEntry": "package/package.json"
+        },
+        {
+          "path": "licenses/npm/electron-extract-zip-1.0.5/source-1-README.md",
+          "sha256": "61090965f7edb896c4492e9a090bec14e8e6abe2322480e4d2acde2a478c7500",
+          "sourceUrl": "https://raw.githubusercontent.com/electron/extract-zip/b83e459fd04c53b0a1c8438a6792df8f64be47fc/README.md"
+        },
+        {
+          "path": "licenses/npm/electron-extract-zip-1.0.5/source-2-LICENSE",
+          "sha256": "edab8abb78d9c5b36944c3e00aebf6a90eb32378993f49ac8a3904007029c629",
+          "sourceUrl": "https://raw.githubusercontent.com/electron/extract-zip/3c33b76429ebd9bf724bcfc32d3e8fae7eeb3e82/LICENSE"
+        },
+        {
+          "path": "licenses/npm/electron-extract-zip-1.0.5/source-3-commit.json",
+          "sha256": "5bbf364063c980055370838381ccd21cc4751f1bba5120407f4675989d9774c8",
+          "sourceUrl": "https://api.github.com/repos/electron/extract-zip/commits/3c33b76429ebd9bf724bcfc32d3e8fae7eeb3e82"
+        }
+      ]
+    },
+    {
+      "name": "err-code",
+      "version": "2.0.3",
+      "declaredLicense": "MIT",
+      "developmentOnly": true,
+      "packagePaths": [
+        "node_modules/err-code"
+      ],
+      "packageIntegrity": "sha512-2bmlRpNKBxT/CRmPOlyISQpNj+qSeYvcym/uT0Jx2bMOlKLtSy1ZmLuVxSEKKyor/N5yhvp/ZiG1oE3DEYMSFA==",
+      "tarballUrl": "https://registry.npmjs.org/err-code/-/err-code-2.0.3.tgz",
+      "tarballSha256": "a5664f4a04152f1dcfa51035879284895c5e104aa13d9e0627567ead2eb248e2",
+      "upstreamCommit": "92511d41a6a926c94c9d11493404867b1e92a77a",
+      "basis": "Exact npm tarball package.json declares MIT and author IndigoUnited; its README explicitly releases the package under MIT with an OSI link. The unmodified SPDX MIT text supplements that declaration. No copyright year or nonexistent upstream LICENSE has been invented.",
+      "licenseFiles": [
+        {
+          "path": "licenses/npm/err-code-2.0.3/MIT-standard.txt",
+          "sha256": "6d7c9e9d7d12c8d3753bdb24417b84819ba4d6c2f025c37948113d86dc81eef9",
+          "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/v3.26.0/text/MIT.txt",
+          "origin": "Unmodified SPDX standard text; see upstream-package.json and ATTRIBUTION.md for the specific package grant."
+        }
+      ],
+      "attributionFile": {
+        "path": "licenses/npm/err-code-2.0.3/ATTRIBUTION.md",
+        "sha256": "d76a63e6379e8b9835ab85a9dd458886eb4eb7271c2b29f8bb460a8719785d26",
+        "sourceUrl": "https://registry.npmjs.org/err-code/-/err-code-2.0.3.tgz",
+        "origin": "ComboRunner distribution attribution note; source license text is kept in separate files."
+      },
+      "evidence": [
+        {
+          "path": "licenses/npm/err-code-2.0.3/upstream-package.json",
+          "sha256": "ff5360c17c3e197fc4a4a4fa0d07640292556d585a49c8651fd198e926d47bcc",
+          "sourceUrl": "https://registry.npmjs.org/err-code/-/err-code-2.0.3.tgz",
+          "archiveEntry": "package/package.json"
+        },
+        {
+          "path": "licenses/npm/err-code-2.0.3/source-1-README.md",
+          "sha256": "2d89bcf41bb06b2eddbe129a75abd418ef92a5f633accec609fd22a4843a5a93",
+          "sourceUrl": "https://raw.githubusercontent.com/IndigoUnited/js-err-code/92511d41a6a926c94c9d11493404867b1e92a77a/README.md"
+        }
+      ]
+    },
+    {
+      "name": "@rolldown/binding-win32-x64-msvc",
+      "version": "1.2.11",
+      "declaredLicense": "MIT",
+      "developmentOnly": true,
+      "packagePaths": [
+        "node_modules/@rolldown/binding-win32-x64-msvc"
+      ],
+      "packageIntegrity": "sha512-/PzKqzAJ03i19oy2ItPvyvaVjOjBCNnfaJs8yvUdGBKmiESgnrJSQ2awd81QzFbbnAmu7YO9ZnJrDCb9VSJPRA==",
+      "tarballUrl": "https://registry.npmjs.org/@rolldown/binding-win32-x64-msvc/-/binding-win32-x64-msvc-1.2.11.tgz",
+      "tarballSha256": "b1c2305986ec4a7dd6e03f883d118dac96cd5c3d02970634a28041c31d8a6596",
+      "upstreamCommit": "8df421985114ecfaf52cce038d4a5a6ea8c05408",
+      "basis": "npm release provenance identifies this source commit. Its full original MIT license and original THIRD-PARTY-LICENSE are retained unchanged. This is a development-only native binding, excluded from ComboRunner Windows runtime packaging.",
+      "licenseFiles": [
+        {
+          "path": "licenses/npm/rolldown-binding-1.2.11/LICENSE.txt",
+          "sha256": "23ecfff35a5a2e80d92142f75228912c3b1abc4b5a8337a821ff4397e2f9f734",
+          "sourceUrl": "https://raw.githubusercontent.com/rolldown/rolldown/8df421985114ecfaf52cce038d4a5a6ea8c05408/LICENSE"
+        },
+        {
+          "path": "licenses/npm/rolldown-binding-1.2.11/THIRD-PARTY-LICENSE.txt",
+          "sha256": "a877291d800ed43692f3f9ae09d8e01cc6f7293ad39d43896059c188ffbb8b7c",
+          "sourceUrl": "https://raw.githubusercontent.com/rolldown/rolldown/8df421985114ecfaf52cce038d4a5a6ea8c05408/THIRD-PARTY-LICENSE"
+        }
+      ],
+      "attributionFile": {
+        "path": "licenses/npm/rolldown-binding-1.2.11/ATTRIBUTION.md",
+        "sha256": "a8344788d4a3c8bdee17e7844d264f318bae6c38dd66d1052c40bbe437a76f1d",
+        "sourceUrl": "https://registry.npmjs.org/@rolldown/binding-win32-x64-msvc/-/binding-win32-x64-msvc-1.2.11.tgz",
+        "origin": "ComboRunner distribution attribution note; source license text is kept in separate files."
+      },
+      "evidence": [
+        {
+          "path": "licenses/npm/rolldown-binding-1.2.11/upstream-package.json",
+          "sha256": "6c98310bbd4c636e8d3f8fcf18a56e7f9dbf7ce6981bc3292d501adaad631a6e",
+          "sourceUrl": "https://registry.npmjs.org/@rolldown/binding-win32-x64-msvc/-/binding-win32-x64-msvc-1.2.11.tgz",
+          "archiveEntry": "package/package.json"
+        },
+        {
+          "path": "licenses/npm/rolldown-binding-1.2.11/npm-provenance-statement.json",
+          "sha256": "5d951cb189f66d9a769cb62902f6951bad27efd99231865e3094c216a6d2b1af",
+          "sourceUrl": "https://registry.npmjs.org/-/npm/v1/attestations/@rolldown%2fbinding-win32-x64-msvc@1.2.11",
+          "extraction": "Decoded SLSA dsseEnvelope.payload; provenance source recorded, no claim of independent signature verification."
+        }
+      ]
+    },
+    {
+      "name": "sherpa-onnx-darwin-arm64",
+      "version": "1.13.8",
+      "declaredLicense": "Apache-2.0",
+      "developmentOnly": false,
+      "packagePaths": [
+        "node_modules/sherpa-onnx-darwin-arm64"
+      ],
+      "packageIntegrity": "sha512-FPNgJMgnWVl/KhRTIhG3KL3A4Om63Rn4YKXc9/uHY7SzLcvqLJLc/h7UBWJwduXvv7K18t5NpxHR6XgXn4sjWw==",
+      "tarballUrl": "https://registry.npmjs.org/sherpa-onnx-darwin-arm64/-/sherpa-onnx-darwin-arm64-1.13.8.tgz",
+      "tarballSha256": "e1abc1d9676478996574de922e55714d80b4500b860bc4e7349aa01cd0ea4929",
+      "upstreamReleaseTag": "v1.13.8",
+      "upstreamCommit": "11afbd009a7f8c08f4bcf2fc1b265d0df4670fbf",
+      "upstreamCommitBasis": "Official v1.13.8 tag commit equals exact npm version metadata gitHead.",
+      "basis": "Exact npm tarball package.json declares Apache-2.0 and author The next-gen Kaldi team. The tarball is verified against the exact package-lock SHA-512. The complete official v1.13.8 LICENSE is retained unchanged; neither the seven checked npm archives nor the pinned source root supplies a NOTICE file. This supplement covers the package grant, not every embedded native-library dependency.",
+      "licenseFiles": [
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/LICENSE.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "sourceUrl": "https://raw.githubusercontent.com/k2-fsa/sherpa-onnx/11afbd009a7f8c08f4bcf2fc1b265d0df4670fbf/LICENSE",
+          "releaseSourceUrl": "https://raw.githubusercontent.com/k2-fsa/sherpa-onnx/v1.13.8/LICENSE",
+          "upstreamBlobSha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+          "origin": "Unmodified official sherpa-onnx v1.13.8 LICENSE, also verified against its pinned Git blob."
+        }
+      ],
+      "attributionFile": {
+        "path": "licenses/npm/sherpa-onnx-1.13.8/ATTRIBUTION.md",
+        "sha256": "4598f0c9bb41fcdebc310224d69d1a302baa0c82dc237c5aa284bf4b91daa9de",
+        "sourceUrl": "https://github.com/k2-fsa/sherpa-onnx/tree/v1.13.8",
+        "origin": "ComboRunner distribution attribution note; original license and package metadata are retained separately."
+      },
+      "evidence": [
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/upstream-package-sherpa-onnx-darwin-arm64.json",
+          "sha256": "70ac867468808896163ec3739879efd7a393157cf0bfebf2801e531642c14d95",
+          "sourceUrl": "https://registry.npmjs.org/sherpa-onnx-darwin-arm64/-/sherpa-onnx-darwin-arm64-1.13.8.tgz",
+          "archiveEntry": "package/package.json"
+        },
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/npm-metadata-sherpa-onnx-darwin-arm64.json",
+          "sha256": "e87026223f15b17d8f69fba53fce0a621e56ab9d29b8a39675eb580bfad705d4",
+          "sourceUrl": "https://registry.npmjs.org/sherpa-onnx-darwin-arm64/1.13.8"
+        },
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/tarball-inventory-sherpa-onnx-darwin-arm64.json",
+          "sha256": "29c689702acce55a0fb655b4821f2e867e1e5fb748360c1ac8925fa12b07672e",
+          "sourceUrl": "https://registry.npmjs.org/sherpa-onnx-darwin-arm64/-/sherpa-onnx-darwin-arm64-1.13.8.tgz",
+          "origin": "File-name and size inventory generated after exact package-lock SHA-512 verification; archives and native binaries are not retained."
+        },
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/upstream-tag-v1.13.8.json",
+          "sha256": "30c1ea72fd153905bed0ebf7f406bfaa7d9437a73040be14380c8b8d738c020a",
+          "sourceUrl": "https://api.github.com/repos/k2-fsa/sherpa-onnx/git/ref/tags/v1.13.8"
+        },
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/upstream-root-tree.json",
+          "sha256": "d6b954638dbfbad245bcb35e570dc31fb826da62e271f43ae14b4bcb091c7013",
+          "sourceUrl": "https://api.github.com/repos/k2-fsa/sherpa-onnx/git/trees/11afbd009a7f8c08f4bcf2fc1b265d0df4670fbf"
+        },
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/upstream-README-sherpa-onnx-darwin-arm64.md",
+          "sha256": "7404cc01ddc4bd97dd9722686b44944a5ca88c619cc263988da273e7e67e16d2",
+          "sourceUrl": "https://registry.npmjs.org/sherpa-onnx-darwin-arm64/-/sherpa-onnx-darwin-arm64-1.13.8.tgz",
+          "archiveEntry": "package/README.md"
+        }
+      ]
+    },
+    {
+      "name": "sherpa-onnx-darwin-x64",
+      "version": "1.13.8",
+      "declaredLicense": "Apache-2.0",
+      "developmentOnly": false,
+      "packagePaths": [
+        "node_modules/sherpa-onnx-darwin-x64"
+      ],
+      "packageIntegrity": "sha512-7BLRpjM6w4f9W46/nmkmq8lEKUayhebvcpslCVQ+6QN2uReYlZEMDZlSpXMjme+hUFrPfRz8P3UNq8ep/4d19g==",
+      "tarballUrl": "https://registry.npmjs.org/sherpa-onnx-darwin-x64/-/sherpa-onnx-darwin-x64-1.13.8.tgz",
+      "tarballSha256": "3e583d3423160cb8a0f9316008e293ad9a6b66c63e1966ad399a88300390fbaa",
+      "upstreamReleaseTag": "v1.13.8",
+      "upstreamCommit": "11afbd009a7f8c08f4bcf2fc1b265d0df4670fbf",
+      "upstreamCommitBasis": "Official v1.13.8 tag commit equals exact npm version metadata gitHead.",
+      "basis": "Exact npm tarball package.json declares Apache-2.0 and author The next-gen Kaldi team. The tarball is verified against the exact package-lock SHA-512. The complete official v1.13.8 LICENSE is retained unchanged; neither the seven checked npm archives nor the pinned source root supplies a NOTICE file. This supplement covers the package grant, not every embedded native-library dependency.",
+      "licenseFiles": [
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/LICENSE.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "sourceUrl": "https://raw.githubusercontent.com/k2-fsa/sherpa-onnx/11afbd009a7f8c08f4bcf2fc1b265d0df4670fbf/LICENSE",
+          "releaseSourceUrl": "https://raw.githubusercontent.com/k2-fsa/sherpa-onnx/v1.13.8/LICENSE",
+          "upstreamBlobSha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+          "origin": "Unmodified official sherpa-onnx v1.13.8 LICENSE, also verified against its pinned Git blob."
+        }
+      ],
+      "attributionFile": {
+        "path": "licenses/npm/sherpa-onnx-1.13.8/ATTRIBUTION.md",
+        "sha256": "4598f0c9bb41fcdebc310224d69d1a302baa0c82dc237c5aa284bf4b91daa9de",
+        "sourceUrl": "https://github.com/k2-fsa/sherpa-onnx/tree/v1.13.8",
+        "origin": "ComboRunner distribution attribution note; original license and package metadata are retained separately."
+      },
+      "evidence": [
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/upstream-package-sherpa-onnx-darwin-x64.json",
+          "sha256": "a86b80c7ae03875dad47010aa1ea2ebb4d0e659cad51b3a575f10102824a68f9",
+          "sourceUrl": "https://registry.npmjs.org/sherpa-onnx-darwin-x64/-/sherpa-onnx-darwin-x64-1.13.8.tgz",
+          "archiveEntry": "package/package.json"
+        },
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/npm-metadata-sherpa-onnx-darwin-x64.json",
+          "sha256": "6d58c7f28db91861b3058088c33ce5fcf4087aa71a87449b8ae24223557fa64d",
+          "sourceUrl": "https://registry.npmjs.org/sherpa-onnx-darwin-x64/1.13.8"
+        },
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/tarball-inventory-sherpa-onnx-darwin-x64.json",
+          "sha256": "16013c23a782e7839252bad5ef0b5067272815a57d71ab6a59ac2ccff1dc0773",
+          "sourceUrl": "https://registry.npmjs.org/sherpa-onnx-darwin-x64/-/sherpa-onnx-darwin-x64-1.13.8.tgz",
+          "origin": "File-name and size inventory generated after exact package-lock SHA-512 verification; archives and native binaries are not retained."
+        },
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/upstream-tag-v1.13.8.json",
+          "sha256": "30c1ea72fd153905bed0ebf7f406bfaa7d9437a73040be14380c8b8d738c020a",
+          "sourceUrl": "https://api.github.com/repos/k2-fsa/sherpa-onnx/git/ref/tags/v1.13.8"
+        },
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/upstream-root-tree.json",
+          "sha256": "d6b954638dbfbad245bcb35e570dc31fb826da62e271f43ae14b4bcb091c7013",
+          "sourceUrl": "https://api.github.com/repos/k2-fsa/sherpa-onnx/git/trees/11afbd009a7f8c08f4bcf2fc1b265d0df4670fbf"
+        },
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/upstream-README-sherpa-onnx-darwin-x64.md",
+          "sha256": "7404cc01ddc4bd97dd9722686b44944a5ca88c619cc263988da273e7e67e16d2",
+          "sourceUrl": "https://registry.npmjs.org/sherpa-onnx-darwin-x64/-/sherpa-onnx-darwin-x64-1.13.8.tgz",
+          "archiveEntry": "package/README.md"
+        }
+      ]
+    },
+    {
+      "name": "sherpa-onnx-linux-arm64",
+      "version": "1.13.8",
+      "declaredLicense": "Apache-2.0",
+      "developmentOnly": false,
+      "packagePaths": [
+        "node_modules/sherpa-onnx-linux-arm64"
+      ],
+      "packageIntegrity": "sha512-Tlg7a70b/Wge3OF8IgTHF9jhSVCsLyKQKhwc4BsJ5A+dL/SrFtGBjzuHp4XeLhiiOT7afCxX5PdSn/D4c8Lnuw==",
+      "tarballUrl": "https://registry.npmjs.org/sherpa-onnx-linux-arm64/-/sherpa-onnx-linux-arm64-1.13.8.tgz",
+      "tarballSha256": "e1671ad6e94e51947229a5736d06022780f3fba967da8d917173cd9765902ee8",
+      "upstreamReleaseTag": "v1.13.8",
+      "upstreamCommit": "11afbd009a7f8c08f4bcf2fc1b265d0df4670fbf",
+      "upstreamCommitBasis": "Official v1.13.8 tag commit equals exact npm version metadata gitHead.",
+      "basis": "Exact npm tarball package.json declares Apache-2.0 and author The next-gen Kaldi team. The tarball is verified against the exact package-lock SHA-512. The complete official v1.13.8 LICENSE is retained unchanged; neither the seven checked npm archives nor the pinned source root supplies a NOTICE file. This supplement covers the package grant, not every embedded native-library dependency.",
+      "licenseFiles": [
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/LICENSE.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "sourceUrl": "https://raw.githubusercontent.com/k2-fsa/sherpa-onnx/11afbd009a7f8c08f4bcf2fc1b265d0df4670fbf/LICENSE",
+          "releaseSourceUrl": "https://raw.githubusercontent.com/k2-fsa/sherpa-onnx/v1.13.8/LICENSE",
+          "upstreamBlobSha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+          "origin": "Unmodified official sherpa-onnx v1.13.8 LICENSE, also verified against its pinned Git blob."
+        }
+      ],
+      "attributionFile": {
+        "path": "licenses/npm/sherpa-onnx-1.13.8/ATTRIBUTION.md",
+        "sha256": "4598f0c9bb41fcdebc310224d69d1a302baa0c82dc237c5aa284bf4b91daa9de",
+        "sourceUrl": "https://github.com/k2-fsa/sherpa-onnx/tree/v1.13.8",
+        "origin": "ComboRunner distribution attribution note; original license and package metadata are retained separately."
+      },
+      "evidence": [
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/upstream-package-sherpa-onnx-linux-arm64.json",
+          "sha256": "21465fab6ac026040f5599281e7f304a760958fd251602aff557274b31513ebf",
+          "sourceUrl": "https://registry.npmjs.org/sherpa-onnx-linux-arm64/-/sherpa-onnx-linux-arm64-1.13.8.tgz",
+          "archiveEntry": "package/package.json"
+        },
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/npm-metadata-sherpa-onnx-linux-arm64.json",
+          "sha256": "00b5adf6b5a66bbb8e5f818cecb16cc42cb14940f69ebba5ba8aaa106d40232c",
+          "sourceUrl": "https://registry.npmjs.org/sherpa-onnx-linux-arm64/1.13.8"
+        },
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/tarball-inventory-sherpa-onnx-linux-arm64.json",
+          "sha256": "6e61618a784ae5e8290548e45f64d8720e511aed23505b23c74f5d6f70524fb4",
+          "sourceUrl": "https://registry.npmjs.org/sherpa-onnx-linux-arm64/-/sherpa-onnx-linux-arm64-1.13.8.tgz",
+          "origin": "File-name and size inventory generated after exact package-lock SHA-512 verification; archives and native binaries are not retained."
+        },
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/upstream-tag-v1.13.8.json",
+          "sha256": "30c1ea72fd153905bed0ebf7f406bfaa7d9437a73040be14380c8b8d738c020a",
+          "sourceUrl": "https://api.github.com/repos/k2-fsa/sherpa-onnx/git/ref/tags/v1.13.8"
+        },
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/upstream-root-tree.json",
+          "sha256": "d6b954638dbfbad245bcb35e570dc31fb826da62e271f43ae14b4bcb091c7013",
+          "sourceUrl": "https://api.github.com/repos/k2-fsa/sherpa-onnx/git/trees/11afbd009a7f8c08f4bcf2fc1b265d0df4670fbf"
+        },
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/upstream-README-sherpa-onnx-linux-arm64.md",
+          "sha256": "7404cc01ddc4bd97dd9722686b44944a5ca88c619cc263988da273e7e67e16d2",
+          "sourceUrl": "https://registry.npmjs.org/sherpa-onnx-linux-arm64/-/sherpa-onnx-linux-arm64-1.13.8.tgz",
+          "archiveEntry": "package/README.md"
+        }
+      ]
+    },
+    {
+      "name": "sherpa-onnx-linux-x64",
+      "version": "1.13.8",
+      "declaredLicense": "Apache-2.0",
+      "developmentOnly": false,
+      "packagePaths": [
+        "node_modules/sherpa-onnx-linux-x64"
+      ],
+      "packageIntegrity": "sha512-6plnhjagsSeTntCgnlag86hWbs/uZE9Crms1LgOb68/1nKsIQjMd+WG519m+aPwT6TrsBOiEMzrx41t8sL5L5g==",
+      "tarballUrl": "https://registry.npmjs.org/sherpa-onnx-linux-x64/-/sherpa-onnx-linux-x64-1.13.8.tgz",
+      "tarballSha256": "13291bcd825da5858ca27a35443e9a2c229a40616c0910086de2db12c5c9312c",
+      "upstreamReleaseTag": "v1.13.8",
+      "upstreamCommit": "11afbd009a7f8c08f4bcf2fc1b265d0df4670fbf",
+      "upstreamCommitBasis": "Official v1.13.8 tag commit equals exact npm version metadata gitHead.",
+      "basis": "Exact npm tarball package.json declares Apache-2.0 and author The next-gen Kaldi team. The tarball is verified against the exact package-lock SHA-512. The complete official v1.13.8 LICENSE is retained unchanged; neither the seven checked npm archives nor the pinned source root supplies a NOTICE file. This supplement covers the package grant, not every embedded native-library dependency.",
+      "licenseFiles": [
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/LICENSE.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "sourceUrl": "https://raw.githubusercontent.com/k2-fsa/sherpa-onnx/11afbd009a7f8c08f4bcf2fc1b265d0df4670fbf/LICENSE",
+          "releaseSourceUrl": "https://raw.githubusercontent.com/k2-fsa/sherpa-onnx/v1.13.8/LICENSE",
+          "upstreamBlobSha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+          "origin": "Unmodified official sherpa-onnx v1.13.8 LICENSE, also verified against its pinned Git blob."
+        }
+      ],
+      "attributionFile": {
+        "path": "licenses/npm/sherpa-onnx-1.13.8/ATTRIBUTION.md",
+        "sha256": "4598f0c9bb41fcdebc310224d69d1a302baa0c82dc237c5aa284bf4b91daa9de",
+        "sourceUrl": "https://github.com/k2-fsa/sherpa-onnx/tree/v1.13.8",
+        "origin": "ComboRunner distribution attribution note; original license and package metadata are retained separately."
+      },
+      "evidence": [
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/upstream-package-sherpa-onnx-linux-x64.json",
+          "sha256": "1f968d74c36a44be07872cf5d3a8d9f6e9589928e3763632aed81a03127ac096",
+          "sourceUrl": "https://registry.npmjs.org/sherpa-onnx-linux-x64/-/sherpa-onnx-linux-x64-1.13.8.tgz",
+          "archiveEntry": "package/package.json"
+        },
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/npm-metadata-sherpa-onnx-linux-x64.json",
+          "sha256": "44e3272a421941a0aa8f136dea5e1ea7137d8aacebf7ccc3b268dba861cbf31b",
+          "sourceUrl": "https://registry.npmjs.org/sherpa-onnx-linux-x64/1.13.8"
+        },
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/tarball-inventory-sherpa-onnx-linux-x64.json",
+          "sha256": "f949162e54fe361fd46a49f79e0714976c0aaeba97926bf7081216f10a37d90c",
+          "sourceUrl": "https://registry.npmjs.org/sherpa-onnx-linux-x64/-/sherpa-onnx-linux-x64-1.13.8.tgz",
+          "origin": "File-name and size inventory generated after exact package-lock SHA-512 verification; archives and native binaries are not retained."
+        },
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/upstream-tag-v1.13.8.json",
+          "sha256": "30c1ea72fd153905bed0ebf7f406bfaa7d9437a73040be14380c8b8d738c020a",
+          "sourceUrl": "https://api.github.com/repos/k2-fsa/sherpa-onnx/git/ref/tags/v1.13.8"
+        },
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/upstream-root-tree.json",
+          "sha256": "d6b954638dbfbad245bcb35e570dc31fb826da62e271f43ae14b4bcb091c7013",
+          "sourceUrl": "https://api.github.com/repos/k2-fsa/sherpa-onnx/git/trees/11afbd009a7f8c08f4bcf2fc1b265d0df4670fbf"
+        },
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/upstream-README-sherpa-onnx-linux-x64.md",
+          "sha256": "7404cc01ddc4bd97dd9722686b44944a5ca88c619cc263988da273e7e67e16d2",
+          "sourceUrl": "https://registry.npmjs.org/sherpa-onnx-linux-x64/-/sherpa-onnx-linux-x64-1.13.8.tgz",
+          "archiveEntry": "package/README.md"
+        }
+      ]
+    },
+    {
+      "name": "sherpa-onnx-node",
+      "version": "1.13.8",
+      "declaredLicense": "Apache-2.0",
+      "developmentOnly": false,
+      "packagePaths": [
+        "node_modules/sherpa-onnx-node"
+      ],
+      "packageIntegrity": "sha512-MsDMBdhLFTZ1GwvcGSSQhnS7g/EA8OMH6IYysCVUOM7j8Icty9KRc0E6YT1A5fWBsZwRfKOeh88QC95aRvS8ag==",
+      "tarballUrl": "https://registry.npmjs.org/sherpa-onnx-node/-/sherpa-onnx-node-1.13.8.tgz",
+      "tarballSha256": "db2a7b8b18d950b6e9ca5c1c919afec33fd3dd2bfef1aade0bea5a9fe7a1f0f1",
+      "upstreamReleaseTag": "v1.13.8",
+      "upstreamCommit": "11afbd009a7f8c08f4bcf2fc1b265d0df4670fbf",
+      "upstreamCommitBasis": "Official v1.13.8 tag commit equals exact npm version metadata gitHead.",
+      "basis": "Exact npm tarball package.json declares Apache-2.0 and author The next-gen Kaldi team. The tarball is verified against the exact package-lock SHA-512. The complete official v1.13.8 LICENSE is retained unchanged; neither the seven checked npm archives nor the pinned source root supplies a NOTICE file. This supplement covers the package grant, not every embedded native-library dependency.",
+      "licenseFiles": [
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/LICENSE.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "sourceUrl": "https://raw.githubusercontent.com/k2-fsa/sherpa-onnx/11afbd009a7f8c08f4bcf2fc1b265d0df4670fbf/LICENSE",
+          "releaseSourceUrl": "https://raw.githubusercontent.com/k2-fsa/sherpa-onnx/v1.13.8/LICENSE",
+          "upstreamBlobSha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+          "origin": "Unmodified official sherpa-onnx v1.13.8 LICENSE, also verified against its pinned Git blob."
+        }
+      ],
+      "attributionFile": {
+        "path": "licenses/npm/sherpa-onnx-1.13.8/ATTRIBUTION.md",
+        "sha256": "4598f0c9bb41fcdebc310224d69d1a302baa0c82dc237c5aa284bf4b91daa9de",
+        "sourceUrl": "https://github.com/k2-fsa/sherpa-onnx/tree/v1.13.8",
+        "origin": "ComboRunner distribution attribution note; original license and package metadata are retained separately."
+      },
+      "evidence": [
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/upstream-package-sherpa-onnx-node.json",
+          "sha256": "e93e192e89e06d62e45ba583600af3c2f87b01a58f1dff121906714f06d703aa",
+          "sourceUrl": "https://registry.npmjs.org/sherpa-onnx-node/-/sherpa-onnx-node-1.13.8.tgz",
+          "archiveEntry": "package/package.json"
+        },
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/npm-metadata-sherpa-onnx-node.json",
+          "sha256": "10705e32a6c60434c12b8bb65ab49f4e896a140810b314052d90f088247f4797",
+          "sourceUrl": "https://registry.npmjs.org/sherpa-onnx-node/1.13.8"
+        },
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/tarball-inventory-sherpa-onnx-node.json",
+          "sha256": "7e7d4e4296bbd0f5f34680dd8b58e9c45216706183336400479a2d8e5a04f003",
+          "sourceUrl": "https://registry.npmjs.org/sherpa-onnx-node/-/sherpa-onnx-node-1.13.8.tgz",
+          "origin": "File-name and size inventory generated after exact package-lock SHA-512 verification; archives and native binaries are not retained."
+        },
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/upstream-tag-v1.13.8.json",
+          "sha256": "30c1ea72fd153905bed0ebf7f406bfaa7d9437a73040be14380c8b8d738c020a",
+          "sourceUrl": "https://api.github.com/repos/k2-fsa/sherpa-onnx/git/ref/tags/v1.13.8"
+        },
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/upstream-root-tree.json",
+          "sha256": "d6b954638dbfbad245bcb35e570dc31fb826da62e271f43ae14b4bcb091c7013",
+          "sourceUrl": "https://api.github.com/repos/k2-fsa/sherpa-onnx/git/trees/11afbd009a7f8c08f4bcf2fc1b265d0df4670fbf"
+        },
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/upstream-README-sherpa-onnx-node.md",
+          "sha256": "5706568eaac6a98ce8c7da76c5676086010b68254d0a0c307b742cb6357afb0b",
+          "sourceUrl": "https://registry.npmjs.org/sherpa-onnx-node/-/sherpa-onnx-node-1.13.8.tgz",
+          "archiveEntry": "package/README.md"
+        }
+      ]
+    },
+    {
+      "name": "sherpa-onnx-win-ia32",
+      "version": "1.13.8",
+      "declaredLicense": "Apache-2.0",
+      "developmentOnly": false,
+      "packagePaths": [
+        "node_modules/sherpa-onnx-win-ia32"
+      ],
+      "packageIntegrity": "sha512-H0Ojln9hfvM+pxWqW0cnjB/XK8/JPq4/k0IWu2JpY5Z458M3zv+XC3Hu+wmot3AoH/K1Bgt23n/tTKtPV9x8qg==",
+      "tarballUrl": "https://registry.npmjs.org/sherpa-onnx-win-ia32/-/sherpa-onnx-win-ia32-1.13.8.tgz",
+      "tarballSha256": "2e44e7bf0b0935ca8d9ad4967a9d8f6cf70b68b97eec8de1fde19e5cb3859128",
+      "upstreamReleaseTag": "v1.13.8",
+      "upstreamCommit": "11afbd009a7f8c08f4bcf2fc1b265d0df4670fbf",
+      "upstreamCommitBasis": "Official v1.13.8 tag commit; npm win-ia32 metadata supplies no gitHead, so package identity/declaration is verified without asserting an independent build-source mapping.",
+      "basis": "Exact npm tarball package.json declares Apache-2.0 and author The next-gen Kaldi team. The tarball is verified against the exact package-lock SHA-512. The complete official v1.13.8 LICENSE is retained unchanged; neither the seven checked npm archives nor the pinned source root supplies a NOTICE file. This supplement covers the package grant, not every embedded native-library dependency.",
+      "licenseFiles": [
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/LICENSE.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "sourceUrl": "https://raw.githubusercontent.com/k2-fsa/sherpa-onnx/11afbd009a7f8c08f4bcf2fc1b265d0df4670fbf/LICENSE",
+          "releaseSourceUrl": "https://raw.githubusercontent.com/k2-fsa/sherpa-onnx/v1.13.8/LICENSE",
+          "upstreamBlobSha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+          "origin": "Unmodified official sherpa-onnx v1.13.8 LICENSE, also verified against its pinned Git blob."
+        }
+      ],
+      "attributionFile": {
+        "path": "licenses/npm/sherpa-onnx-1.13.8/ATTRIBUTION.md",
+        "sha256": "4598f0c9bb41fcdebc310224d69d1a302baa0c82dc237c5aa284bf4b91daa9de",
+        "sourceUrl": "https://github.com/k2-fsa/sherpa-onnx/tree/v1.13.8",
+        "origin": "ComboRunner distribution attribution note; original license and package metadata are retained separately."
+      },
+      "evidence": [
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/upstream-package-sherpa-onnx-win-ia32.json",
+          "sha256": "6aa9be27d3dffa9b3dd3b70159755b182b065bc532043c51ab06a81e37040eba",
+          "sourceUrl": "https://registry.npmjs.org/sherpa-onnx-win-ia32/-/sherpa-onnx-win-ia32-1.13.8.tgz",
+          "archiveEntry": "package/package.json"
+        },
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/npm-metadata-sherpa-onnx-win-ia32.json",
+          "sha256": "078bc5cdf801e0aa2708f0d8cfebdb610b0ed83332629cdf59f2ceef8f751c54",
+          "sourceUrl": "https://registry.npmjs.org/sherpa-onnx-win-ia32/1.13.8"
+        },
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/tarball-inventory-sherpa-onnx-win-ia32.json",
+          "sha256": "f7c71e80905c30fc59fc0fc0c12e29a730fdedd17192e6b424790c6f1c98f283",
+          "sourceUrl": "https://registry.npmjs.org/sherpa-onnx-win-ia32/-/sherpa-onnx-win-ia32-1.13.8.tgz",
+          "origin": "File-name and size inventory generated after exact package-lock SHA-512 verification; archives and native binaries are not retained."
+        },
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/upstream-tag-v1.13.8.json",
+          "sha256": "30c1ea72fd153905bed0ebf7f406bfaa7d9437a73040be14380c8b8d738c020a",
+          "sourceUrl": "https://api.github.com/repos/k2-fsa/sherpa-onnx/git/ref/tags/v1.13.8"
+        },
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/upstream-root-tree.json",
+          "sha256": "d6b954638dbfbad245bcb35e570dc31fb826da62e271f43ae14b4bcb091c7013",
+          "sourceUrl": "https://api.github.com/repos/k2-fsa/sherpa-onnx/git/trees/11afbd009a7f8c08f4bcf2fc1b265d0df4670fbf"
+        },
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/upstream-README-sherpa-onnx-win-ia32.md",
+          "sha256": "33cc04186235622d194a4bfe157e50dfa5f99079ceed97d19ace4cb54067d2ed",
+          "sourceUrl": "https://registry.npmjs.org/sherpa-onnx-win-ia32/-/sherpa-onnx-win-ia32-1.13.8.tgz",
+          "archiveEntry": "package/README.md"
+        }
+      ]
+    },
+    {
+      "name": "sherpa-onnx-win-x64",
+      "version": "1.13.8",
+      "declaredLicense": "Apache-2.0",
+      "developmentOnly": false,
+      "packagePaths": [
+        "node_modules/sherpa-onnx-win-x64"
+      ],
+      "packageIntegrity": "sha512-oZF1c9VPOKtMwn83Bboc5XSWL+76BRoyB3eUuVnCknBKxwSULZU2Foia9VHWzU+n4I12rPsP6z6H9Rp1hD9o8g==",
+      "tarballUrl": "https://registry.npmjs.org/sherpa-onnx-win-x64/-/sherpa-onnx-win-x64-1.13.8.tgz",
+      "tarballSha256": "fe522f02a5c113c2567a43982107ef41ae517f9a431931e90731e7e4d4341073",
+      "upstreamReleaseTag": "v1.13.8",
+      "upstreamCommit": "11afbd009a7f8c08f4bcf2fc1b265d0df4670fbf",
+      "upstreamCommitBasis": "Official v1.13.8 tag commit equals exact npm version metadata gitHead.",
+      "basis": "Exact npm tarball package.json declares Apache-2.0 and author The next-gen Kaldi team. The tarball is verified against the exact package-lock SHA-512. The complete official v1.13.8 LICENSE is retained unchanged; neither the seven checked npm archives nor the pinned source root supplies a NOTICE file. This supplement covers the package grant, not every embedded native-library dependency.",
+      "licenseFiles": [
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/LICENSE.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "sourceUrl": "https://raw.githubusercontent.com/k2-fsa/sherpa-onnx/11afbd009a7f8c08f4bcf2fc1b265d0df4670fbf/LICENSE",
+          "releaseSourceUrl": "https://raw.githubusercontent.com/k2-fsa/sherpa-onnx/v1.13.8/LICENSE",
+          "upstreamBlobSha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+          "origin": "Unmodified official sherpa-onnx v1.13.8 LICENSE, also verified against its pinned Git blob."
+        }
+      ],
+      "attributionFile": {
+        "path": "licenses/npm/sherpa-onnx-1.13.8/ATTRIBUTION.md",
+        "sha256": "4598f0c9bb41fcdebc310224d69d1a302baa0c82dc237c5aa284bf4b91daa9de",
+        "sourceUrl": "https://github.com/k2-fsa/sherpa-onnx/tree/v1.13.8",
+        "origin": "ComboRunner distribution attribution note; original license and package metadata are retained separately."
+      },
+      "evidence": [
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/upstream-package-sherpa-onnx-win-x64.json",
+          "sha256": "c9350c0a65f5ea616ce2ae9233a7f405e9a68766a4d4b941a380b6b3dba451d8",
+          "sourceUrl": "https://registry.npmjs.org/sherpa-onnx-win-x64/-/sherpa-onnx-win-x64-1.13.8.tgz",
+          "archiveEntry": "package/package.json"
+        },
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/npm-metadata-sherpa-onnx-win-x64.json",
+          "sha256": "9220af8939cef5da3902636b2ef581230a1dc9968ec5287e2b2d514af838d85b",
+          "sourceUrl": "https://registry.npmjs.org/sherpa-onnx-win-x64/1.13.8"
+        },
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/tarball-inventory-sherpa-onnx-win-x64.json",
+          "sha256": "3e6725ea5b6f2859a026ebd4ef8b5ea272dcaa65de6b679218484f860e718f9f",
+          "sourceUrl": "https://registry.npmjs.org/sherpa-onnx-win-x64/-/sherpa-onnx-win-x64-1.13.8.tgz",
+          "origin": "File-name and size inventory generated after exact package-lock SHA-512 verification; archives and native binaries are not retained."
+        },
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/upstream-tag-v1.13.8.json",
+          "sha256": "30c1ea72fd153905bed0ebf7f406bfaa7d9437a73040be14380c8b8d738c020a",
+          "sourceUrl": "https://api.github.com/repos/k2-fsa/sherpa-onnx/git/ref/tags/v1.13.8"
+        },
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/upstream-root-tree.json",
+          "sha256": "d6b954638dbfbad245bcb35e570dc31fb826da62e271f43ae14b4bcb091c7013",
+          "sourceUrl": "https://api.github.com/repos/k2-fsa/sherpa-onnx/git/trees/11afbd009a7f8c08f4bcf2fc1b265d0df4670fbf"
+        },
+        {
+          "path": "licenses/npm/sherpa-onnx-1.13.8/upstream-README-sherpa-onnx-win-x64.md",
+          "sha256": "33cc04186235622d194a4bfe157e50dfa5f99079ceed97d19ace4cb54067d2ed",
+          "sourceUrl": "https://registry.npmjs.org/sherpa-onnx-win-x64/-/sherpa-onnx-win-x64-1.13.8.tgz",
+          "archiveEntry": "package/README.md"
+        }
+      ]
+    },
+    {
+      "name": "@img/sharp-libvips-darwin-arm64",
+      "version": "1.3.4",
+      "declaredLicense": "LGPL-3.0-or-later",
+      "developmentOnly": false,
+      "packagePaths": [
+        "node_modules/@img/sharp-libvips-darwin-arm64"
+      ],
+      "packageIntegrity": "sha512-5R89nBYiRdUlSWJxPhO+GVtaXzXSxKnRu/xqMn3KTA3L9EB9Oy/P+Nn2f2vlhPuUdy/Zusb2DarbyTpGCfEDuw==",
+      "tarballUrl": "https://registry.npmjs.org/@img/sharp-libvips-darwin-arm64/-/sharp-libvips-darwin-arm64-1.3.4.tgz",
+      "tarballSha256": "e8350e62344d027995ef46cdd97a5ea1c88bc54ab82ab8c3fcb0c076d839675f",
+      "basis": "Exact npm archive declares LGPL-3.0-or-later and retains the original component licensing table. Package-lock SHA-512 verified. Complete standard LGPLv3 and incorporated GPLv3 wording supplied from a pinned SPDX source; no claim of embedded-library compliance certification.",
+      "licenseFiles": [
+        {
+          "path": "licenses/npm/sharp-libvips-1.3.4/LGPL-3.0-or-later-standard.txt",
+          "sha256": "996af0513df21f7496288951c41428a03c174e9e4a9d63665c57d670f845ccb1",
+          "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31ba1a50e5397e00a304dbadc76531740e89ee48/text/LGPL-3.0-or-later.txt",
+          "origin": "Unmodified SPDX standard LGPL-3.0-or-later text, including the incorporated GPL-3.0 text. This is standard license wording, not an invented upstream copyright notice."
+        }
+      ],
+      "attributionFile": {
+        "path": "licenses/npm/sharp-libvips-1.3.4/ATTRIBUTION.md",
+        "sha256": "e38a30ae56be505ee07d08e901a86fc56ac6aead58e08e53c5c2b66704bedec4",
+        "sourceUrl": "https://github.com/lovell/sharp-libvips/tree/v1.3.4",
+        "origin": "PugPort distribution attribution and source note; original package evidence retained separately."
+      },
+      "evidence": [
+        {
+          "path": "licenses/npm/sharp-libvips-1.3.4/npm-metadata-darwin-arm64.json",
+          "sha256": "37386f3a91996d622deb24fec04bd1d18d76e414855ece2b7e86b83b22e0395b",
+          "sourceUrl": "https://registry.npmjs.org/@img%2fsharp-libvips-darwin-arm64/1.3.4"
+        },
+        {
+          "path": "licenses/npm/sharp-libvips-1.3.4/upstream-darwin-arm64-package.json",
+          "sha256": "394ecfe4e823ebf6ddc9f9b7155046aad1f0492300920323ddfb84cae85dbac0",
+          "sourceUrl": "https://registry.npmjs.org/@img/sharp-libvips-darwin-arm64/-/sharp-libvips-darwin-arm64-1.3.4.tgz",
+          "archiveEntry": "package/package.json"
+        },
+        {
+          "path": "licenses/npm/sharp-libvips-1.3.4/upstream-darwin-arm64-README.md",
+          "sha256": "5dd6d3c034f925604681d49b7bedc71bd08dcf3d0cfc6d16b9f0569497d700dc",
+          "sourceUrl": "https://registry.npmjs.org/@img/sharp-libvips-darwin-arm64/-/sharp-libvips-darwin-arm64-1.3.4.tgz",
+          "archiveEntry": "package/README.md"
+        },
+        {
+          "path": "licenses/npm/sharp-libvips-1.3.4/upstream-darwin-arm64-versions.json",
+          "sha256": "e2611d5d854815a8b33c8a3d2ec649511a9596ccf16844e8eae7cf81e79881c4",
+          "sourceUrl": "https://registry.npmjs.org/@img/sharp-libvips-darwin-arm64/-/sharp-libvips-darwin-arm64-1.3.4.tgz",
+          "archiveEntry": "package/versions.json"
+        }
+      ]
+    },
+    {
+      "name": "@img/sharp-libvips-darwin-x64",
+      "version": "1.3.4",
+      "declaredLicense": "LGPL-3.0-or-later",
+      "developmentOnly": false,
+      "packagePaths": [
+        "node_modules/@img/sharp-libvips-darwin-x64"
+      ],
+      "packageIntegrity": "sha512-iR2OKH80yi0U+dUplyh3/xdpFvps6YkCwsXenIJxqxR1v9o+xtKTGbS9H7cps+2Vxjc8B1j96p75NmTGjIhtpQ==",
+      "tarballUrl": "https://registry.npmjs.org/@img/sharp-libvips-darwin-x64/-/sharp-libvips-darwin-x64-1.3.4.tgz",
+      "tarballSha256": "02a59a80669f04591bb050398e3fe2aa1a736624339e6aeafb9a7f33d3599b4f",
+      "basis": "Exact npm archive declares LGPL-3.0-or-later and retains the original component licensing table. Package-lock SHA-512 verified. Complete standard LGPLv3 and incorporated GPLv3 wording supplied from a pinned SPDX source; no claim of embedded-library compliance certification.",
+      "licenseFiles": [
+        {
+          "path": "licenses/npm/sharp-libvips-1.3.4/LGPL-3.0-or-later-standard.txt",
+          "sha256": "996af0513df21f7496288951c41428a03c174e9e4a9d63665c57d670f845ccb1",
+          "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31ba1a50e5397e00a304dbadc76531740e89ee48/text/LGPL-3.0-or-later.txt",
+          "origin": "Unmodified SPDX standard LGPL-3.0-or-later text, including the incorporated GPL-3.0 text. This is standard license wording, not an invented upstream copyright notice."
+        }
+      ],
+      "attributionFile": {
+        "path": "licenses/npm/sharp-libvips-1.3.4/ATTRIBUTION.md",
+        "sha256": "e38a30ae56be505ee07d08e901a86fc56ac6aead58e08e53c5c2b66704bedec4",
+        "sourceUrl": "https://github.com/lovell/sharp-libvips/tree/v1.3.4",
+        "origin": "PugPort distribution attribution and source note; original package evidence retained separately."
+      },
+      "evidence": [
+        {
+          "path": "licenses/npm/sharp-libvips-1.3.4/npm-metadata-darwin-x64.json",
+          "sha256": "22d855b5746dd229baa1f04ede9397c8dd59eed611748531f5acafdc77a952a3",
+          "sourceUrl": "https://registry.npmjs.org/@img%2fsharp-libvips-darwin-x64/1.3.4"
+        },
+        {
+          "path": "licenses/npm/sharp-libvips-1.3.4/upstream-darwin-x64-package.json",
+          "sha256": "83fed0c22436ac0e5c3d1d9f73622a0428de23f19a33882604ee8dc72b9697b5",
+          "sourceUrl": "https://registry.npmjs.org/@img/sharp-libvips-darwin-x64/-/sharp-libvips-darwin-x64-1.3.4.tgz",
+          "archiveEntry": "package/package.json"
+        },
+        {
+          "path": "licenses/npm/sharp-libvips-1.3.4/upstream-darwin-x64-README.md",
+          "sha256": "986086beb25bd1b05712a2a0689a64f2e422ae5d7f0d9e46dad44fba3f9a13ff",
+          "sourceUrl": "https://registry.npmjs.org/@img/sharp-libvips-darwin-x64/-/sharp-libvips-darwin-x64-1.3.4.tgz",
+          "archiveEntry": "package/README.md"
+        },
+        {
+          "path": "licenses/npm/sharp-libvips-1.3.4/upstream-darwin-x64-versions.json",
+          "sha256": "e2611d5d854815a8b33c8a3d2ec649511a9596ccf16844e8eae7cf81e79881c4",
+          "sourceUrl": "https://registry.npmjs.org/@img/sharp-libvips-darwin-x64/-/sharp-libvips-darwin-x64-1.3.4.tgz",
+          "archiveEntry": "package/versions.json"
+        }
+      ]
+    },
+    {
+      "name": "lazy-val",
+      "version": "1.0.5",
+      "declaredLicense": "MIT",
+      "developmentOnly": false,
+      "packagePaths": [
+        "node_modules/lazy-val"
+      ],
+      "packageIntegrity": "sha512-0/BnGCCfyUMkBpeDgWihanIAF9JmZhHBgUhEqzvf+adhNGLoP6TaiI5oF8oyb3I45P+PcnrqihSf01M0l0G5+Q==",
+      "tarballUrl": "https://registry.npmjs.org/lazy-val/-/lazy-val-1.0.5.tgz",
+      "tarballSha256": "7d8602ad98db3d19fbd5b46fbf3831dd996197a013ef1ff7badc205e41435372",
+      "upstreamCommit": "b69ad4119f1b19bdab13c61ee2fcc88d46b89071",
+      "basis": "The exact npm package declares MIT and author Vladimir Krivosheev. The pinned source revision has no LICENSE file. Unmodified SPDX MIT standard terms supplement that explicit declaration. Template placeholders do not assert copyright ownership or dates.",
+      "licenseFiles": [
+        {
+          "path": "licenses/npm/lazy-val-1.0.5/MIT-standard.txt",
+          "sha256": "6d7c9e9d7d12c8d3753bdb24417b84819ba4d6c2f025c37948113d86dc81eef9",
+          "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/v3.26.0/text/MIT.txt"
+        }
+      ],
+      "attributionFile": {
+        "path": "licenses/npm/lazy-val-1.0.5/ATTRIBUTION.md",
+        "sha256": "6a2d8dc91ec164d49eb351e0ffd7bf5fbd5b5225f9931f405e72d794c6d2c0e6",
+        "sourceUrl": "https://registry.npmjs.org/lazy-val/-/lazy-val-1.0.5.tgz"
+      },
+      "evidence": [
+        {
+          "path": "licenses/npm/lazy-val-1.0.5/upstream-package.json",
+          "sha256": "a5096f95098452cf6fe5c8ac9be8f13f59ab7c9f605ba5ef92c91b2c505744f0",
+          "sourceUrl": "https://registry.npmjs.org/lazy-val/-/lazy-val-1.0.5.tgz"
+        }
+      ]
+    }
+  ],
+  "unresolved": []
+}

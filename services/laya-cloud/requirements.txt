@@ -1,0 +1,4 @@
+laya==0.4.15
+torch==2.15.0
+transformers==5.22.0
+uvicorn==0.54.0

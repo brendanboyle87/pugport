@@ -1,0 +1,147 @@
+/* The 外部智能体 card in 设置 → 连接. */
+.external-agents {
+  display: grid;
+  gap: 10px;
+}
+.external-agent-row {
+  display: grid;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--raised);
+}
+.external-agent-row.off .external-agent-name strong {
+  color: var(--muted);
+}
+.external-agent-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.external-agent-name {
+  display: grid;
+  min-width: 0;
+}
+.external-agent-name strong {
+  font-size: 13.5px;
+  font-weight: 600;
+}
+.external-agent-name small {
+  overflow: hidden;
+  color: var(--faint);
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.external-agent-name small.ready {
+  color: var(--live);
+}
+.external-agent-fields {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.external-agent-fields input {
+  flex: 1 1 240px;
+  min-width: 0;
+}
+.agent-connect .external-agent-head {
+  flex-wrap: wrap;
+}
+.agent-connect-permission {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.agent-connect-permission select {
+  width: auto;
+  max-width: 100%;
+  padding: 4px 30px 4px 8px;
+  font-size: 12px;
+}
+.grok-bot-controls {
+  display: grid;
+  gap: 8px;
+  padding: 10px 12px;
+}
+.grok-bot-controls input[type='checkbox'] {
+  margin-right: 6px;
+}
+.grok-routine-controls {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.grok-routine-controls .external-agent-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.quota-card.compact-quota-card.grok-bot-card {
+  height: auto;
+}
+
+/* Under an external agent's reply. */
+.external-reply {
+  display: grid;
+  gap: 6px;
+  margin-top: 8px;
+}
+.external-reply-note,
+.external-reply-trust {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+.external-reply.failed .external-reply-note,
+.external-reply.needs-user .external-reply-note {
+  color: var(--danger);
+}
+.external-reply-trust {
+  color: var(--faint);
+}
+.external-reply-diff summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 12.5px;
+}
+.external-reply-diff pre {
+  max-height: 360px;
+  overflow: auto;
+  margin: 6px 0 0;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--raised);
+  font-family: var(--mono);
+  font-variant-ligatures: none;
+  font-size: 12px;
+  line-height: 1.5;
+  white-space: pre;
+}
+.external-reply-diff small {
+  color: var(--faint);
+  font-size: 12px;
+}
+.external-reply-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.external-reply-actions:empty {
+  display: none;
+}

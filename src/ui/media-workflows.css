@@ -1,0 +1,217 @@
+.media-workflows {
+  display: grid;
+  gap: 18px;
+  min-width: 0;
+  padding: 4px 0 12px;
+}
+.media-workflows h3,
+.media-workflows h4 {
+  margin: 0 0 8px;
+}
+.media-workflows p {
+  margin: 7px 0;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+.media-workflows label {
+  display: grid;
+  gap: 7px;
+  min-width: 0;
+}
+.media-workflows input:not([type='file']),
+.media-workflows textarea,
+.media-workflows select {
+  width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
+  background: var(--panel, #1a1b1f);
+  color: inherit;
+  border: 1px solid var(--border, #ffffff14);
+  border-radius: 8px;
+  padding: 9px 10px;
+  font: inherit;
+}
+.media-workflows textarea {
+  resize: vertical;
+}
+.media-workflows button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid var(--border, #ffffff14);
+  border-radius: 7px;
+  padding: 8px 10px;
+  color: inherit;
+  background: var(--panel, #1a1b1f);
+  font: inherit;
+  cursor: pointer;
+}
+.media-workflows button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.media-workflow-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.media-workflow-meta {
+  font-size: 12px;
+  color: var(--muted, #a3a6b1);
+}
+.media-workflow-detail,
+.media-workflow-editor,
+.media-workflow-preview,
+.media-workflow-scope {
+  min-width: 0;
+  border: 1px solid var(--border, #ffffff14);
+  border-radius: 10px;
+  padding: 14px;
+}
+.media-workflow-editor {
+  display: grid;
+  gap: 12px;
+}
+.media-workflow-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.media-workflow-detail ol,
+.media-workflow-preview ol {
+  margin: 10px 0;
+  padding-left: 22px;
+  line-height: 1.8;
+}
+.media-workflow-import summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+.media-workflow-download {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+.media-workflow-download input {
+  flex: 1;
+}
+.media-workflow-download button {
+  flex: none;
+}
+.media-workflow-error {
+  color: var(--danger);
+}
+.media-workflow-warning {
+  padding: 8px 12px;
+  border-left: 2px solid var(--warning);
+  color: var(--muted, #a3a6b1);
+  font-size: 12px;
+}
+.media-workflow-warning ul {
+  margin: 6px 0;
+  padding-left: 18px;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+.media-workflow-dialog {
+  width: 850px;
+  max-width: calc(100vw - 32px);
+  max-height: calc(100dvh - 32px);
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+.media-workflow-dialog .dialog-inner {
+  min-width: 0;
+}
+.media-workflow-dialog .dialog-title {
+  margin-bottom: 14px;
+}
+.media-workflow-dialog .dialog-title > h2 {
+  margin: 0;
+}
+.media-workflow-history {
+  min-width: 0;
+}
+.media-workflow-history-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 8px 0;
+}
+.media-workflow-history-heading h4 {
+  margin: 0;
+}
+.media-workflow-jobs {
+  max-height: 260px;
+  overflow: auto;
+}
+.media-workflow-job {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border-bottom: 1px solid var(--border, #ffffff14);
+  padding: 10px 0;
+}
+.media-workflow-job > div {
+  min-width: 0;
+}
+.media-workflow-job small {
+  display: block;
+  color: var(--muted, #a3a6b1);
+  margin: 4px 0;
+  overflow-wrap: anywhere;
+}
+.media-workflow-job > button {
+  flex: none;
+}
+.media-workflow-results {
+  margin-top: 14px;
+}
+.media-workflow-results pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  max-height: 220px;
+  overflow: auto;
+  font: inherit;
+}
+.media-workflow-results ul {
+  overflow-wrap: anywhere;
+}
+.media-workflow-evidence-list {
+  max-height: 440px;
+  overflow: auto;
+}
+.media-workflow-evidence {
+  display: grid;
+  gap: 8px;
+  border: 1px solid var(--border, #ffffff14);
+  border-radius: 8px;
+  padding: 12px;
+  margin: 10px 0;
+  min-width: 0;
+}
+.media-workflows .media-workflow-path {
+  display: block;
+  width: 100%;
+  text-align: left;
+  overflow-wrap: anywhere;
+  color: var(--accent-text, #8fa8ff);
+}
+@media (max-width: 520px) {
+  .media-workflow-fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .media-workflow-download {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}
+
+.media-workflows :is(input:not([type='file']), textarea, select):focus {
+  border-color: var(--accent, #4466d9);
+}

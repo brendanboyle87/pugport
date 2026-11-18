@@ -1,0 +1,193 @@
+.project-tools {
+  display: flex;
+  flex-direction: column;
+  min-width: 280px;
+  min-height: 300px;
+  height: 440px;
+  max-height: 70vh;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface-1);
+  overflow: hidden;
+}
+.project-tools > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.project-tools [role='tablist'] {
+  display: flex;
+  gap: 4px;
+}
+.project-tools [role='tab'] {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 10px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+.project-tools [role='tab'].active {
+  color: var(--text);
+  background: var(--hover);
+}
+.project-tools button:focus-visible,
+.project-tools input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+.project-tools-content {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+.project-tools-content[hidden] {
+  display: none;
+}
+.project-tool-terminal,
+.project-tool-browser,
+.project-tool-chrome {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+}
+.project-tool-terminal,
+.project-tool-browser {
+  display: flex;
+  flex-direction: column;
+}
+.project-tools-note {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+  padding: 6px 10px;
+}
+.project-tool-path {
+  color: var(--muted);
+  font-size: 11px;
+  padding: 0 10px 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.project-terminal-surface {
+  flex: 1;
+  min-height: 100px;
+  min-width: 0;
+  padding: 5px 8px;
+  background: #fafbfc;
+}
+[data-theme='dark'] .project-terminal-surface {
+  background: #15171b;
+}
+.project-terminal-surface .xterm {
+  height: 100%;
+}
+.project-browser-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 8px;
+}
+.project-browser-navigation input {
+  flex: 1;
+  min-width: 60px;
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  background: var(--surface-1);
+}
+.project-browser-surface {
+  flex: 1;
+  min-height: 100px;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  font-size: 13px;
+}
+.project-tool-chrome {
+  overflow: auto;
+  padding: 12px;
+  font-size: 12px;
+}
+.project-chrome-connect {
+  display: flex;
+  align-items: end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.project-chrome-connect .field {
+  flex: 1;
+  min-width: 180px;
+}
+.project-chrome-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+.project-chrome-pages {
+  list-style: none;
+  padding: 0;
+  margin: 6px 0;
+}
+.project-chrome-pages li {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+.project-chrome-pages li > div {
+  min-width: 0;
+  flex: 1;
+}
+.project-chrome-pages strong,
+.project-chrome-pages span {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.project-chrome-pages span {
+  color: var(--muted);
+  font-size: 11px;
+}
+.project-chrome-mcp {
+  margin-top: 14px;
+}
+.project-chrome-mcp summary {
+  cursor: pointer;
+}
+.project-chrome-mcp textarea {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  font: 11px monospace;
+  margin: 8px 0;
+  padding: 8px;
+  color: var(--text);
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+.project-tools .inline-error {
+  margin: 4px 8px;
+  font-size: 12px;
+}
+.project-tools-unavailable {
+  padding: 12px;
+  color: var(--muted);
+  font-size: 13px;
+}

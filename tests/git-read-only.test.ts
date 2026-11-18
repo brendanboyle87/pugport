@@ -1,0 +1,181 @@
+import assert from 'node:assert/strict';
+import test from 'node:test';
+import path from 'node:path';
+import { checkReadOnlyGitCommand } from '../src/server/git-read-only.ts';
+
+const accepted = [
+  'git diff main..HEAD',
+  'git log HEAD~3..',
+  'git diff A...B -- src',
+  'git -C sub diff ../f',
+  "git grep '/api/'",
+  'git log -S/usr/local',
+  'git branch --sort=-committerdate',
+  'git branch --contains=HEAD',
+  "git tag --list '--format=%(refname)'",
+  'git log --oneline -20',
+  'git log -p -- src/a.ts',
+  'git show HEAD~1:src/x.ts',
+  'git diff --stat main...HEAD',
+  'git status --porcelain',
+  'git blame -L 10,20 f',
+  "git grep -n TODO -- '*.ts'",
+  'git rev-parse --show-toplevel',
+  'git merge-base main HEAD',
+  'git ls-files',
+  'git cat-file -p HEAD:README.md',
+  'git ls-tree -r HEAD',
+  'git describe --tags',
+  'git shortlog -sn',
+  'git branch',
+  "git branch -a --list 'feat/*'",
+  "git tag -l 'v*'",
+  'git remote -v',
+  'git remote get-url origin',
+  'git remote show -n origin',
+  'git stash list',
+  'git stash show -p stash@{0}',
+  'git worktree list --porcelain',
+  'git -C src log -1',
+  'git --no-pager log',
+  'git.exe log',
+  'git log --no-ext-diff --no-textconv',
+  "git branch '--format=%(refname:short)'",
+  "git log --grep='fix(ui)'",
+  "git grep -n 'a|b'",
+  "git grep 'foo$'",
+  'git log -SFoo',
+  'git branch --list --column x1',
+  'git -C src -C nested log',
+  'git branch --list -- -pattern',
+];
+for (const command of accepted)
+  test('accept ' + command, () => {
+    const result = checkReadOnlyGitCommand(command, process.cwd());
+    assert.equal(result.ok, true, JSON.stringify(result));
+  });
+
+const rejected = [
+  'diff ../x f',
+  'diff C:/x f',
+  'diff /etc/passwd f',
+  'diff -- ../x f',
+  '-C sub diff ../../x f',
+  'diff .git/config f',
+  '-C .git log',
+  '-C sub/.git log',
+  'branch --sort --list x',
+  'branch --format --list x',
+  'tag --format --list v9',
+  'branch --contains --list x',
+  'grep -f ../x',
+  'grep -f .git/config',
+  'grep -nf pat',
+  'grep --fil=x a',
+  'grep --file=../x a',
+  'grep --file ../x a',
+  'diff "\\\\server\\x" f',
+  'diff -- -x/../../outside f',
+  'log -pOx',
+  'show -sOx',
+  'describe --dirty',
+  'describe --dir',
+  'describe --broken',
+  'describe --bro',
+  'branch --no-contains --list x',
+  'branch --merged --list x',
+  'branch --no-merged --list x',
+  'branch --points-at --list x',
+  'log -S -- --output=x',
+  'grep -e -- --open-files-in-pager=vim',
+  'log --output=x',
+  'log --output x',
+  'log --outp=x',
+  'grep -O vim foo',
+  'grep -nOvim TODO',
+  'grep --open=vim x',
+  'grep --textc x',
+  'cat-file --textc HEAD:f',
+  'blame --cont ../o.txt f',
+  'blame -S ../o.txt f',
+  'blame -wS ../o.txt f',
+  'blame --ignore-revs-file ../o.txt f',
+  'log -Oorder',
+  'log --ext-diff',
+  'log --textconv',
+  'log --show-signature',
+  'blame --contents x f',
+  '-c core.pager=less log',
+  '--git-dir=/x log',
+  '--exec-path=/x log',
+  '-C .. log',
+  '-C C:\\other log',
+  '-Csrc log',
+  'log; rm -rf .',
+  'log && echo',
+  'log | tee x',
+  'log > x',
+  'log $(rm x)',
+  'log \x60echo\x60',
+  'log\nstatus',
+  'credential fill',
+  'config user.name',
+  'fetch',
+  'pull',
+  'push',
+  'ls-remote',
+  'clone',
+  'branch new',
+  'branch -d x',
+  'branch --column x1',
+  'branch --abbrev x1',
+  'branch -- x',
+  'tag v1',
+  'tag --column v1',
+  'tag --color v2',
+  'remote add x u',
+  'remote show origin',
+  'stash',
+  'stash drop',
+  'worktree add ../x',
+  'diff --no-index a b',
+  'cat-file --batch',
+  'log --help',
+  'help log',
+  'log --grep="broken',
+  'log ' + 'x'.repeat(5000),
+  'branch --list --output=x',
+  'log --text',
+  'grep -nO',
+  'blame --ignore-r=x',
+  'log\rstatus',
+  'log\0',
+];
+// Drive-letter and UNC paths leave the project only on Windows. On macOS and Linux `C:/x`, `\\server\x` and
+// `C:\other` are relative names of folders inside the project, which git reads like any other project path.
+const windowsOnly = new Set(['diff C:/x f', 'diff "\\\\server\\x" f', '-C C:\\other log']);
+for (const command of rejected)
+  test(
+    'reject ' + command.slice(0, 90),
+    {
+      skip:
+        process.platform !== 'win32' && windowsOnly.has(command)
+          ? 'a drive-letter or UNC path is a folder name inside the project outside Windows'
+          : false,
+    },
+    () => {
+      assert.equal(checkReadOnlyGitCommand('git ' + command, process.cwd()).ok, false);
+    },
+  );
+for (const command of ['', 'gh pr list', 'log --oneline'])
+  test('reject argv0 ' + command, () => {
+    assert.equal(checkReadOnlyGitCommand(command, process.cwd()).ok, false);
+  });
+test('returned argv keeps quoted values and global options', () => {
+  assert.deepEqual(checkReadOnlyGitCommand("git -C src log --grep='fix(ui)'", process.cwd()), {
+    ok: true,
+    subcommand: 'log',
+    cwd: path.resolve(process.cwd(), 'src'),
+    argv: ['-C', 'src', 'log', '--grep=fix(ui)'],
+  });
+});

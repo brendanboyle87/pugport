@@ -1,0 +1,212 @@
+[
+  {
+    "id": "simple-01",
+    "question": "Translate this short sentence into English: 早上好。",
+    "difficulty": "simple",
+    "tier": "light",
+    "effort": "low"
+  },
+  {
+    "id": "simple-02",
+    "question": "Rename the single file report.txt to summary.txt.",
+    "difficulty": "simple",
+    "tier": "light",
+    "effort": "low"
+  },
+  {
+    "id": "simple-03",
+    "question": "解释单词 latency 的意思。",
+    "difficulty": "simple",
+    "tier": "light",
+    "effort": "low"
+  },
+  {
+    "id": "simple-04",
+    "question": "Convert 15 minutes to seconds.",
+    "difficulty": "simple",
+    "tier": "light",
+    "effort": "low"
+  },
+  {
+    "id": "simple-05",
+    "question": "List three colors in Chinese.",
+    "difficulty": "simple",
+    "tier": "light",
+    "effort": "low"
+  },
+  {
+    "id": "simple-06",
+    "question": "把“谢谢你”翻译成英文。",
+    "difficulty": "simple",
+    "tier": "light",
+    "effort": "low"
+  },
+  {
+    "id": "simple-07",
+    "question": "Format this single date as ISO: October 2, 2026.",
+    "difficulty": "simple",
+    "tier": "light",
+    "effort": "low"
+  },
+  {
+    "id": "simple-08",
+    "question": "What is 12 multiplied by 3?",
+    "difficulty": "simple",
+    "tier": "light",
+    "effort": "low"
+  },
+  {
+    "id": "simple-09",
+    "question": "请给这句话加标点：你好朋友",
+    "difficulty": "simple",
+    "tier": "light",
+    "effort": "low"
+  },
+  {
+    "id": "simple-10",
+    "question": "Sort the numbers 3, 1, 2.",
+    "difficulty": "simple",
+    "tier": "light",
+    "effort": "low"
+  },
+  {
+    "id": "standard-01",
+    "question": "Summarize the benefits and risks of a small caching policy.",
+    "difficulty": "standard",
+    "tier": "standard",
+    "effort": "medium"
+  },
+  {
+    "id": "standard-02",
+    "question": "写一个函数解析 CSV 中的单行，并处理引号。",
+    "difficulty": "standard",
+    "tier": "standard",
+    "effort": "medium"
+  },
+  {
+    "id": "standard-03",
+    "question": "Implement a small settings form with validation.",
+    "difficulty": "standard",
+    "tier": "standard",
+    "effort": "medium"
+  },
+  {
+    "id": "standard-04",
+    "question": "Review the error handling in a short parser.",
+    "difficulty": "standard",
+    "tier": "standard",
+    "effort": "medium"
+  },
+  {
+    "id": "standard-05",
+    "question": "请为现有按钮增加禁用状态并跑测试。",
+    "difficulty": "standard",
+    "tier": "standard",
+    "effort": "medium"
+  },
+  {
+    "id": "standard-06",
+    "question": "Translate the following instructions, then update src/parser.ts and run npm test to verify the implementation.",
+    "difficulty": "standard",
+    "tier": "standard",
+    "effort": "medium"
+  },
+  {
+    "id": "standard-07",
+    "question": "Compare two approaches to pagination for a small service.",
+    "difficulty": "standard",
+    "tier": "standard",
+    "effort": "medium"
+  },
+  {
+    "id": "standard-08",
+    "question": "Write a concise guide explaining a retry policy with examples.",
+    "difficulty": "standard",
+    "tier": "standard",
+    "effort": "medium"
+  },
+  {
+    "id": "standard-09",
+    "question": "为一个工具函数补充边界情况并运行测试。",
+    "difficulty": "standard",
+    "tier": "standard",
+    "effort": "medium"
+  },
+  {
+    "id": "standard-10",
+    "question": "Explain how to use a queue to limit concurrent requests.",
+    "difficulty": "standard",
+    "tier": "standard",
+    "effort": "medium"
+  },
+  {
+    "id": "complex-01",
+    "question": "Refactor the architecture of the authentication service across modules while preserving compatibility.",
+    "difficulty": "complex",
+    "tier": "strong",
+    "effort": "high"
+  },
+  {
+    "id": "complex-02",
+    "question": "设计并实现跨模块的并发调度，说明失败恢复与回滚。",
+    "difficulty": "complex",
+    "tier": "strong",
+    "effort": "high"
+  },
+  {
+    "id": "complex-03",
+    "question": "Migrate the application data model with backward compatibility and recovery.",
+    "difficulty": "complex",
+    "tier": "strong",
+    "effort": "high"
+  },
+  {
+    "id": "complex-04",
+    "question": "Build an end-to-end workflow spanning several services and verify failure handling.",
+    "difficulty": "complex",
+    "tier": "strong",
+    "effort": "high"
+  },
+  {
+    "id": "complex-05",
+    "question": "重构支付处理架构，加入幂等性、持久化和故障恢复。",
+    "difficulty": "complex",
+    "tier": "strong",
+    "effort": "high"
+  },
+  {
+    "id": "complex-06",
+    "question": "Design a distributed job scheduler with leases and recovery after process failure.",
+    "difficulty": "complex",
+    "tier": "strong",
+    "effort": "high"
+  },
+  {
+    "id": "complex-07",
+    "question": "Implement a multi-module authorization change with migration and audit coverage.",
+    "difficulty": "complex",
+    "tier": "strong",
+    "effort": "high"
+  },
+  {
+    "id": "complex-08",
+    "question": "Analyze and redesign the architecture for concurrent background workers.",
+    "difficulty": "complex",
+    "tier": "strong",
+    "effort": "high"
+  },
+  {
+    "id": "complex-09",
+    "question": "替换跨服务消息协议，同时兼容旧客户端并验证恢复流程。",
+    "difficulty": "complex",
+    "tier": "strong",
+    "effort": "high"
+  },
+  {
+    "id": "complex-10",
+    "question": "Please translate the labels in the following implementation request, then implement the feature completely. Update the synthetic task workflow, keep old inputs compatible, add clear failure handling, and verify the changed behavior with focused tests. Update the synthetic task workflow, keep old inputs compatible, add clear failure handling, and verify the changed behavior with focused tests. Update the synthetic task workflow, keep old inputs compatible, add clear failure handling, and verify the changed behavior with focused tests. Update the synthetic task workflow, keep old inputs compatible, add clear failure handling, and verify the changed behavior with focused tests. Update the synthetic task workflow, keep old inputs compatible, add clear failure handling, and verify the changed behavior with focused tests. Update the synthetic task workflow, keep old inputs compatible, add clear failure handling, and verify the changed behavior with focused tests. Connect all affected modules and document the behavior for future maintainers.",
+    "difficulty": "complex",
+    "tier": "strong",
+    "effort": "high"
+  }
+]

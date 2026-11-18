@@ -1,0 +1,17 @@
+node_modules/
+.runtime/
+.data/
+.comborunner/
+.claude/rules/comborunner-local-memory.md
+dist/
+release/
+/vendor/
+reports/
+.env
+.env.*
+!.env.example
+*.log
+experiments/yho-deferred-20260926/
+/artifacts/
+
+__pycache__/

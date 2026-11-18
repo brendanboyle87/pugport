@@ -1,0 +1,81 @@
+.conversation-task-dock {
+  color: var(--muted);
+  font-size: 12px;
+  margin: 0 4px 8px;
+}
+.conversation-task-dock summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.conversation-task-dock summary::after {
+  content: '⌄';
+}
+.conversation-task-dock ul {
+  list-style: none;
+  padding: 8px 0;
+  margin: 0;
+  max-height: 200px;
+  overflow: auto;
+}
+.conversation-task-dock li {
+  display: flex;
+  gap: 8px;
+  padding: 3px 0;
+}
+.conversation-task-dock li.completed {
+  text-decoration: line-through;
+  opacity: 0.65;
+}
+.conversation-task-dock li.running > span:first-child {
+  color: var(--accent);
+  animation: task-dot 1.5s ease-in-out infinite;
+}
+.conversation-stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  color: var(--muted);
+  font-size: 11px;
+  padding: 6px;
+}
+.conversation-stats details {
+  position: relative;
+}
+.conversation-stats summary {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+.conversation-stats pre {
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  z-index: 20;
+  padding: 12px;
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  max-width: min(400px, 80vw);
+  max-height: 200px;
+  overflow: auto;
+  font-family: 'Cascadia Code', Consolas, ui-monospace, monospace;
+}
+@keyframes task-dot {
+  50% {
+    opacity: 0.35;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .conversation-task-dock li.running > span:first-child {
+    animation: none;
+  }
+}
+
+.conversation-task-dock summary > span + span::before {
+  content: '\00b7';
+  margin-right: 8px;
+}

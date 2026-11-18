@@ -1,0 +1,36 @@
+name: Feature request
+description: Tell us what would help. No technical plan is needed.
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        English or Chinese is welcome. Only the use case is required; maintainers can help with details.
+        Do not include keys or private data. For vulnerabilities, use [private security reporting](https://github.com/pugport/pugport/blob/main/.github/SECURITY.md).
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use case
+      description: Who needs this, and what problem does it solve?
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: Target OS, if relevant
+    validations:
+      required: false
+  - type: textarea
+    id: behaviour
+    attributes:
+      label: Expected behaviour and scope
+      description: Describe the result you would like. You do not need to know the code or affected modules.
+    validations:
+      required: false
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Example or success criteria, if you have them
+      description: An example, sketch, or way to tell it works can help. Maintainers can fill this in later.
+    validations:
+      required: false

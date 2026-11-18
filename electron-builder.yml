@@ -1,0 +1,26 @@
+appId: ComboRunner.App
+productName: PugPort
+artifactName: PugPort-Setup-${version}.${ext}
+directories:
+  output: release/installer/${version}
+win:
+  target:
+    - target: nsis
+      arch: [x64]
+  icon: assets/icons/pugport.ico
+  signExecutable: false
+  # Signing placeholder: enable Azure Artifact Signing here in a separately authorized release.
+  # Do not set publisherName until signing is configured.
+nsis:
+  oneClick: true
+  perMachine: false
+  createDesktopShortcut: always
+  createStartMenuShortcut: true
+  shortcutName: PugPort
+  deleteAppDataOnUninstall: false
+  runAfterFinish: true
+  installerIcon: assets/icons/pugport.ico
+  uninstallerIcon: assets/icons/pugport.ico
+publish:
+  provider: generic
+  url: https://download.pugport.com/windows

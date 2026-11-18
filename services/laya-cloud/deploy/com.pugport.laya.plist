@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.pugport.laya</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/Users/REPLACE_USER/pugport-laya/venv/bin/python</string>
+    <string>/Users/REPLACE_USER/pugport-laya/repo/services/laya-cloud/app.py</string>
+  </array>
+  <key>WorkingDirectory</key>
+  <string>/Users/REPLACE_USER/pugport-laya/repo</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>LAYA_CHECKPOINT</key>
+    <string>/Users/REPLACE_USER/pugport-laya/models/pugport-laya-v4</string>
+    <key>LAYA_DEVICE</key>
+    <string>mps</string>
+    <key>LAYA_PORT</key>
+    <string>8787</string>
+    <key>PYTHONUNBUFFERED</key>
+    <string>1</string>
+    <key>PYTHONDONTWRITEBYTECODE</key>
+    <string>1</string>
+  </dict>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <true/>
+  <key>ThrottleInterval</key>
+  <integer>30</integer>
+  <key>StandardOutPath</key>
+  <string>/Users/REPLACE_USER/pugport-laya/logs/service.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/REPLACE_USER/pugport-laya/logs/service-error.log</string>
+</dict>
+</plist>
