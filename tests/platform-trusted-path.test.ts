@@ -80,15 +80,47 @@ test('Linux resolves a linked /home above a data folder', () => {
   assert.equal(trustedDirectory('/tmp/data', fakeHost('linux', { fs: posixTree(['/tmp'], {}).fs })), '/tmp/data');
 });
 
-test('Windows returns the directory unchanged without reading the file system', () => {
+test('Windows returns a directory without short names unchanged without reading the file system', () => {
   const host = fakeHost('win32'); // emptyFs: any file-system call would throw
   for (const directory of [
     'C:\\Users\\fixture\\AppData\\Local\\Temp\\data',
-    'C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\data',
+    'C:\\Users\\fixture\\AppData\\Local\\Temp\\DATA~1',
     'relative\\data',
     '\\\\server\\share\\data',
   ])
     assert.equal(trustedDirectory(directory, host), directory);
+});
+
+/** A Windows file system where `C:\Users\RUNNER~1` is the short name of `runneradmin` and `LINKED~1` is a junction. */
+function windowsShortNames() {
+  const long: Record<string, string> = {
+    'C:\\Users\\RUNNER~1': 'C:\\Users\\runneradmin',
+    'C:\\Users\\runneradmin\\LINKED~1': 'C:\\Elsewhere\\target',
+  };
+  const lstatSync = (path: string) => {
+    if (path === 'C:\\Users\\runneradmin\\LINKED~1') return { isSymbolicLink: () => true };
+    if (path in long) return { isSymbolicLink: () => false };
+    throw Object.assign(new Error(`ENOENT: ${path}`), { code: 'ENOENT' });
+  };
+  const realpathSync = Object.assign(() => assert.fail('only the native resolver reads a long name'), {
+    native: (path: string) => long[path] ?? assert.fail(`unexpected realpath ${path}`),
+  });
+  return fakeHost('win32', { fs: fakeFs({ lstatSync, realpathSync }) });
+}
+
+test('Windows spells short names above the directory with their long names and keeps the directory itself', () => {
+  const host = windowsShortNames();
+  assert.equal(
+    trustedDirectory('C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\data', host),
+    'C:\\Users\\runneradmin\\AppData\\Local\\Temp\\data',
+  );
+  assert.equal(trustedDirectory('C:\\Users\\RUNNER~1\\DATA~1', host), 'C:\\Users\\runneradmin\\DATA~1');
+});
+
+test('Windows keeps a junction and a missing short name as written', () => {
+  const host = windowsShortNames();
+  assert.equal(trustedDirectory('C:\\Users\\RUNNER~1\\LINKED~1\\data', host), 'C:\\Users\\runneradmin\\LINKED~1\\data');
+  assert.equal(trustedDirectory('C:\\Users\\MISSIN~1\\Temp\\data', host), 'C:\\Users\\MISSIN~1\\Temp\\data');
 });
 
 test('file-system errors other than a missing folder are not hidden', () => {
@@ -106,7 +138,8 @@ test('on this computer, a link inside the given directory survives and the tempo
   const real = realpathSync(base);
   mkdirSync(join(base, 'target'));
   symlinkSync(join(base, 'target'), join(base, 'linked'), process.platform === 'win32' ? 'junction' : 'dir');
-  const expected = process.platform === 'win32' ? join(base, 'linked') : join(real, 'linked');
+  // Windows follows no link above it either; only a short name in TEMP (RUNNER~1) is spelled out.
+  const expected = join(process.platform === 'win32' ? realpathSync.native(base) : real, 'linked');
   assert.equal(trustedDirectory(join(base, 'linked')), expected);
   assert.notEqual(realpathSync(trustedDirectory(join(base, 'linked'))), trustedDirectory(join(base, 'linked')));
 });

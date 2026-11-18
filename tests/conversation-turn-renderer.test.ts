@@ -72,7 +72,11 @@ const {app,BrowserWindow}=require('electron');const fs=require('node:fs/promises
 app.disableHardwareAcceleration();app.setPath('userData',path.join(${JSON.stringify(directory)},'profile'));
 app.whenReady().then(async()=>{let win;try{
 win=new BrowserWindow({show:false,width:1280,height:900,webPreferences:{offscreen:true,contextIsolation:false,nodeIntegration:false}});
+// Hosted Windows runners turn animations off, which Chromium reports as prefers-reduced-motion: reduce. The motion
+// checks below need animations; the reduced-motion checks further down set reduce themselves.
+const motion=value=>win.webContents.debugger.sendCommand('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value}]});
 await win.loadFile(${JSON.stringify(join(directory, 'index.html'))});
+win.webContents.debugger.attach('1.3');await motion('no-preference');
 const evaluate=code=>win.webContents.executeJavaScript(code);const pause=ms=>new Promise(r=>setTimeout(r,ms));
 for(let i=0;i<100&&!await evaluate('window.ready');i++)await pause(20);
 await evaluate('window.configure("running","zh-CN","light")');await pause(500);
@@ -116,7 +120,7 @@ await pause(20);const anchorTop=await evaluate('document.querySelector(".convers
 assert.ok(Math.abs(await evaluate('document.querySelector(".conversation-message").getBoundingClientRect().top')-anchorTop)<3,'fold preserves the visible answer anchor '+JSON.stringify({reduce:await evaluate('matchMedia("(prefers-reduced-motion: reduce)").matches'),anchorTop,after:await evaluate('document.querySelector(".conversation-message").getBoundingClientRect().top'),scroll:await evaluate('document.querySelector(".conversation-scroll").scrollTop')}));
 assert.equal(await evaluate('document.body.innerText.split("The requested change is ready.").length-1'),1,'completion keeps one final answer');
 win.webContents.setBackgroundThrottling(false);
-await win.webContents.debugger.attach('1.3');await win.webContents.debugger.sendCommand('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'reduce'}]});
+await motion('reduce');
 await evaluate('window.configure("running","en","dark")');await pause(250);assert.equal(await evaluate('getComputedStyle(document.querySelector(".turn-shimmer")).animationName'),'none');
 await evaluate('window.complete()');await pause(50);assert.equal(await evaluate('document.querySelector(".turn-status").getAttribute("aria-expanded")'),'false');
 await evaluate("window.originalTimeout=window.setTimeout;window.noticeDelays=[];window.setTimeout=(fn,ms,...args)=>{if(ms===30000){window.noticeDelays.push(ms);return window.originalTimeout(fn,180,...args);}return window.originalTimeout(fn,ms,...args);};window.failDetails=true;window.detailCalls=0;window.configure('stopped','zh-CN','light');");

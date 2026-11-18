@@ -13,18 +13,52 @@ import { currentHost, type Host } from './host.ts';
  * so a link there (the directory itself replaced by a link, or a link inside it) is still seen and refused by the
  * caller's own check. Missing folders above it are kept as written: they cannot be links yet.
  *
- * Windows returns `directory` unchanged, so its checks keep refusing junctions anywhere on the path as before.
+ * Windows follows no links, so its checks keep refusing junctions anywhere on the path as before. It only spells
+ * 8.3 short names in the folders above the directory (C:\Users\RUNNER~1, which hosted runners and some accounts
+ * put in TEMP) with their long names: a short name is another name for the same folder, not a link, but
+ * `realpath` returns the long name and every `realpath(path) === path` check refused the short spelling.
  * Pass the directory the app was given (a data or cache folder, a project folder, a configured root) or a fixed
  * folder directly inside it. Never pass a path deeper inside a workspace or any folder a task can write: resolving
  * its parents would follow a link planted there.
  */
 export function trustedDirectory(directory: string, host: Host = currentHost()): string {
-  if (host.platform === 'win32') return directory;
+  if (host.platform === 'win32') return longNamesAbove(directory, host);
   const { path } = host;
   const absolute = path.resolve(directory);
   const parent = path.dirname(absolute);
   if (parent === absolute) return absolute;
   return path.join(resolvedExisting(parent, host), path.basename(absolute));
+}
+
+/**
+ * `directory` with each existing 8.3 short name above it replaced by its long name. A path without `~` is returned
+ * as given without reading the file system. Expansion stops, keeping the rest as written, at a missing folder or
+ * at a link: the link stays in the path for the caller's check to refuse.
+ */
+function longNamesAbove(directory: string, host: Host): string {
+  const { path } = host;
+  const parent = path.dirname(directory);
+  if (parent === directory || !parent.includes('~')) return directory;
+  const { root } = path.parse(parent);
+  const segments = parent.slice(root.length).split(/[\\/]/).filter(Boolean);
+  let current = root;
+  for (const [index, segment] of segments.entries()) {
+    const next = path.join(current, segment);
+    if (segment.includes('~')) {
+      try {
+        if (host.fs.lstatSync(next).isSymbolicLink())
+          return path.join(current, ...segments.slice(index), path.basename(directory));
+        current = path.join(current, path.basename(host.fs.realpathSync.native(next)));
+        continue;
+      } catch (error) {
+        const code = (error as NodeJS.ErrnoException).code;
+        if (code !== 'ENOENT' && code !== 'ENOTDIR') throw error;
+        return path.join(current, ...segments.slice(index), path.basename(directory));
+      }
+    }
+    current = next;
+  }
+  return path.join(current, path.basename(directory));
 }
 
 /** `folder` with links resolved in its longest existing part; the missing rest is appended unchanged. */

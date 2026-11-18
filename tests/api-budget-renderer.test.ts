@@ -41,6 +41,8 @@ import './src/ui/studio.css';
 import './src/ui/settings.css';
 import './src/ui/ExternalAgents.css';
 document.documentElement.dataset.theme='dark';
+// The components render their Simplified Chinese source text; dates follow the same language, not the machine's.
+localStorage.setItem('comborunner.locale','zh-CN');
 window.fixture={calls:[],errors:[],notices:[],now:Date.parse('2026-11-20T12:00:00Z'),ticks:[]};
 const f=window.fixture;
 window.uiUpdateBlocked=uiUpdateBlocked;

@@ -61,7 +61,8 @@ async function isolatedCompilerFixture(
       target: join(isolated, 'node_modules', nativePackage),
     },
   ];
-  // Parallel smoke checks may brand shared dependencies; reuse assertions need unchanged compiler roots.
+  // Parallel smoke checks may brand shared dependencies, and parallel Vite builds write node_modules/.vite-temp;
+  // any change under the watched compiler roots ends sharing, so every reuse or shared-flight assertion needs these.
   for (const item of packages) await cp(item.source, item.target, { recursive: true, dereference: true });
   const created = await fixture(t, execute, isolated);
   t.after(async () => {
@@ -77,6 +78,15 @@ function deferred<T>() {
   return { promise, resolve };
 }
 
+/**
+ * Requests waiting on the in-flight check. A second request joins only after its own snapshot confirmation, which a
+ * loaded runner can take longer than any fixed pause; cancelling the first one before then is a different case.
+ */
+function consumers(service: VerificationReceipts) {
+  const { entries } = service as unknown as { entries: Map<string, { consumers: number }> };
+  return [...entries.values()].reduce((total, entry) => total + entry.consumers, 0);
+}
+
 async function until(condition: () => boolean) {
   const end = Date.now() + 8000;
   while (!condition() && Date.now() < end) await delay(10);
@@ -87,7 +97,7 @@ test('same snapshot has one in-flight check and one reusable host receipt', asyn
   let calls = 0;
   const gate = deferred<void>();
   t.after(() => gate.resolve());
-  const { service, request } = await fixture(t, async (input) => {
+  const { service, request } = await isolatedCompilerFixture(t, async (input) => {
     calls++;
     await gate.promise;
     return passed(input.command);
@@ -168,7 +178,7 @@ test('one cancelled consumer leaves another consumer running; all cancelled cons
   let stopped = 0;
   const gate = deferred<void>();
   t.after(() => gate.resolve());
-  const { service, request } = await fixture(t, async (input, signal) => {
+  const { service, request } = await isolatedCompilerFixture(t, async (input, signal) => {
     calls++;
     await Promise.race([
       gate.promise,
@@ -189,8 +199,7 @@ test('one cancelled consumer leaves another consumer running; all cancelled cons
   const secondSignal = new AbortController();
   const first = service.verify(request({ signal: firstSignal.signal }));
   const second = service.verify(request({ signal: secondSignal.signal }));
-  await until(() => calls === 1);
-  await delay(30);
+  await until(() => calls === 1 && consumers(service) === 2);
   firstSignal.abort();
   assert.equal((await first).status, 'cancelled');
   assert.equal(stopped, 0);
@@ -207,7 +216,7 @@ test('a surviving consumer receives success after another cancels', async (t) =>
   let calls = 0;
   const gate = deferred<void>();
   t.after(() => gate.resolve());
-  const { service, request } = await fixture(t, async (input) => {
+  const { service, request } = await isolatedCompilerFixture(t, async (input) => {
     calls++;
     await gate.promise;
     return passed(input.command);
@@ -215,8 +224,7 @@ test('a surviving consumer receives success after another cancels', async (t) =>
   const abort = new AbortController();
   const first = service.verify(request({ signal: abort.signal }));
   const second = service.verify(request());
-  await until(() => calls === 1);
-  await delay(30);
+  await until(() => calls === 1 && consumers(service) === 2);
   abort.abort();
   assert.equal((await first).status, 'cancelled');
   gate.resolve();
@@ -279,7 +287,7 @@ test('external config closure disables reuse and still executes approved checks'
 
 test('a resolved dependency edit invalidates the receipt without scanning every installed package', async (t) => {
   let calls = 0;
-  const { service, cwd, request } = await fixture(t, async (input) => {
+  const { service, cwd, request } = await isolatedCompilerFixture(t, async (input) => {
     calls++;
     return passed(input.command);
   });

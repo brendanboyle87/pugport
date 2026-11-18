@@ -17,6 +17,29 @@ process.on('uncaughtException', fail);
 // resolves 'electron' before Electron serves its API, and Node then hands this file the npm package's path instead.
 const electron = require('electron/main');
 app = electron.app;
+// A new window is shrunk to the display's work area. Hosted Windows runners have a 1024x768 screen, so a test that
+// asked for a 1300x760 or 1120x1100 page got a 1024x728 one, and its layout and screenshot checks measured a size
+// nobody asked for. Every window keeps the size its test gave; later setSize calls are not shrunk.
+const ScreenSizedWindow = electron.BrowserWindow;
+class RequestedSizeWindow extends ScreenSizedWindow {
+  constructor(options = {}) {
+    super(options);
+    const resize = options.useContentSize ? 'ContentSize' : 'Size';
+    const [width, height] = this[`get${resize}`]();
+    const wanted = [options.width ?? width, options.height ?? height];
+    if (wanted[0] !== width || wanted[1] !== height) this[`set${resize}`](...wanted);
+  }
+}
+// Electron's exports cannot be redefined, so the app is handed a view of them that serves this BrowserWindow.
+const electronForApp = new Proxy(electron, {
+  get: (target, name) => (name === 'BrowserWindow' ? RequestedSizeWindow : Reflect.get(target, name)),
+});
+const Module = require('node:module');
+const load = Module._load;
+Module._load = function loadElectronForApp(request, ...rest) {
+  const exported = load.call(this, request, ...rest);
+  return exported === electron ? electronForApp : exported;
+};
 const { existsSync, readFileSync } = require('node:fs');
 const { dirname, join, resolve } = require('node:path');
 // An app (or the code it tests) may still call the error box itself; a test that wants to see it replaces this.
