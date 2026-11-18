@@ -1,5 +1,5 @@
 ﻿import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { test } from 'node:test';
 
 function jobCondition(file: string, job: string) {
@@ -54,7 +54,8 @@ test('workflow job conditions route synthetic events to the intended runners', (
       );
     }
   }
-  const cla = jobCondition('cla', 'cla');
+  // The CLA workflow is not shipped in every copy of the repository (the public one leaves it out).
+  const cla = existsSync('.github/workflows/cla.yml') ? jobCondition('cla', 'cla') : undefined;
   const lifecycle = jobCondition('issue-lifecycle', 'reconcile');
   for (const [body, pr, claExpected, lifecycleExpected] of [
     ['recheck', true, true, false],
@@ -67,11 +68,11 @@ test('workflow job conditions route synthetic events to the intended runners', (
     ['/claim', true, false, false],
   ] as const) {
     const github = { event_name: 'issue_comment', event: { issue: { pull_request: pr }, comment: { body } } };
-    assert.equal(evaluate(cla, github), claExpected, body);
+    if (cla) assert.equal(evaluate(cla, github), claExpected, body);
     assert.equal(evaluate(lifecycle, github), lifecycleExpected, body);
   }
   assert.equal(evaluate(lifecycle, { event_name: 'schedule', event: {} }), true);
-  assert.equal(evaluate(cla, { event_name: 'pull_request_target', event: {} }), true);
+  if (cla) assert.equal(evaluate(cla, { event_name: 'pull_request_target', event: {} }), true);
   // Full reconciliation replaces PR triggers; pull_request_target is blocked by default in public repositories.
   assert.doesNotMatch(readFileSync('.github/workflows/issue-lifecycle.yml', 'utf8'), /^\s+pull_request_target:/m);
   assert.equal(
