@@ -140,14 +140,38 @@ test('the watcher repairs the Start menu shortcut after another writer replaces 
     const ours = h.read(join(h.programs, 'PugPort.lnk'));
     const stop = h.module.watchTaskbarIdentity(h.iconsDir);
     try {
-      writeFileSync(
-        join(h.programs, 'PugPort.lnk'),
-        JSON.stringify({ target: 'C:\\electron\\electron.exe', args: '', icon: '', appUserModelId: 'ComboRunner.App' }),
-      );
-      const deadline = Date.now() + 8000;
-      while (Date.now() < deadline && h.read(join(h.programs, 'PugPort.lnk')).args !== ours.args)
+      const link = join(h.programs, 'PugPort.lnk');
+      const replace = () =>
+        writeFileSync(
+          link,
+          JSON.stringify({
+            target: 'C:\\electron\\electron.exe',
+            args: '',
+            icon: '',
+            appUserModelId: 'ComboRunner.App',
+          }),
+        );
+      // The real file watcher starts asynchronously (macOS FSEvents in particular), so a change made right after
+      // watching begins can go unseen, and a slow machine delivers events late. The other writer therefore writes
+      // again while the shortcut is still wrong, each time after the watcher's 1.5 s settle delay has passed.
+      const repaired = () => {
+        try {
+          return h.read(link).args === ours.args;
+        } catch {
+          return false; // Read while the watcher was rewriting it.
+        }
+      };
+      replace();
+      let replaced = Date.now();
+      const deadline = Date.now() + 30000;
+      while (Date.now() < deadline && !repaired()) {
+        if (Date.now() - replaced > 4000) {
+          replace();
+          replaced = Date.now();
+        }
         await new Promise((r) => setTimeout(r, 100));
-      assert.deepEqual(h.read(join(h.programs, 'PugPort.lnk')), ours);
+      }
+      assert.deepEqual(h.read(link), ours);
     } finally {
       stop();
     }
