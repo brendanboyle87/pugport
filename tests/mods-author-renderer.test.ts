@@ -65,12 +65,14 @@ createRoot(document.getElementById('root')).render(<Fixture/>);
         runner,
         `
 const assert=require('node:assert/strict'),path=require('node:path');const{app,BrowserWindow}=require('electron');
+const{frameDisposed,srcdocFrames}=require(${JSON.stringify(join(root, 'tests', 'helpers', 'electron-frames.cjs'))});
 app.setPath('userData',path.join(__dirname,'profile'));app.disableHardwareAcceleration();
 app.whenReady().then(async()=>{const windows=[];try{console.log('author: ready');
 const open=async()=>{const w=new BrowserWindow({show:false,width:1100,height:900,webPreferences:{contextIsolation:true,nodeIntegration:false,sandbox:true,offscreen:true,backgroundThrottling:false}});windows.push(w);await w.loadFile(path.join(__dirname,'index.html'));console.log('author: window loaded');return w;};
 const win=await open();const read=code=>win.webContents.executeJavaScript(code);
-const wait=async(check)=>{for(let i=0;i<150;i++){if(await check())return;await new Promise(r=>setTimeout(r,20));}throw Error('Renderer condition timed out');};
-const child=async(w,selector)=>{for(const frame of w.webContents.mainFrame.frames){if(frame.url!=='about:srcdoc')continue;let timer;try{const found=await Promise.race([frame.executeJavaScript('!!document.querySelector('+JSON.stringify(selector)+')'),new Promise(resolve=>{timer=setTimeout(()=>resolve(false),500);})]);if(found)return frame;}catch{}finally{clearTimeout(timer);}}return null;};
+// A frame found by an earlier attempt may be disposed by a remount meanwhile; the check then looks it up again.
+const wait=async(check)=>{for(let i=0;i<150;i++){try{if(await check())return;}catch(error){if(!frameDisposed(error))throw error;}await new Promise(r=>setTimeout(r,20));}throw Error('Renderer condition timed out');};
+const child=async(w,selector)=>{for(const frame of srcdocFrames(w.webContents)){let timer;try{const found=await Promise.race([frame.executeJavaScript('!!document.querySelector('+JSON.stringify(selector)+')'),new Promise(resolve=>{timer=setTimeout(()=>resolve(false),500);})]);if(found)return frame;}catch{}finally{clearTimeout(timer);}}return null;};
 console.log('author: locating frames');let panel,sidebar;await wait(async()=>{panel=await child(win,'#notes');sidebar=await child(win,'#sidebar-input');return panel&&sidebar&&await panel.executeJavaScript('!document.getElementById("discuss").disabled');});
 assert.equal(await panel.executeJavaScript('document.getElementById("notes").value'),'saved');
 assert.equal(await panel.executeJavaScript('document.body.getBoundingClientRect().height===innerHeight'),true);

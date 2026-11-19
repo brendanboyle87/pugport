@@ -97,7 +97,8 @@ const tree=createRoot(document.getElementById('root'));f.unmount=()=>tree.unmoun
       await writeFile(
         runner,
         `
-const assert=require('node:assert/strict'),path=require('node:path');const{app,BrowserWindow}=require('electron');app.setPath('userData',path.join(__dirname,'profile'));app.disableHardwareAcceleration();
+const assert=require('node:assert/strict'),path=require('node:path');const{app,BrowserWindow}=require('electron');
+const{srcdocFrames}=require(${JSON.stringify(join(root, 'tests', 'helpers', 'electron-frames.cjs'))});app.setPath('userData',path.join(__dirname,'profile'));app.disableHardwareAcceleration();
 console.log('STEP ModFrame: wait for Electron ready');
 app.whenReady().then(async()=>{let win;try{
 console.log('STEP ModFrame: create window');
@@ -108,7 +109,7 @@ const bounded=async(fn,label,ms=5000)=>{let timer;try{return await Promise.race(
 const read=code=>bounded(()=>win.webContents.executeJavaScript(code),step+' / host: '+code);
 const tick=()=>new Promise(r=>setTimeout(r,25));
 const until=async(fn,label)=>{let lastError;await bounded(async()=>{const deadline=Date.now()+5000;while(Date.now()<deadline){try{if(await fn())return;}catch(error){lastError=error;}await tick();}throw Error('Timed out at '+step+' / '+label+(lastError?' / '+lastError.message:''));},step+' / '+label);};
-const child=()=>win.webContents.mainFrame.frames.find(f=>f.url==='about:srcdoc');
+const child=()=>srcdocFrames(win.webContents)[0];
 const frameRead=code=>bounded(()=>child().executeJavaScript(code),step+' / frame: '+code);
 win.webContents.on('did-frame-finish-load',(_event,main)=>console.log('LOAD ModFrame: '+step+' main='+main));
 win.webContents.on('did-fail-load',(_event,code,description,url,main)=>console.error('LOAD FAILED ModFrame: '+step+' '+JSON.stringify({code,description,url,main})));

@@ -117,7 +117,8 @@ localStorage.setItem('comborunner.locale','en');const root=createRoot(document.g
       await writeFile(
         runner,
         `
-const assert=require('node:assert/strict'),fs=require('node:fs/promises'),path=require('node:path');const{app,BrowserWindow}=require('electron');app.setPath('userData',path.join(__dirname,'profile'));app.disableHardwareAcceleration();
+const assert=require('node:assert/strict'),fs=require('node:fs/promises'),path=require('node:path');const{app,BrowserWindow}=require('electron');
+const{srcdocFrames}=require(${JSON.stringify(join(root, 'tests', 'helpers', 'electron-frames.cjs'))});app.setPath('userData',path.join(__dirname,'profile'));app.disableHardwareAcceleration();
 app.whenReady().then(async()=>{let win;try{
  win=new BrowserWindow({show:false,width:1300,height:850,useContentSize:true,webPreferences:{contextIsolation:true,nodeIntegration:false,sandbox:true,offscreen:true,backgroundThrottling:false}});
  let remote=0;win.webContents.session.webRequest.onBeforeRequest((d,cb)=>{const cancel=!/^(file:|data:|blob:|devtools:)/.test(d.url);if(cancel)remote++;cb({cancel});});
@@ -126,7 +127,7 @@ app.whenReady().then(async()=>{let win;try{
  const frame=()=>read('new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))');
  const wait=async (code,attempts=160)=>{for(let n=0;n<attempts;n++){if(await read(code))return;await new Promise(r=>setTimeout(r,30));}throw Error('Timed out: '+code+'; '+JSON.stringify(await read('window.fixture?.errors')));};
  const click=async selector=>{await read('document.querySelector('+JSON.stringify(selector)+').click()');await frame();};
- const mod=()=>win.webContents.mainFrame.frames.find(f=>f.url==='about:srcdoc');
+ const mod=()=>srcdocFrames(win.webContents)[0];
  const modRead=code=>mod().executeJavaScript(code);
  const ready=async()=>{await wait('!!document.querySelector(".mod-workspace-surface iframe")');for(let n=0;n<160;n++){if(mod()&&await modRead('!!window.pugport&&!!document.getElementById("notes")&&!document.getElementById("notes").disabled').catch(()=>false))return;await new Promise(r=>setTimeout(r,30));}throw Error('Mod did not become ready');};
  const shot=async name=>{await new Promise(r=>setTimeout(r,300));await frame();await fs.writeFile(path.join(${JSON.stringify(artifacts)},name+'.png'),(await win.webContents.capturePage()).toPNG());};
