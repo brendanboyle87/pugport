@@ -17,10 +17,9 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue" alt="Apache-2.0 license"></a>
 </p>
 
-<p align="center">
-  <a href="https://pugport.com"><img src=".github/readme/live-routing.webp" width="880" alt="The Live routing board from pugport.com: tasks arrive in a chat, pass the pug and land on the account with the most usage left"></a><br>
-  <sub>The Live routing board from <a href="https://pugport.com">pugport.com</a>: an illustration with simulated usage, not the app itself.</sub>
-</p>
+https://github.com/user-attachments/assets/86c110f8-0bda-48bd-b11f-4cb3552e1a41
+
+<p align="center"><sub>PugPort in two minutes (with music). Also on <a href="https://pugport.com/#film">pugport.com</a>.</sub></p>
 
 ## What it does
 
