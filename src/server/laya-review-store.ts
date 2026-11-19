@@ -31,7 +31,7 @@ async function lockJSON(path: string): Promise<{ file: BigIntStats; value: Recor
   try {
     const file = await lstat(path, { bigint: true });
     if (file.isSymbolicLink() || !file.isFile() || file.nlink > 1n || file.size > 1024)
-      throw new Error('Unsafe Laya review lock.');
+      throw new Error('Unsafe Task Router review lock.');
     // Another recovery may unlink the marker after pathname lookup but before stat reads the inode.
     if (file.nlink === 0n) return undefined;
     handle = await open(path, constants.O_RDONLY | (constants.O_NOFOLLOW ?? 0));
@@ -43,7 +43,7 @@ async function lockJSON(path: string): Promise<{ file: BigIntStats; value: Recor
       if (!bytesRead) break;
       size += bytesRead;
     }
-    if (size > 1024) throw new Error('Unsafe Laya review lock.');
+    if (size > 1024) throw new Error('Unsafe Task Router review lock.');
     let value;
     try {
       value = JSON.parse(buffer.subarray(0, size).toString('utf8'));
@@ -65,7 +65,8 @@ const validDate = (date: string) =>
 
 function recordId(id: string): [string, string] {
   const parts = id.split('/');
-  if (parts.length !== 2 || !validDate(parts[0]!) || !uuid.test(parts[1]!)) throw new Error('Invalid Laya review ID.');
+  if (parts.length !== 2 || !validDate(parts[0]!) || !uuid.test(parts[1]!))
+    throw new Error('Invalid Task Router review ID.');
   return parts as [string, string];
 }
 function localDate(timestamp: string): string {
@@ -75,7 +76,7 @@ function localDate(timestamp: string): string {
     !/^\d{4}-\d{2}-\d{2}T(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(timestamp) ||
     !Number.isFinite(date.getTime())
   )
-    throw new Error('Invalid Laya review createdAt.');
+    throw new Error('Invalid Task Router review createdAt.');
   return `${date.getFullYear().toString().padStart(4, '0')}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
 }
 
@@ -246,7 +247,7 @@ export class LayaReviewStore {
       }
       info = await lstat(path);
     }
-    if (info.isSymbolicLink() || !info.isDirectory()) throw new Error('Unsafe Laya review directory.');
+    if (info.isSymbolicLink() || !info.isDirectory()) throw new Error('Unsafe Task Router review directory.');
     return true;
   }
 
@@ -258,15 +259,15 @@ export class LayaReviewStore {
       if (missing(error)) return undefined;
       throw error;
     }
-    if (directory.isSymbolicLink()) throw new Error('Unsafe Laya review lock.');
+    if (directory.isSymbolicLink()) throw new Error('Unsafe Task Router review lock.');
     if (!directory.isDirectory()) {
-      if (!directory.isFile() || directory.nlink !== 1n) throw new Error('Unsafe Laya review lock.');
+      if (!directory.isFile() || directory.nlink !== 1n) throw new Error('Unsafe Task Router review lock.');
       return null;
     }
     const entries: string[] = [];
     try {
       for await (const entry of await opendir(path)) {
-        if (entry.isSymbolicLink()) throw new Error('Unsafe Laya review lock.');
+        if (entry.isSymbolicLink()) throw new Error('Unsafe Task Router review lock.');
         entries.push(entry.name);
         if (entries.length > 1) return null;
       }
@@ -329,7 +330,7 @@ export class LayaReviewStore {
     if (directory.birthtimeNs <= 0n) return false;
     let count = 0;
     for await (const entry of await opendir(this.directory)) {
-      if (++count > maxEntries) throw new Error('Laya lock recovery scan limit reached.');
+      if (++count > maxEntries) throw new Error('Task Router lock recovery scan limit reached.');
       const match = /^\.laya-lock-(\d+)-([0-9a-f-]{36})$/.exec(entry.name);
       if (!match || !uuid.test(match[2]!)) continue;
       const pid = Number(match[1]),
@@ -398,7 +399,7 @@ export class LayaReviewStore {
     await this.safeDirectory(stage);
     await mkdir(lease, { mode: 0o700 });
     const directory = await lstat(lease, { bigint: true });
-    if (directory.isSymbolicLink() || !directory.isDirectory()) throw new Error('Unsafe Laya review lock.');
+    if (directory.isSymbolicLink() || !directory.isDirectory()) throw new Error('Unsafe Task Router review lock.');
     let owner: LockSnapshot | undefined;
     let published = false;
     let acquired = false;
@@ -438,7 +439,7 @@ export class LayaReviewStore {
             published = true;
             const current = await this.lockSnapshot(path);
             if (!current || current.token !== token || !sameIdentity(current.directory, directory))
-              throw new Error('Laya review lock changed.');
+              throw new Error('Task Router review lock changed.');
             acquired = true;
             return { path, owner };
           } catch (error) {
@@ -456,7 +457,7 @@ export class LayaReviewStore {
         }
         await delay(10);
       }
-      throw new Error('Laya review store is busy.');
+      throw new Error('Task Router review store is busy.');
     } finally {
       if (!acquired) {
         if (owner) await this.removeLock(published ? path : lease, owner);
@@ -477,14 +478,14 @@ export class LayaReviewStore {
       const started = Date.now();
       if (!(await this.safeDirectory(this.dataDir))) {
         if (!create) return empty;
-        throw new Error('Laya data directory does not exist.');
+        throw new Error('Task Router data directory does not exist.');
       }
       if (!(await this.safeDirectory(this.directory, create))) return empty;
       const lock = await this.acquireLock(started);
       try {
         return await action();
       } finally {
-        if (!(await this.removeLock(lock.path, lock.owner))) throw new Error('Laya review lock changed.');
+        if (!(await this.removeLock(lock.path, lock.owner))) throw new Error('Task Router review lock changed.');
       }
     });
     queues.set(key, operation);
@@ -507,7 +508,7 @@ export class LayaReviewStore {
       throw error;
     }
     if (info.isSymbolicLink() || !info.isFile() || info.nlink !== 1n || info.size > maxFileBytes)
-      throw new Error('Unsafe or oversized Laya review file.');
+      throw new Error('Unsafe or oversized Task Router review file.');
     const handle = await open(file, constants.O_RDONLY | (constants.O_NOFOLLOW ?? 0));
     let text;
     try {
@@ -517,7 +518,7 @@ export class LayaReviewStore {
         current.ino !== info.ino ||
         current.size > maxFileBytes
       )
-        throw new Error('Laya review file changed.');
+        throw new Error('Task Router review file changed.');
       const buffer = Buffer.alloc(maxFileBytes + 1);
       let size = 0;
       while (size < buffer.length) {
@@ -525,7 +526,7 @@ export class LayaReviewStore {
         if (!result.bytesRead) break;
         size += result.bytesRead;
       }
-      if (size > maxFileBytes) throw new Error('Oversized Laya review file.');
+      if (size > maxFileBytes) throw new Error('Oversized Task Router review file.');
       text = buffer.subarray(0, size).toString('utf8');
     } finally {
       await handle.close();
@@ -542,7 +543,7 @@ export class LayaReviewStore {
       typeof value.question !== 'string' ||
       !statuses.includes(value.training?.status)
     )
-      throw new Error('Invalid Laya review record.');
+      throw new Error('Invalid Task Router review record.');
     return value;
   }
 
@@ -553,12 +554,13 @@ export class LayaReviewStore {
     const target = join(directory, name + '.json');
     try {
       const info = await lstat(target);
-      if (info.isSymbolicLink() || !info.isFile() || info.nlink !== 1) throw new Error('Unsafe Laya review file.');
+      if (info.isSymbolicLink() || !info.isFile() || info.nlink !== 1)
+        throw new Error('Unsafe Task Router review file.');
     } catch (error) {
       if (!missing(error)) throw error;
     }
     const json = JSON.stringify(record, null, 2) + '\n';
-    if (Buffer.byteLength(json) > maxFileBytes) throw new Error('Laya review exceeds storage limit.');
+    if (Buffer.byteLength(json) > maxFileBytes) throw new Error('Task Router review exceeds storage limit.');
     const temporary = join(directory, `.${name}.${randomUUID()}.tmp`);
     try {
       const handle = await open(temporary, 'wx', 0o600);
@@ -587,7 +589,7 @@ export class LayaReviewStore {
     const canShare = !!this.options.onCompleted && (this.options.canShare?.(record) ?? true);
     const identity = record.messageId ?? record.workflowId;
     if (!uuid.test(record.workflowId) || !uuid.test(identity))
-      throw new Error('Laya workflow/message identity must be a UUID.');
+      throw new Error('Task Router workflow/message identity must be a UUID.');
     const id = `${localDate(record.createdAt)}/${identity}`;
     const { raw, ...inference } = record.inference;
     const safe = sanitize(
@@ -684,13 +686,13 @@ export class LayaReviewStore {
   }
 
   private async ids(date?: string): Promise<string[]> {
-    if (date && !validDate(date)) throw new Error('Invalid Laya review date.');
+    if (date && !validDate(date)) throw new Error('Invalid Task Router review date.');
     const dates: string[] = [];
     let entries = 0;
     if (date) dates.push(date);
     else
       for await (const entry of await opendir(this.directory)) {
-        if (++entries > maxEntries) throw new Error('Laya review scan limit reached.');
+        if (++entries > maxEntries) throw new Error('Task Router review scan limit reached.');
         if (validDate(entry.name)) dates.push(entry.name);
       }
     const ids: string[] = [];
@@ -698,8 +700,8 @@ export class LayaReviewStore {
       const directory = join(this.directory, day);
       if (!(await this.safeDirectory(directory))) continue;
       for await (const entry of await opendir(directory)) {
-        if (++entries > maxEntries) throw new Error('Laya review scan limit reached.');
-        if (entry.isSymbolicLink()) throw new Error('Unsafe Laya review file.');
+        if (++entries > maxEntries) throw new Error('Task Router review scan limit reached.');
+        if (entry.isSymbolicLink()) throw new Error('Unsafe Task Router review file.');
         if (entry.name.endsWith('.json') && uuid.test(entry.name.slice(0, -5)))
           ids.push(`${day}/${entry.name.slice(0, -5)}`);
       }
@@ -708,11 +710,12 @@ export class LayaReviewStore {
   }
 
   async list(options: { date?: string; status?: TrainingStatus; limit?: number } = {}): Promise<LayaReviewRecord[]> {
-    if (options.date !== undefined && !validDate(options.date)) throw new Error('Invalid Laya review date.');
+    if (options.date !== undefined && !validDate(options.date)) throw new Error('Invalid Task Router review date.');
     if (options.status !== undefined && !statuses.includes(options.status))
-      throw new Error('Invalid Laya review status.');
+      throw new Error('Invalid Task Router review status.');
     const limit = options.limit ?? 100;
-    if (!Number.isInteger(limit) || limit < 1 || limit > 500) throw new Error('Laya review limit must be 1 to 500.');
+    if (!Number.isInteger(limit) || limit < 1 || limit > 500)
+      throw new Error('Task Router review limit must be 1 to 500.');
     return this.locked(
       async () => {
         const records: LayaReviewRecord[] = [];
@@ -721,7 +724,7 @@ export class LayaReviewStore {
           const record = await this.read(id);
           if (!record) continue;
           bytes += Buffer.byteLength(JSON.stringify(record));
-          if (bytes > 32 * 1024 * 1024) throw new Error('Laya review read limit reached.');
+          if (bytes > 32 * 1024 * 1024) throw new Error('Task Router review read limit reached.');
           if (!options.status || record.training.status === options.status) records.push(record);
         }
         return records
@@ -738,31 +741,32 @@ export class LayaReviewStore {
     status: TrainingStatus,
     options: { batchId?: string; modelVersion?: string } = {},
   ): Promise<void> {
-    if (!statuses.includes(status) || ids.length > 500) throw new Error('Invalid Laya review transition.');
+    if (!statuses.includes(status) || ids.length > 500) throw new Error('Invalid Task Router review transition.');
     ids.forEach(recordId);
     if (options.batchId !== undefined && !/^[a-zA-Z0-9_.:-]{1,128}$/.test(options.batchId))
-      throw new Error('Invalid Laya training batch ID.');
+      throw new Error('Invalid Task Router training batch ID.');
     if (options.modelVersion !== undefined && !/^[a-zA-Z0-9_.:-]{1,200}$/.test(options.modelVersion))
-      throw new Error('Invalid Laya training model version.');
+      throw new Error('Invalid Task Router training model version.');
     await this.locked(
       async () => {
         const records: LayaReviewRecord[] = [];
         for (const id of new Set(ids)) {
           const record = await this.read(id);
-          if (!record) throw new Error('Laya review record not found.');
+          if (!record) throw new Error('Task Router review record not found.');
           const old = record.training;
           if (
             (status === 'reserved' || status === 'used' || old.status === 'reserved' || old.status === 'used') &&
             !options.batchId
           )
-            throw new Error('Laya training transition requires a batch ID.');
+            throw new Error('Task Router training transition requires a batch ID.');
           if ((old.status === 'reserved' || old.status === 'used') && old.batchId !== options.batchId)
-            throw new Error('Laya review belongs to another training batch.');
-          if (old.status === 'used' && status !== 'used') throw new Error('Used Laya review records cannot be reused.');
+            throw new Error('Task Router review belongs to another training batch.');
+          if (old.status === 'used' && status !== 'used')
+            throw new Error('Used Task Router review records cannot be reused.');
           if (status === 'reserved' && old.status !== 'reviewed' && old.status !== 'reserved')
-            throw new Error('Only reviewed Laya records may be reserved.');
+            throw new Error('Only reviewed Task Router records may be reserved.');
           if (status === 'used' && old.status !== 'reserved' && old.status !== 'used')
-            throw new Error('Only reserved Laya records may be used.');
+            throw new Error('Only reserved Task Router records may be used.');
           if (old.status === 'reserved' && !['reserved', 'used', 'reviewed'].includes(status))
             throw new Error('Release the reservation to reviewed before changing its status.');
           if (old.status === status) continue;
@@ -797,14 +801,14 @@ export class LayaReviewStore {
             const [date, name] = recordId(id);
             const info = await lstat(join(this.directory, date, name + '.json'));
             if (info.isSymbolicLink() || !info.isFile() || info.nlink !== 1)
-              throw new Error('Unsafe Laya review file.');
+              throw new Error('Unsafe Task Router review file.');
             selected.push(id);
             continue;
           }
           const record = await this.read(id);
           if (!record) continue;
           bytes += Buffer.byteLength(JSON.stringify(record));
-          if (bytes > 32 * 1024 * 1024) throw new Error('Laya review read limit reached.');
+          if (bytes > 32 * 1024 * 1024) throw new Error('Task Router review read limit reached.');
           if (match(record)) selected.push(id);
         }
         const dates = new Set<string>();
@@ -831,7 +835,7 @@ export class LayaReviewStore {
     await this.remove();
   }
   async deleteProject(projectId: string): Promise<void> {
-    if (!projectId || projectId.length > 512) throw new Error('Invalid Laya project ID.');
+    if (!projectId || projectId.length > 512) throw new Error('Invalid Task Router project ID.');
     await this.remove((record) => record.projectId === projectId);
   }
   async deleteConversations(conversationIds: string[]): Promise<void> {

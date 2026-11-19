@@ -217,7 +217,7 @@ test('Why summarises judgment, route and memory and opens the raw payloads', () 
   });
   const markup = html(element);
   assert.match(markup, /通用 · 困难 · 要执行操作 · 可写入/);
-  assert.match(markup, /由 Laya 判断/);
+  assert.match(markup, /由 Task Router 判断/);
   assert.match(markup, /Synthetic route reason Synthetic warning/);
   assert.match(markup, /6 条摘录 · 3 个路径已核实 · 412 ms/);
   assert.match(markup, /项目记忆版本 23/);

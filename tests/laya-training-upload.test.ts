@@ -523,7 +523,7 @@ test('failed deletion retains identity and a persistent upload barrier until an 
   await f.uploader.flush();
   const old = (await f.state()).identity;
   f.respond(async () => new Response('do not expose private error', { status: 503 }));
-  await assert.rejects(f.uploader.deleteSamples(), /^Error: Laya training request failed \(503\)\.$/);
+  await assert.rejects(f.uploader.deleteSamples(), /^Error: Task Router training request failed \(503\)\.$/);
   assert.deepEqual((await f.state()).identity, old);
   assert.equal((await f.state()).deleting, true);
   await f.uploader.stop();
@@ -582,7 +582,7 @@ test('invalid persistent state fails closed without replacing the deletion ident
   const f = await fixture(t);
   const content = '{"version":1,"identity":{"installId":"do-not-replace"}}';
   await writeFile(join(f.directory, 'laya-training-upload.json'), content);
-  await assert.rejects(f.uploader.flush(), /Invalid Laya upload state/);
+  await assert.rejects(f.uploader.flush(), /Invalid Task Router upload state/);
   assert.equal(await readFile(join(f.directory, 'laya-training-upload.json'), 'utf8'), content);
   assert.equal(f.calls.length, 0);
 });

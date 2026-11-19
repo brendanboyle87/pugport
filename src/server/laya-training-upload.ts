@@ -86,7 +86,7 @@ export class LayaTrainingUpload {
       });
       info = await lstat(path);
     }
-    if (!info.isDirectory() || info.isSymbolicLink()) throw new Error('Unsafe Laya upload directory.');
+    if (!info.isDirectory() || info.isSymbolicLink()) throw new Error('Unsafe Task Router upload directory.');
   }
   private async load(): Promise<UploadState> {
     if (this.state) {
@@ -97,12 +97,13 @@ export class LayaTrainingUpload {
     try {
       const info = await lstat(this.path);
       if (!info.isFile() || info.isSymbolicLink() || info.nlink !== 1 || info.size > maxStateBytes)
-        throw new Error('Unsafe Laya upload state.');
+        throw new Error('Unsafe Task Router upload state.');
       const handle = await open(this.path, constants.O_RDONLY | (constants.O_NOFOLLOW ?? 0));
       let state: UploadState;
       try {
         const current = await handle.stat();
-        if (current.ino !== info.ino || current.size > maxStateBytes) throw new Error('Laya upload state changed.');
+        if (current.ino !== info.ino || current.size > maxStateBytes)
+          throw new Error('Task Router upload state changed.');
         state = JSON.parse(await handle.readFile('utf8')) as UploadState;
       } finally {
         await handle.close();
@@ -129,7 +130,7 @@ export class LayaTrainingUpload {
             !Number.isFinite(item.nextAttempt),
         )
       )
-        throw new Error('Invalid Laya upload state.');
+        throw new Error('Invalid Task Router upload state.');
       // A crash may have interrupted a batch after dispatch but before its single queue commit.
       if (state.pending.length) state.identity.attempted = true;
       this.state = state;
@@ -151,12 +152,13 @@ export class LayaTrainingUpload {
     await this.directory();
     try {
       const info = await lstat(this.path);
-      if (!info.isFile() || info.isSymbolicLink() || info.nlink !== 1) throw new Error('Unsafe Laya upload state.');
+      if (!info.isFile() || info.isSymbolicLink() || info.nlink !== 1)
+        throw new Error('Unsafe Task Router upload state.');
     } catch (error) {
       if (!missing(error)) throw error;
     }
     const json = JSON.stringify(this.state);
-    if (Buffer.byteLength(json) > maxStateBytes) throw new Error('Laya upload queue is full.');
+    if (Buffer.byteLength(json) > maxStateBytes) throw new Error('Task Router upload queue is full.');
     const temporary = `${this.path}.${randomUUID()}.tmp`;
     try {
       const handle = await open(temporary, 'wx', 0o600);
@@ -216,7 +218,7 @@ export class LayaTrainingUpload {
         state.pending.some((item) => item.record.id === record.id)
       )
         return;
-      if (state.pending.length >= maxQueue) throw new Error('Laya upload queue is full.');
+      if (state.pending.length >= maxQueue) throw new Error('Task Router upload queue is full.');
       const item = { record: safe, attempts: 0, nextAttempt: 0 };
       state.pending.push(item);
       try {
@@ -279,8 +281,8 @@ export class LayaTrainingUpload {
     return sample;
   }
   private async rpc(name: string, body: object): Promise<unknown> {
-    if (this.testTransportMissing) throw new Error('Laya training tests require an explicit transport.');
-    if (!configuredSync(this.config)) throw new Error('Laya training service is not configured.');
+    if (this.testTransportMissing) throw new Error('Task Router training tests require an explicit transport.');
+    if (!configuredSync(this.config)) throw new Error('Task Router training service is not configured.');
     const response = await (this.options.fetch ?? fetch)(`${this.config.url.replace(/\/$/, '')}/rest/v1/rpc/${name}`, {
       method: 'POST',
       headers: { apikey: this.config.publishableKey, 'Content-Type': 'application/json' },
@@ -290,7 +292,7 @@ export class LayaTrainingUpload {
     });
     if (!response.ok) {
       await response.body?.cancel();
-      throw new Error(`Laya training request failed (${response.status}).`);
+      throw new Error(`Task Router training request failed (${response.status}).`);
     }
     return response.json();
   }
@@ -325,7 +327,8 @@ export class LayaTrainingUpload {
               app_version: this.options.appVersion,
               sample,
             });
-            if (typeof result !== 'string' || !uuid.test(result)) throw new Error('Invalid Laya upload response.');
+            if (typeof result !== 'string' || !uuid.test(result))
+              throw new Error('Invalid Task Router upload response.');
             state.pending = state.pending.filter((entry) => entry !== item);
           } catch {
             item.attempts++;
@@ -363,7 +366,7 @@ export class LayaTrainingUpload {
         ? await this.rpc('delete_laya_samples', { install_id: state.identity.installId, token: state.identity.token })
         : 0;
       if (typeof count !== 'number' || !Number.isSafeInteger(count) || count < 0)
-        throw new Error('Invalid Laya deletion response.');
+        throw new Error('Invalid Task Router deletion response.');
       this.state = {
         version: 1,
         identity: identity(),

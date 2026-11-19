@@ -1,10 +1,10 @@
-# Local Laya routing and review records
+# Task Router routing and review records
 
-Laya v4 provides routing advice. PugPort still owns executor availability, explicit user selections, strict routing rules, account quotas, permission ceilings, budgets and the actual execution. Model output never grants a tool or write permission. Conflicting advice is discarded. Compacted input has a separate, bounded parallel assessment path described below; ordinary fallback does not call a second classifier.
+Task Router v4 provides routing advice. PugPort still owns executor availability, explicit user selections, strict routing rules, account quotas, permission ceilings, budgets and the actual execution. Model output never grants a tool or write permission. Conflicting advice is discarded. Compacted input has a separate, bounded parallel assessment path described below; ordinary fallback does not call a second classifier.
 
 ## Settings and runtime
 
-Open **Settings → Advanced → Laya**. The inference service is off on a fresh installation until you supply the absolute Python executable and checkpoint directories. The checkpoint is not distributed with PugPort. The Python worker is local, offline and persistent; it warms the model before declaring itself ready. It verifies the fixed v4 weight digest and does not download models or install dependencies.
+Open **Settings → Advanced → Routing advice**. The inference service is off on a fresh installation until you supply the absolute Python executable and checkpoint directories. The checkpoint is not distributed with PugPort. The Python worker is local, offline and persistent; it warms the model before declaring itself ready. It verifies the fixed v4 weight digest and does not download models or install dependencies.
 
 The supported runtime currently requires CUDA. Missing CUDA, invalid files, loading, a busy worker or a failed prediction immediately falls back to local rules. Each ready-worker prediction has a 1.5-second deadline; startup runs separately in the background. There is no inference queue and no per-message reload. Changing the runtime configuration stops only PugPort's own worker. No existing AI subscription or API key is used by this classifier.
 
@@ -16,7 +16,7 @@ Advice about task type and difficulty is used only where normal automatic routin
 
 Packing, an underlying truncation flag, or a request exceeding the classifier's byte limit makes the classification incomplete. Its task-type/difficulty choices are not trusted for routing. Automatic routing provisionally requests a strong tier and high effort, subject to the existing account/model constraints. This is a resource precaution, not a claim that all long messages are difficult.
 
-After the foreground run starts, a separate tool-less, read-only assessment may run if execution capacity remains. It receives the full current question and quotations, bounded recent context, and attachment metadata. It uses normal routing and budgets, has a 30-second deadline, cannot call tools or delegate, and never changes the active answering model. Valid advice applies only to subsequent unstarted steps. Explicitly selected routes, continuations, delegated/coordinator tasks and inputs larger than 128,000 characters skip this assessment; unavailable capacity, cancellation or invalid output leaves the provisional advice intact. Disabling Laya also disables this long-input assessment path. The auxiliary run can consume ordinary executor/API allowance; it is not a second local Laya prediction.
+After the foreground run starts, a separate tool-less, read-only assessment may run if execution capacity remains. It receives the full current question and quotations, bounded recent context, and attachment metadata. It uses normal routing and budgets, has a 30-second deadline, cannot call tools or delegate, and never changes the active answering model. Valid advice applies only to subsequent unstarted steps. Explicitly selected routes, continuations, delegated/coordinator tasks and inputs larger than 128,000 characters skip this assessment; unavailable capacity, cancellation or invalid output leaves the provisional advice intact. Disabling Task Router also disables this long-input assessment path. The auxiliary run can consume ordinary executor/API allowance; it is not a second local Task Router prediction.
 
 `raw.usage` records `input_compacted`, original and packed state token counts, the state budget and changed fields. `source_compacted` records transport-level shortening of the current question/quotations. `outcome.assessment` links the auxiliary run, its status, advice and reason. The record retains the original policy separately from the final routes, so a reviewer can distinguish an initial decision from later advice.
 
@@ -36,7 +36,7 @@ The directory is always `<PugPort dataDir>/routing-training/`, independent of th
     <message UUID>.json
 ```
 
-Dates use local time from the message's saved timestamp. Open the fixed folder from the Laya settings panel. The record ID is `YYYY-MM-DD/UUID`, stable across retries of the same message. New user messages get distinct IDs even if their wording repeats. Do not use the wording alone as an identity.
+Dates use local time from the message's saved timestamp. Open the fixed folder from the Task Router settings panel. The record ID is `YYYY-MM-DD/UUID`, stable across retries of the same message. New user messages get distinct IDs even if their wording repeats. Do not use the wording alone as an identity.
 
 Each JSON record includes the user question, exact bounded classifier input, v4 version/digest, prediction/probabilities, constraints and conflicts, fallback reason, and final executor/model/effort routes. An initial queued placeholder is filled once after judgment; it is not a second sample. Later retries cannot overwrite an existing real observation or reset its training status. Final route/outcome evidence may still update as the task finishes. `capture.redacted` and `capture.truncated` identify credential redaction and capture limits. These are raw observations, not approved training labels; the classifier's own prediction must not be treated as ground truth.
 

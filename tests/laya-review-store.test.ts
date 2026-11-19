@@ -558,7 +558,7 @@ test('rejects a hard-linked lock marker without changing either link', async (t)
   await writeFile(marker, contents);
   const outside = join(directory, 'preserved-lock.json');
   await link(marker, outside);
-  await assert.rejects(store.capture(record()), /Unsafe Laya review lock/);
+  await assert.rejects(store.capture(record()), /Unsafe Task Router review lock/);
   assert.equal(await readFile(marker, 'utf8'), contents);
   assert.equal(await readFile(outside, 'utf8'), contents);
 });

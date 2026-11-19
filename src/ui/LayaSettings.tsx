@@ -59,7 +59,7 @@ export function LayaSettings({
       try {
         await readStatus(initial);
       } catch (failure) {
-        if (mounted.current) setError(`获取 Laya 状态失败：${failureText(failure)}`);
+        if (mounted.current) setError(`获取 Task Router 状态失败：${failureText(failure)}`);
       } finally {
         if (mounted.current) setLoading(false);
       }
@@ -154,11 +154,11 @@ export function LayaSettings({
       if (update.checkpointPath !== undefined) setCheckpointPath(update.checkpointPath);
       await readStatus();
       await reload();
-      if (mounted.current) notify({ tone: 'success', message: 'Laya 设置已保存。' });
+      if (mounted.current) notify({ tone: 'success', message: 'Task Router 设置已保存。' });
     } catch (failure) {
       const message = committed
-        ? `Laya 设置已保存，但状态刷新失败：${failureText(failure)}`
-        : `Laya 设置保存失败：${failureText(failure)}`;
+        ? `Task Router 设置已保存，但状态刷新失败：${failureText(failure)}`
+        : `Task Router 设置保存失败：${failureText(failure)}`;
       if (mounted.current) {
         setError(message);
         notify({ tone: 'error', message });
@@ -247,7 +247,7 @@ export function LayaSettings({
               onChange={(event) => void save({ mode: event.target.value as LayaConfiguration['mode'] })}
             >
               <option value="cloud">PugPort 云端（默认）</option>
-              <option value="local">本机 Laya</option>
+              <option value="local">本机 Task Router</option>
               <option value="jev">Jev</option>
               <option value="rules">只用本地规则</option>
             </select>
@@ -316,7 +316,7 @@ export function LayaSettings({
       )}
       {section === 'advanced' && mode === 'local' && (
         <>
-          <p className="quiet-text">本机 Laya 需要 Python 和模型文件；不会向 PugPort 或 Jev 发送消息。</p>
+          <p className="quiet-text">本机 Task Router 需要 Python 和模型文件；不会向 PugPort 或 Jev 发送消息。</p>
           <SettingsRow
             title="保存本机路由记录，供后续复审和模型训练"
             description={
@@ -388,9 +388,9 @@ export function LayaSettings({
                 />
               </label>
               <label className="field">
-                <span>Laya v4 模型文件夹</span>
+                <span>Task Router v4 模型文件夹</span>
                 <input
-                  aria-label="Laya v4 模型文件夹"
+                  aria-label="Task Router v4 模型文件夹"
                   value={checkpointPath}
                   spellCheck={false}
                   disabled={!view || saving}

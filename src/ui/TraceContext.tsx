@@ -1007,7 +1007,7 @@ export function Why({
               <>
                 <span translate="no">{judgmentLine}</span>
                 <br />
-                <small>{workflow.handlingSource === 'laya' ? '由 Laya 判断' : '按规则判断'}</small>
+                <small>{workflow.handlingSource === 'laya' ? '由 Task Router 判断' : '按规则判断'}</small>
               </>
             ) : (
               <span className="muted">没有记录任务判断</span>

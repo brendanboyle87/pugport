@@ -674,7 +674,7 @@ export function InsightsDashboard({
       {collapsed ? (
         <details>
           <summary>
-            <span>路由（Laya）</span>
+            <span>路由（Task Router）</span>
             <small>{rate(data.routing.decidedShare)}</small>
             <span className="spend-show">显示</span>
           </summary>

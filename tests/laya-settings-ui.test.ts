@@ -167,7 +167,7 @@ test('Laya path drafts survive a status refresh and save without enabling the mo
   f.render();
   await nextTurn();
   f.field('Python 可执行文件').props.onChange({ target: { value: ' C:/Synthetic/python.exe ' } });
-  f.field('Laya v4 模型文件夹').props.onChange({ target: { value: ' C:/Synthetic/laya-v4 ' } });
+  f.field('Task Router v4 模型文件夹').props.onChange({ target: { value: ' C:/Synthetic/laya-v4 ' } });
   await f.button('刷新状态').props.onClick();
   await nextTurn();
   assert.equal(f.field('Python 可执行文件').props.value, ' C:/Synthetic/python.exe ');
@@ -218,7 +218,7 @@ test('a Laya model error keeps fallback and settings usable; failed saves releas
   f.saveFailure(true);
   f.button('保存模型配置').props.onClick();
   await nextTurn();
-  assert.match(text(f.render()), /Laya 设置保存失败：synthetic save offline/);
+  assert.match(text(f.render()), /Task Router 设置保存失败：synthetic save offline/);
   assert.equal(f.field('Python 可执行文件').props.value, 'C:/Synthetic/retry.exe');
   assert.equal(f.button('保存模型配置').props.disabled, false);
   f.saveFailure(false);
@@ -236,7 +236,7 @@ test('a saved Laya switch remains committed if the following status read fails',
   f.readFailure(true);
   f.field('保存本机路由记录，供后续复审和模型训练').props.onChange({ target: { checked: false } });
   await nextTurn();
-  assert.match(text(f.render()), /Laya 设置已保存，但状态刷新失败/);
+  assert.match(text(f.render()), /Task Router 设置已保存，但状态刷新失败/);
   assert.equal(f.field('保存本机路由记录，供后续复审和模型训练').props.checked, false);
   assert.equal(f.field('保存本机路由记录，供后续复审和模型训练').props.disabled, false);
   assert.match(text(f.render()), /已停止新增/);
@@ -504,7 +504,7 @@ await read('window.fixture.view.status={state:"starting",modelVersion:"pugport-l
 await read('window.fixture.view.status={state:"error",modelVersion:"pugport-laya-v4",reason:"synthetic checkpoint missing"}');await new Promise(r=>setTimeout(r,2200));await frame();assert.match(await read('document.body.textContent'),/出错，已回退/);
 await click('input[aria-label="保存本机路由记录，供后续复审和模型训练"]');assert.equal(await read('window.fixture.view.settings.recordTraining'),false);
 assert.equal(await read('document.querySelector("input[type=checkbox]").disabled'),false);await click('.settings-row-expand');
-await type('[aria-label="Python 可执行文件"]',' C:/Synthetic/python.exe ');await type('[aria-label="Laya v4 模型文件夹"]',' C:/Synthetic/laya-v4 ');assert.equal(await read('window.blocked()'),true);
+await type('[aria-label="Python 可执行文件"]',' C:/Synthetic/python.exe ');await type('[aria-label="Task Router v4 模型文件夹"]',' C:/Synthetic/laya-v4 ');assert.equal(await read('window.blocked()'),true);
 await read('window.fixture.saveFailure=true');await button('保存模型配置');assert.match(await read('document.querySelector("[role=alert]").textContent'),/保存失败/);assert.equal(await read('document.querySelector("input[spellcheck=false]").disabled'),false);
 await read('window.fixture.saveFailure=false');await button('保存模型配置');assert.equal(await read('window.fixture.view.settings.pythonPath'),'C:/Synthetic/python.exe');assert.equal(await read('window.blocked()'),false);
 await button('打开文件夹');assert.deepEqual(await read('window.fixture.calls.at(-1).body'),{kind:'routing-training'});await shot('expanded-fallback-zh');

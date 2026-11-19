@@ -14,10 +14,10 @@ test('routing section renders three honest tiles, outcomes, classification chart
   const html = renderToStaticMarkup(createElement(UsageRouting, { data }));
   assert.equal((html.match(/class="insight-routing-tile"/g) ?? []).length, 3);
   for (const title of [
-    '由 Laya 决定',
-    'Laya 可用率',
-    'Laya 响应 p50 / p95',
-    'Laya 判断结果',
+    '由 Task Router 决定',
+    'Task Router 可用率',
+    'Task Router 响应 p50 / p95',
+    'Task Router 判断结果',
     '成功判断延迟 p50 / p95',
     '回复或任务',
     '任务类型',

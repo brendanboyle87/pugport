@@ -146,8 +146,8 @@ export function choosePlanningStrategy(
         : { strategy: 'model', reason: `${reason}，使用模型规划。` };
   if (options.plan !== undefined)
     return options.nativeCli || options.selectedExecutor || options.plan
-      ? model('Laya')
-      : { strategy: 'direct', reason: 'Laya: no dependent execution steps' };
+      ? model('Task Router')
+      : { strategy: 'direct', reason: 'Task Router: no dependent execution steps' };
   if (isSimpleFileLookup(text))
     return {
       strategy: 'direct',

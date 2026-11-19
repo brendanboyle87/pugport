@@ -47,7 +47,7 @@ The grouped cards and compact filter layout of the Mods Store are adapted from [
 
 DSH 0.1.5-rc.3 was removed from the dependencies and desktop release package as of Agent Studio 0.5.0 (the former brand). PugPort 0.0.1 then moved the earlier bridge source, package lock and original MIT license (`DSH-LICENSE`, Copyright (c) 2026 DeepSeek) to a DSH archive outside the project; that archive is not distributed with the public source. pi2dsh, dsh-pi-tui and their source archives, manifests and licenses were moved to the same external archive. The files were archived rather than permanently deleted. They take no part in installation, builds or distribution.
 
-Jev (TypeSafe): when Laya's mode is set to `jev`, PugPort sends the current request to `api.typesafe.ai/v1/systemone` with the user's own Jev key for a task-difficulty judgment (`src/server/task-judgment.ts`); other modes use local rules. The client follows TypeSafe's public HTTP contract. The official `@typesafe-ai/sdk` 0.6.0 is MIT-licensed, but this project neither installs nor distributes it, and the SDK license does not grant any right to the hosted service.
+Jev (TypeSafe): when the Routing advice setting is set to `jev`, PugPort sends the current request to `api.typesafe.ai/v1/systemone` with the user's own Jev key for a task-difficulty judgment (`src/server/task-judgment.ts`); other modes use local rules. The client follows TypeSafe's public HTTP contract. The official `@typesafe-ai/sdk` 0.6.0 is MIT-licensed, but this project neither installs nor distributes it, and the SDK license does not grant any right to the hosted service.
 
 ## Build and development dependencies
 

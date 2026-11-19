@@ -14,7 +14,7 @@ Choose **×** on the chip, or **Normal** in its menu, to go back.
 
 Each mode adds one block of instructions to what PugPort sends the executor, right after your personal instructions. Project rules, your current request, tool permissions and the permission ceiling always win over it; the block grants nothing.
 
-The block is never a message. It doesn't reach chat history, local memory files (`history.jsonl`, `handoff.md`), Hindsight, project rules, the history search index or Laya's routing input. It appears only in the run's own record of the prompt it received. A test guard checks this.
+The block is never a message. It doesn't reach chat history, local memory files (`history.jsonl`, `handoff.md`), Hindsight, project rules, the history search index or Task Router's routing input. It appears only in the run's own record of the prompt it received. A test guard checks this.
 
 ## Mods author
 
@@ -73,4 +73,4 @@ In Navigator mode, the chat's main task is a lead. It understands the request, w
 
 If a project rule contradicts the mode, for example “always edit files yourself”, the project rule wins. The lead still can't write, so it delegates.
 
-See also: [Mods author guide](MODS.md) and [Laya routing](LAYA-ROUTING.md).
+See also: [Mods author guide](MODS.md) and [Task Router](LAYA-ROUTING.md).

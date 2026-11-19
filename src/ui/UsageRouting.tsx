@@ -184,7 +184,7 @@ export function UsageRouting({ data, onConversation }: { data: Routing; onConver
       <header className="insight-routing-heading">
         <div>
           <h2 id="routing-title">路由</h2>
-          <p>消息如何被判断，以及 Laya 是否可用。</p>
+          <p>消息如何被判断，以及 Task Router 是否可用。</p>
           <p>沿用时间与项目筛选；执行方式与执行器筛选不适用。</p>
         </div>
         <div className="insight-filter">
@@ -200,11 +200,11 @@ export function UsageRouting({ data, onConversation }: { data: Routing; onConver
       </header>
       <div className="insight-routing-tiles">
         <article className="insight-routing-tile">
-          <h3>由 Laya 决定</h3>
+          <h3>由 Task Router 决定</h3>
           <div className="insight-kpi-value">{rate(data.decidedShare)}</div>
           <p>按实际采用的处理来源统计。</p>
           <small>
-            {withNames('Laya {0} · 规则 {1} · 未知 {2}', [
+            {withNames('Task Router {0} · 规则 {1} · 未知 {2}', [
               String(data.handlingLaya),
               String(data.handlingRules),
               String(data.handlingUnknown),
@@ -213,14 +213,14 @@ export function UsageRouting({ data, onConversation }: { data: Routing; onConver
           <small>{withNames('n = {0} 条已判断消息', [String(data.judged)])}</small>
         </article>
         <article className="insight-routing-tile">
-          <h3>Laya 可用率</h3>
+          <h3>Task Router 可用率</h3>
           <div className="insight-kpi-value">{rate(data.availability)}</div>
           <p>成功判断 / 尝试判断；隐私跳过不算失败。</p>
           <small>{withNames('成功 {0} / 尝试 {1}', [String(data.available), String(data.attempted)])}</small>
           <small>{withNames('隐私跳过 {0} · 其他跳过 {1}', [String(data.skipped), String(data.otherSkipped)])}</small>
         </article>
         <article className="insight-routing-tile">
-          <h3>Laya 响应 p50 / p95</h3>
+          <h3>Task Router 响应 p50 / p95</h3>
           <div className="insight-kpi-value">
             {seconds(data.latency.p50)}
             <small> / {seconds(data.latency.p95)}</small>
@@ -250,7 +250,7 @@ export function UsageRouting({ data, onConversation }: { data: Routing; onConver
         <>
           <ChartCard
             id="routing-outcomes"
-            title="Laya 判断结果"
+            title="Task Router 判断结果"
             description="每个时段的判断结果；隐私跳过单独展示。"
             gap={outcomeGap}
           >
@@ -282,7 +282,7 @@ export function UsageRouting({ data, onConversation }: { data: Routing; onConver
             <ChartCard
               id="routing-handling"
               title="回复或任务"
-              description="Laya 的处理判断，不代表最终采用的处理方式。"
+              description="Task Router 的处理判断，不代表最终采用的处理方式。"
               gap={decisionGap}
             >
               <RoutingBars title="回复或任务" rows={data.available ? decisionRows : []} />
@@ -326,7 +326,7 @@ export function UsageRouting({ data, onConversation }: { data: Routing; onConver
               <tr>
                 <th>时间</th>
                 <th>消息摘要</th>
-                <th>Laya 结果或回退原因</th>
+                <th>Task Router 结果或回退原因</th>
                 <th>延迟</th>
                 <th>采用来源</th>
                 <th>后续运行失败</th>
@@ -363,7 +363,7 @@ export function UsageRouting({ data, onConversation }: { data: Routing; onConver
                     {row.reason && <small translate="no">{row.reason}</small>}
                   </td>
                   <td>{seconds(row.latencyMs)}</td>
-                  <td>{row.handling === 'laya' ? 'Laya' : row.handling === 'rules' ? '规则' : '未报告'}</td>
+                  <td>{row.handling === 'laya' ? 'Task Router' : row.handling === 'rules' ? '规则' : '未报告'}</td>
                   <td>{row.failed === null ? '未报告' : row.failed ? '是' : '否'}</td>
                 </tr>
               ))}

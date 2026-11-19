@@ -1,4 +1,4 @@
-# Laya cloud inference service
+# Task Router cloud inference service
 
 This service runs the `pugport-laya-v4` checkpoint in one process on an Apple Silicon Mac. It loads the model once at startup and listens only on `127.0.0.1:8787`. Cloudflare Tunnel supplies the public HTTPS endpoint. The service does not collect training samples, use Supabase, or change the PugPort client.
 
