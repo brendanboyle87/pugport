@@ -8,8 +8,84 @@ import {
   parseNetstat,
   parseSs,
   perConnection,
+  parseDarwinNetstat,
   walkTable,
 } from '../src/server/caller-identity.ts';
+
+// Synthetic `netstat -anv -p tcp` output in the two macOS layouts: a "pid epid" pair, or a "process:pid" column.
+const darwinHeader = (owner: string) =>
+  'Active Internet connections (including servers)\n' +
+  `Proto Recv-Q Send-Q  Local Address          Foreign Address        (state)          rxbytes      txbytes  rhiwat  shiwat  ${owner} state  options\n`;
+const darwinRow = (proto: string, local: string, foreign: string, owner: string) =>
+  `${proto}       0      0  ${local.padEnd(22)} ${foreign.padEnd(22)} ESTABLISHED         1200          800  131072  131072  ${owner} 00102 00000008\n`;
+const darwinPid =
+  darwinHeader('  pid   epid') +
+  darwinRow('tcp4', '127.0.0.1.4317', '127.0.0.2.5000', '   99      0') +
+  darwinRow('tcp4', '127.0.0.2.5000', '127.0.0.1.4317', '   42      0') +
+  darwinRow('tcp6', 'fd00:1234:5678:9.50123', 'fd00:1234:5678:9.443', '   77      0') +
+  darwinRow('tcp4', '*.4317', '*.*', '   99      0');
+const darwinNamed =
+  darwinHeader('process:pid') +
+  darwinRow('tcp4', '127.0.0.1.4317', '127.0.0.2.5000', 'node:99') +
+  darwinRow('tcp4', '127.0.0.2.5000', '127.0.0.1.4317', 'curl:42') +
+  darwinRow('tcp6', '::ffff:127.0.0.2.5000', '::ffff:127.0.0.1.4317', 'Code Helper:43') +
+  darwinRow('tcp6', '::1.5001', '::1.4317', 'node:77');
+
+test('macOS netstat output: the owner column comes from the header, IPv4 and mapped IPv6 rows both count', () => {
+  assert.deepEqual(parseDarwinNetstat(darwinPid, '127.0.0.2', 5000, 4317), [42]);
+  assert.deepEqual(parseDarwinNetstat(darwinPid, '127.0.0.1', 4317, 5000), [], 'only the client end, by address');
+  assert.deepEqual(parseDarwinNetstat(darwinPid, '127.0.0.2', 5001, 4317), []);
+  assert.deepEqual(parseDarwinNetstat(darwinNamed, '127.0.0.2', 5000, 4317), [42, 43], 'a name with a space');
+  assert.deepEqual(parseDarwinNetstat(darwinNamed, '127.0.0.1', 5001, 4317), [], 'the backend listens on IPv4');
+  assert.deepEqual(
+    parseDarwinNetstat(darwinRow('tcp4', '127.0.0.2.5000', '127.0.0.1.4317', '42'), '127.0.0.2', 5000, 4317),
+    [],
+    'no header, no owner column',
+  );
+  assert.deepEqual(parseDarwinNetstat('', '127.0.0.2', 5000, 4317), []);
+});
+
+test('on macOS netstat names the caller, and lsof runs only when it cannot, one probe at a time', async () => {
+  const options = { remotePort: 5000, localPort: 4317, remoteAddress: '127.0.0.2', platform: 'darwin' as const };
+  const table = '42 12\n12 7\n7 1\n';
+  const started: string[] = [];
+  const netstatFirst = async (file: string) => {
+    started.push(file);
+    if (file === 'lsof') throw new Error('lsof must not run');
+    return file.endsWith('netstat') ? darwinNamed : table;
+  };
+  assert.equal(await executorCaller({ ...options, owns: (pid) => pid === 7, run: netstatFirst }), true);
+  assert.deepEqual(started.sort(), ['/usr/sbin/netstat', 'ps']);
+
+  // A netstat without an owner column falls back to lsof.
+  const lsofOutput = 'p42\nn127.0.0.2:5000->127.0.0.1:4317\n';
+  const fallback = async (file: string) => (file === 'lsof' ? lsofOutput : file === 'ps' ? table : 'Proto Local');
+  assert.equal(await executorCaller({ ...options, owns: (pid) => pid === 12, run: fallback, timeoutMs: 1000 }), true);
+
+  // lsof hangs on an unanswering mount: every request still answers by its deadline, and while that lsof is running
+  // no request starts another one.
+  let lsofs = 0;
+  let exit!: (output: string) => void;
+  const hung = (file: string) => {
+    if (file !== 'lsof') return Promise.resolve(file === 'ps' ? table : '');
+    lsofs++;
+    return new Promise<string>((done) => {
+      exit = done;
+    });
+  };
+  const began = Date.now();
+  const answers = await Promise.all(
+    [1, 2, 3].map(() => executorCaller({ ...options, owns: () => true, run: hung, timeoutMs: 50 })),
+  );
+  assert.deepEqual(answers, [undefined, undefined, undefined]);
+  assert.ok(Date.now() - began < 2000, 'answered by the deadline');
+  assert.equal(await executorCaller({ ...options, owns: () => true, run: hung, timeoutMs: 50 }), undefined);
+  assert.equal(lsofs, 1, 'requests share the running lsof');
+  exit('');
+  await new Promise((r) => setImmediate(r));
+  assert.equal(await executorCaller({ ...options, owns: () => true, run: hung, timeoutMs: 50 }), undefined);
+  assert.equal(lsofs, 2, 'a new lsof starts once the old one has exited');
+});
 
 test('process output parsers select the peer direction and address, keeping every candidate', () => {
   const netstat =

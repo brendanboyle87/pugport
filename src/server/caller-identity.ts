@@ -31,6 +31,47 @@ export function parseSs(output: string, client: string, remotePort: number, loca
   }
   return candidates(matches);
 }
+/** A macOS netstat endpoint, "127.0.0.1.4317" (the port after the last dot), as "127.0.0.1:4317". */
+function darwinEndpoint(address: string | undefined) {
+  const dot = address?.lastIndexOf('.') ?? -1;
+  return dot < 0 ? '' : `${address!.slice(0, dot).replace(/^::ffff:/i, '')}:${address!.slice(dot + 1)}`;
+}
+/**
+ * macOS `netstat -anv -p tcp`: the client end of the loopback connection, owned by the process in the `pid` column
+ * (macOS 15: "pid epid") or the `process:pid` column (other releases: "node:12345"). The column is found from the
+ * header, so either layout works; a client on a dual-stack socket appears as tcp6/tcp46 with a "::ffff:" address.
+ */
+export function parseDarwinNetstat(output: string, client: string, remotePort: number, localPort: number): number[] {
+  let column = -1;
+  let named = false;
+  const matches: number[] = [];
+  for (const line of output.split(/\r?\n/)) {
+    const fields = line
+      .trim()
+      .replace(/(Local|Foreign) Address/g, '$1')
+      .split(/\s+/);
+    if (fields[0] === 'Proto') {
+      column = fields.findIndex((field) => field === 'pid' || field === 'process:pid');
+      named = fields[column] === 'process:pid';
+      continue;
+    }
+    if (column < 0 || !/^tcp(4|6|46)?$/.test(fields[0] ?? '')) continue;
+    if (
+      darwinEndpoint(fields[3]) !== `${client}:${remotePort}` ||
+      darwinEndpoint(fields[4]) !== `127.0.0.1:${localPort}`
+    )
+      continue;
+    // A process name may contain spaces, which shifts the fields after it; its pid ends the first "name:pid" field.
+    const owner = named
+      ? fields
+          .slice(column)
+          .find((field) => /:\d+$/.test(field))
+          ?.replace(/^.*:/, '')
+      : fields[column];
+    matches.push(Number(owner));
+  }
+  return candidates(matches);
+}
 export function parseLsof(output: string, client: string, remotePort: number, localPort: number): number[] {
   let pid: number | undefined;
   const matches: number[] = [];
@@ -57,7 +98,25 @@ export function walkTable(table: string, pid: number): number[] {
   }
   return chain;
 }
-type Run = (file: string, args: string[]) => Promise<string>;
+type Run = (file: string, args: string[], timeoutMs: number) => Promise<string>;
+// Settles only once the program has exited: a timeout sends SIGKILL, but a process blocked in the kernel lives on.
+const system: Run = async (file, args, timeoutMs) =>
+  (await exec(file, args, { timeout: timeoutMs, killSignal: 'SIGKILL', windowsHide: true })).stdout;
+const LSOF_TIMEOUT_MS = 2000;
+const lsofRuns = new WeakMap<Run, Promise<string>>();
+/**
+ * lsof inspects every open file and can block in the kernel on a mount that does not answer (an automounted /home, a
+ * gone network volume), where no signal ends it. One probe at a time: callers share the running one, and a new one
+ * starts only after it has exited, so a hung lsof never multiplies.
+ */
+function lsofOnce(run: Run, timeoutMs: number) {
+  let probe = lsofRuns.get(run);
+  if (!probe) {
+    probe = run('lsof', ['-nP', '-iTCP', '-sTCP:ESTABLISHED', '-Fpn'], timeoutMs).finally(() => lsofRuns.delete(run));
+    lsofRuns.set(run, probe);
+  }
+  return probe;
+}
 // One CIM query for every process is much faster here than one per ancestor (each start costs about a second).
 const windowsTable =
   'Get-CimInstance Win32_Process -Property ProcessId,ParentProcessId | ForEach-Object { "$($_.ProcessId) $($_.ParentProcessId)" }';
@@ -80,8 +139,7 @@ export async function executorCaller(options: {
   const { remotePort, localPort, owns } = options;
   const platform = options.platform ?? process.platform;
   const timeoutMs = options.timeoutMs ?? 5000;
-  const run: Run =
-    options.run ?? (async (file, args) => (await exec(file, args, { timeout: timeoutMs, windowsHide: true })).stdout);
+  const run = options.run ?? system;
   let timer: ReturnType<typeof setTimeout> | undefined;
   try {
     const valid = (port?: number) => Number.isInteger(port) && port! > 0 && port! < 65536;
@@ -97,26 +155,34 @@ export async function executorCaller(options: {
       if (platform === 'win32') {
         const system32 = join(process.env.SystemRoot ?? 'C:\\Windows', 'System32');
         const [connections, table] = await Promise.all([
-          run(join(system32, 'netstat.exe'), ['-ano', '-p', 'tcp']),
-          run(join(system32, 'WindowsPowerShell', 'v1.0', 'powershell.exe'), [
-            '-NoProfile',
-            '-NonInteractive',
-            '-Command',
-            windowsTable,
-          ]),
+          run(join(system32, 'netstat.exe'), ['-ano', '-p', 'tcp'], timeoutMs),
+          run(
+            join(system32, 'WindowsPowerShell', 'v1.0', 'powershell.exe'),
+            ['-NoProfile', '-NonInteractive', '-Command', windowsTable],
+            timeoutMs,
+          ),
         ]);
         return found(parseNetstat(connections, client, remotePort!, localPort!)).map((pid) => walkTable(table, pid));
       }
       if (platform === 'darwin') {
+        // netstat reads the connection table from the kernel and never touches a file system; lsof is the fallback
+        // for a netstat whose output carries no owner.
         const [connections, table] = await Promise.all([
-          run('lsof', ['-nP', '-iTCP', '-sTCP:ESTABLISHED', '-Fpn']),
-          run('ps', ['-axo', 'pid=,ppid=']),
+          run('/usr/sbin/netstat', ['-anv', '-p', 'tcp'], timeoutMs).catch(() => ''),
+          run('ps', ['-axo', 'pid=,ppid='], timeoutMs),
         ]);
-        return found(parseLsof(connections, client, remotePort!, localPort!)).map((pid) => walkTable(table, pid));
+        let peers = parseDarwinNetstat(connections, client, remotePort!, localPort!);
+        if (!peers.length)
+          peers = parseLsof(await lsofOnce(run, Math.min(timeoutMs, LSOF_TIMEOUT_MS)), client, remotePort!, localPort!);
+        return found(peers).map((pid) => walkTable(table, pid));
       }
       const peers = found(
         parseSs(
-          await run('ss', ['-tnpH', 'state', 'established', `( sport = :${remotePort} and dport = :${localPort} )`]),
+          await run(
+            'ss',
+            ['-tnpH', 'state', 'established', `( sport = :${remotePort} and dport = :${localPort} )`],
+            timeoutMs,
+          ),
           client,
           remotePort!,
           localPort!,
