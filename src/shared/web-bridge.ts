@@ -59,7 +59,9 @@ export type WebAgentResult = {
   authenticated?: boolean;
   /**
    * human-check: a captcha or verification page; login: a sign-in wall; not-detected: no chat box found;
-   * not-sent: the text could not be put in or sent; closed: the user closed the window meanwhile.
+   * not-sent: the text could not be put in or sent; closed: the user closed the window meanwhile;
+   * ambiguous: the page shows the sent prompt more than once, or a turn whose author cannot be told, so no reply is
+   * taken as the answer.
    */
   code?:
     | 'human-check'
@@ -71,6 +73,7 @@ export type WebAgentResult = {
     | 'closed'
     | 'replaced'
     | 'lost'
+    | 'ambiguous'
     | 'unavailable'
     | 'error';
   limit?: { reason: string; observedAt: string; resetsAt: string | null };
