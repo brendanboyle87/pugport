@@ -10,7 +10,7 @@ Decision: the owner's own maintainer agent, running on the owner's computer, may
 - every check on its current head commit passed. The agent may re-run failed jobs of a finished run, at most twice for each head commit;
 - GitHub reports it mergeable, it is not a draft, and it has no unresolved review threads or code-scanning alerts and no request for changes;
 - it carries neither `needs-owner-ruling` nor `do-not-merge`;
-- it does not change `AGENTS.md`, anything under `.github/`, or release and signing configuration.
+- it does not change `AGENTS.md`, anything under `.github/`, dependencies (`package.json`, `package-lock.json`), install or setup scripts, release and signing configuration, or database migrations.
 
 Merges are squash merges, authored with the owner's GitHub noreply address.
 
